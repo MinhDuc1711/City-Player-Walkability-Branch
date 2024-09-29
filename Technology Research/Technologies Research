@@ -18,5 +18,11 @@ Possible Unity Plugins:
 2. MapMagic World Generator: A powerful procedural terrain generation tool that can help you create dynamic street layouts and environments. It allows for tile-based generation, which could be useful for maintaining performance during real-time edits.
 3. CityGen: This plugin is specifically designed for generating urban environments procedurally. CityGen offers a variety of tools for creating complex street layouts, building placements, and overall city structure. 
 With customizable parameters, you can define the density, style, and arrangement of buildings and roads, enabling users to create diverse urban settings.
+4.EasyRoads3D: Specifically designed for road creation, this plugin simplifies the process of creating and editing roads and paths within Unity. It offers a variety of customization options for road shapes and textures, 
+making it an excellent choice for your street project.
+5.Gaia: A comprehensive terrain and scene generation tool that provides procedural generation capabilities.It can create entire environments quickly and comes with powerful features for terrain sculpting,
+texturing, and vegetation placement.
+6.Amplify Shader Editor: If you plan on customizing visual effects or materials for your assets, this node-based shader editor allows you to create complex shaders without needing to write extensive code,
+enhancing the visual appeal of your project.
 
 
