@@ -7,6 +7,8 @@ Blender and Various Unity Asset Websites:
 Asset websites such as Unity’s own Asset Store, Sketchfab, and TurboSquid among many others will allow us to utilize specific assets for the purpose of this project for a more dynamic and realistic environment appealing to the user. 
 Blender, another useful tool, will allow us to either create 3D assets, or to optimize externally downloaded assets to reduce polygons and improve our software’s performance.
 
+C# and Visual Studio: C# is the primary programming language used in Unity scripting. Visual Studio serves as a powerful IDE for writing,
+debugging, and managing your code efficiently. Utilizing C# scripting will allow us to handle user input, modify street elements, and generate assets procedurally.
 
 Possible Unity Plugins:
 1. ProBuilder: This tool allows users to quickly build and edit 3D geometry directly within Unity. It’s perfect for creating streets and modifying them in real-time, as it supports intuitive mesh editing.
