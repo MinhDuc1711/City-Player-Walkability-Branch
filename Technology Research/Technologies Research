@@ -2,3 +2,7 @@ Technologies Research
 
 Unity Engine: At the core of our project, Unity provides a robust environment for real-time 3D rendering and interactive experiences. Its
 versatile components, such as the Physics engine and Lighting system, as well as the many assets offered will help create immersive street environments.
+
+Blender and Various Unity Asset Websites:
+Asset websites such as Unity’s own Asset Store, Sketchfab, and TurboSquid among many others will allow us to utilize specific assets for the purpose of this project for a more dynamic and realistic environment appealing to the user. 
+Blender, another useful tool, will allow us to either create 3D assets, or to optimize externally downloaded assets to reduce polygons and improve our software’s performance.
