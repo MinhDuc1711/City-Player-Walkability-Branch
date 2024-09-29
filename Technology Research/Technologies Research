@@ -6,3 +6,10 @@ versatile components, such as the Physics engine and Lighting system, as well as
 Blender and Various Unity Asset Websites:
 Asset websites such as Unity’s own Asset Store, Sketchfab, and TurboSquid among many others will allow us to utilize specific assets for the purpose of this project for a more dynamic and realistic environment appealing to the user. 
 Blender, another useful tool, will allow us to either create 3D assets, or to optimize externally downloaded assets to reduce polygons and improve our software’s performance.
+
+
+Possible Unity Plugins:
+1. ProBuilder: This tool allows users to quickly build and edit 3D geometry directly within Unity. It’s perfect for creating streets and modifying them in real-time, as it supports intuitive mesh editing.
+2. MapMagic World Generator: A powerful procedural terrain generation tool that can help you create dynamic street layouts and environments. It allows for tile-based generation, which could be useful for maintaining performance during real-time edits.
+3. CityGen: This plugin is specifically designed for generating urban environments procedurally. CityGen offers a variety of tools for creating complex street layouts, building placements, and overall city structure. 
+With customizable parameters, you can define the density, style, and arrangement of buildings and roads, enabling users to create diverse urban settings.
