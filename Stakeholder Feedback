@@ -1,0 +1,29 @@
+Enclosure / Setbacks
+Enclosure is determined by the relationship between the height of buildings and the distance between buildings on opposite side of street (width of the street plus setbacks)
+So, setbacks are not a separate thing from enclosures. They are part of the enclosure measurement.
+
+Distance to Amenities / Transport
+It is important that the player experiences the presence of(or not) amenities/transport within their virtual walk along the street. So this feature should let player increase/decrease the occurrences of amenity types and transport infrastructure along the stretch of street they can walk on.
+(The UI mock-up has a menu selector where player can read the distance in km. This doesn’t satisfy the requirement of the player actually experiencing seeing the amenities along their walk)
+
+Player Profile
+2nd option is ‘Utilitarian’ and not ‘Authoritarian’. It refers to a player who is going on a walk to achieve something specific (eg commuting, shopping, getting to a metro), as opposed to ‘Leisure’ which means they are walking for the pleasure of walking.
+
+Dimension UI
+The requirements does not ask for the user to be able to change building width.
+Delete Building
+The requirements ask for the user to experience the streets with different densities of buildings.
+The mock-up suggests the user can delete individual buildings, but this would then take the user a very long time to modify the building density along the length of a street, by manually deleting them one by one. And this would stop the user from quickly trying out their walk with different building densities.
+
+Menu Design
+The requirements need the player to be able to walk up and down their street at any time.
+Its isn’t clear from this menu how you expect the player to move between ‘Walking the Street’ ‘Modifying the Street’ ‘Scoring the Street’
+
+Profile Menu
+This mock up of a street looks nice, but not sure why it’s called Profile Menu ?
+Tree Density
+This mock-up meets the requirements for trees,
+The requirements also expect the user to change other types of greenery
+
+UI Slider design / hidden
+This is cool. I like the way the panel can slide in and out, and that it has all the slider controls immediately accessible, and that it is semi-transparent to minimize visual distratcion for the player from their experience of the street.
