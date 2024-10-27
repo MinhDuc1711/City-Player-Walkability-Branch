@@ -524,6 +524,7 @@ ehthumbs.db
 # Rider files
 .idea/
 *.sln.iml
+/Library/Artifacts/
 
 
 ### VisualStudio Patch ###
