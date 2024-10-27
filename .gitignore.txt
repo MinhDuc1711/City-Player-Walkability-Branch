@@ -485,6 +485,45 @@ FodyWeavers.xsd
 *.sln.iml
 Library/PackageCache/com.unity.burst/.Runtime/libburst-llvm-16.dylib
 
+# Unity generated files
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Uu]sersettings/
+Assets/AssetStoreTools*
+
+# User-specific files
+*.sln
+*.suo
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+*.opendb
+*.ilk
+*.idb
+*.log
+
+# Visual Studio cache
+.vscode/
+.idea/
+
+# macOS Finder files
+.DS_Store
+
+# Windows thumbnail cache files
+Thumbs.db
+ehthumbs.db
+
+# Rider files
+.idea/
+*.sln.iml
 
 
 ### VisualStudio Patch ###
