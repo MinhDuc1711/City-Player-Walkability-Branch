@@ -483,6 +483,9 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+Library/PackageCache/com.unity.burst/.Runtime/libburst-llvm-16.dylib
+
+
 
 ### VisualStudio Patch ###
 # Additional files built by Visual Studio
