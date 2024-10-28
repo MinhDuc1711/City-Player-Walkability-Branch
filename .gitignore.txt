@@ -524,7 +524,9 @@ ehthumbs.db
 # Rider files
 .idea/
 *.sln.iml
-/Library/Artifacts/
+/Library/
+Library/
+
 # Ignore Unity's temporary files
 [Ll]ibrary/
 [Tt]emp/
