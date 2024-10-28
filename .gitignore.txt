@@ -525,6 +525,46 @@ ehthumbs.db
 .idea/
 *.sln.iml
 /Library/Artifacts/
+# Ignore Unity's temporary files
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+UserSettings/
+.vscode/
+*.csproj
+*.unityproj
+*.sln
+*.suo
+*.tmp
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.opendb
+*.VC.db
+
+# Ignore crash reports, generated files, and compiled assemblies
+sysinfo.txt
+crashhandler.log
+
+# Ignore local project settings
+ProjectSettings/ProjectVersion.txt
+ProjectSettings/EditorBuildSettings.asset
+ProjectSettings/EditorSettings.asset
+ProjectSettings/GraphicsSettings.asset
+ProjectSettings/ProjectSettings.asset
+ProjectSettings/InputManager.asset
+ProjectSettings/Physics2DSettings.asset
+ProjectSettings/PhysicsManager.asset
+ProjectSettings/QualitySettings.asset
+ProjectSettings/TagManager.asset
+ProjectSettings/TimeManager.asset
+
 
 
 ### VisualStudio Patch ###
