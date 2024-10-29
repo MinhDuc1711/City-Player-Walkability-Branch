@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro; // Add this if using TextMeshPro
+using TMPro; 
 
 public class DistanceUI : MonoBehaviour
 {
