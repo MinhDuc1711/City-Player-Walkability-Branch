@@ -9,7 +9,9 @@ public class TreeManager : MonoBehaviour
 
     private RaycastHit Hit;
 
-    GameObject pendingObj;
+    public GameObject pendingObj;
+
+    public float rotateAmount;
 
     [SerializeField]
     private LayerMask layerMask;
@@ -32,6 +34,13 @@ public class TreeManager : MonoBehaviour
                 PlaceObject();
             }
         }
+
+        if(Input.GetKeyDown(KeyCode.R))
+        { 
+            RotateObject();
+        }
+
+
     }
 
     void PlaceObject()
@@ -52,6 +61,11 @@ public class TreeManager : MonoBehaviour
     public void SelectObject(int index)
     {
         pendingObj = Instantiate(objects[index], pos, transform.rotation);
+    }
+
+    void RotateObject()
+    {
+        pendingObj.transform.Rotate(Vector3.up, rotateAmount);
     }
 
 }

@@ -1240,6 +1240,8 @@ MonoBehaviour:
   objects:
   - {fileID: 8052074379008757434, guid: d48ef5fbece4a6b4eae31a4ff55ecd84, type: 3}
   - {fileID: 5513343965389706883, guid: f4cfecebe5a1f9143a527b69d1c7db45, type: 3}
+  pendingObj: {fileID: 0}
+  rotateAmount: 45
   layerMask:
     serializedVersion: 2
     m_Bits: 64
