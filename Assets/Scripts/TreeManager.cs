@@ -13,6 +13,8 @@ public class TreeManager : MonoBehaviour
 
     public float rotateAmount;
 
+    public bool canPlace = true;
+
     [SerializeField]
     private LayerMask layerMask;
 
@@ -29,7 +31,7 @@ public class TreeManager : MonoBehaviour
         {
             pendingObj.transform.position = pos;
 
-            if(Input.GetMouseButtonDown(0))
+            if(Input.GetMouseButtonDown(0) && canPlace)
             {
                 PlaceObject();
             }
@@ -67,5 +69,6 @@ public class TreeManager : MonoBehaviour
     {
         pendingObj.transform.Rotate(Vector3.up, rotateAmount);
     }
+
 
 }
