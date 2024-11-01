@@ -4,10 +4,14 @@ public class TreeSelection : MonoBehaviour
 {
     public GameObject selectedObj;
 
+    private TreeManager treeManager;
+
+    public GameObject selectUI;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        treeManager = GameObject.Find("TreeManager").GetComponent<TreeManager>();
     }
 
     // Update is called once per frame
@@ -45,12 +49,26 @@ public class TreeSelection : MonoBehaviour
         else
             outline.enabled = true;
         selectedObj = obj;
+        selectUI.SetActive(true);
     }
 
     void Deselect()
     {
         selectedObj.GetComponent<Outline>().enabled = false;
+        selectUI.SetActive(false);
         selectedObj = null;
+    }
+
+    public void Delete()
+    {
+        GameObject objToDestroy = selectedObj;
+        Deselect();
+        Destroy(objToDestroy);
+    }
+
+    public void Move()
+    {
+        treeManager.pendingObj = selectedObj;
     }
 
 }
