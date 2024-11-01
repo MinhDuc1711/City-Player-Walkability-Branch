@@ -15,6 +15,8 @@ public class TreeManager : MonoBehaviour
 
     public bool canPlace = true;
 
+
+
     [SerializeField]
     private LayerMask layerMask;
 
@@ -36,8 +38,7 @@ public class TreeManager : MonoBehaviour
                 PlaceObject();
             }
         }
-
-        if(Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.R) && pendingObj != null)
         { 
             RotateObject();
         }
@@ -70,5 +71,6 @@ public class TreeManager : MonoBehaviour
         pendingObj.transform.Rotate(Vector3.up, rotateAmount);
     }
 
+    
 
 }
