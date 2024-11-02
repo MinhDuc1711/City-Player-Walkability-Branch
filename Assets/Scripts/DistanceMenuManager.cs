@@ -30,13 +30,22 @@ public void ToggleDistancePanel()
     }
 }
 
+    // Continuously update distances while the DistancePanel is active
+    void Update()
+    {
+        if (distancePanel.activeSelf)
+        {
+            UpdateDistances();
+        }
+    }
+
     // Update the distance text for each object
     private void UpdateDistances()
     {
         for (int i = 0; i < objects.Length; i++)
         {
             float distance = Vector3.Distance(player.position, objects[i].position);
-            distanceTexts[i].text = "Distance to " + objects[i].name + ": " + distance.ToString("F2") + " meters";
+            distanceTexts[i].text = objects[i].name + ": " + distance.ToString("F2") + " meters";
         }
     }
 }
