@@ -10,24 +10,25 @@ public class DistanceMenuManager : MonoBehaviour
     public GameObject distancePanel; // Reference to the DistancePanel
 
     // Toggle the visibility of the distance panel
-    public void ToggleDistancePanel()
+public void ToggleDistancePanel()
+{
+    bool isActive = !distancePanel.activeSelf;
+    distancePanel.SetActive(isActive);
+
+    if (isActive)
     {
-        bool isActive = !distancePanel.activeSelf;
-        distancePanel.SetActive(isActive);
-
-        if (isActive)
-        {
-            UpdateDistances();
-            Cursor.lockState = CursorLockMode.None; // Unlocks the cursor
-            Cursor.visible = true; // Makes the cursor visible
-        }
-        else
-        {
-            Cursor.lockState = CursorLockMode.Locked; // Locks the cursor
-            Cursor.visible = false; // Hides the cursor again
-        }
-
+        // If the panel is now active, unlock and show the cursor
+        UpdateDistances();
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
+    else
+    {
+        // If the panel is now inactive, unlock and show the cursor (don’t lock it)
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
+}
 
     // Update the distance text for each object
     private void UpdateDistances()
