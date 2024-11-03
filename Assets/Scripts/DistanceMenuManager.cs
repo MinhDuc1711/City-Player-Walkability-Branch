@@ -8,27 +8,63 @@ public class DistanceMenuManager : MonoBehaviour
     public Transform[] objects; // Array to hold the Transforms of the objects (cubes)
     public TextMeshProUGUI[] distanceTexts; // Array to hold the Text UI elements for each object
     public GameObject distancePanel; // Reference to the DistancePanel
+    public GameObject transportPanel;
+    public GameObject amenitiesPanel;
+    public Button transportButton;
+    public Button amenitiesButton;
+    public Transform[] transportObjects; // Array for transport objects
+    public Transform[] amenitiesObjects; // Array for amenities objects
+    public TextMeshProUGUI[] transportDistanceTexts; // Texts for transport objects
+    public TextMeshProUGUI[] amenitiesDistanceTexts; // Texts for amenities objects
 
-    // Toggle the visibility of the distance panel
-public void ToggleDistancePanel()
-{
-    bool isActive = !distancePanel.activeSelf;
-    distancePanel.SetActive(isActive);
+    public void ShowTransportPanel()
+    {
+        transportPanel.SetActive(true);
+        amenitiesPanel.SetActive(false);
 
-    if (isActive)
-    {
-        // If the panel is now active, unlock and show the cursor
-        UpdateDistances();
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
+        // Hide the Transport and Amenities buttons
+        transportButton.gameObject.SetActive(false);
+        amenitiesButton.gameObject.SetActive(false);
+
+        UpdateDistances(); // Update distances for transport objects
     }
-    else
+
+    public void ShowAmenitiesPanel()
     {
-        // If the panel is now inactive, unlock and show the cursor (don’t lock it)
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
+        amenitiesPanel.SetActive(true);
+        transportPanel.SetActive(false);
+
+        // Hide the Transport and Amenities buttons
+        transportButton.gameObject.SetActive(false);
+        amenitiesButton.gameObject.SetActive(false);
+
+        UpdateDistances(); // Update distances for amenities objects
     }
-}
+
+    public void ToggleDistancePanel()
+    {
+        bool isActive = !distancePanel.activeSelf;
+        distancePanel.SetActive(isActive);
+
+        if (isActive)
+        {
+            // Show the Transport and Amenities buttons when the panel opens
+            transportButton.gameObject.SetActive(true);
+            amenitiesButton.gameObject.SetActive(true);
+
+            // Hide the specific category panels
+            transportPanel.SetActive(false);
+            amenitiesPanel.SetActive(false);
+
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+    }
 
     // Continuously update distances while the DistancePanel is active
     void Update()
@@ -39,13 +75,23 @@ public void ToggleDistancePanel()
         }
     }
 
-    // Update the distance text for each object
     private void UpdateDistances()
     {
-        for (int i = 0; i < objects.Length; i++)
+        if (transportPanel.activeSelf)
         {
-            float distance = Vector3.Distance(player.position, objects[i].position);
-            distanceTexts[i].text = objects[i].name + ": " + distance.ToString("F2") + " meters";
+            for (int i = 0; i < transportObjects.Length; i++)
+            {
+                float distance = Vector3.Distance(player.position, transportObjects[i].position);
+                transportDistanceTexts[i].text = transportObjects[i].name + ": " + distance.ToString("F2") + " m";
+            }
+        }
+        else if (amenitiesPanel.activeSelf)
+        {
+            for (int i = 0; i < amenitiesObjects.Length; i++)
+            {
+                float distance = Vector3.Distance(player.position, amenitiesObjects[i].position);
+                amenitiesDistanceTexts[i].text = amenitiesObjects[i].name + ": " + distance.ToString("F2") + " m";
+            }
         }
     }
 }
