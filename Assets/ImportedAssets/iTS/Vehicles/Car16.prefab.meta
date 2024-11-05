@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 646f3d6d0be0e844faaa18ea3b1ee1a7
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 23564
+  packageName: iTS - Intelligent Traffic System
+  packageVersion: 2.1.1
+  assetPath: Assets/iTS/Vehicles/Car16.prefab
+  uploadId: 552963
