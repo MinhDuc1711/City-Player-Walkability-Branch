@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: f9143403141285e4a89de6b2f269ff2f
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 23564
+  packageName: iTS - Intelligent Traffic System
+  packageVersion: 2.1.1
+  assetPath: Assets/iTS/Demo/Source Assets/SimpleCity/Shaders/VC.shader
+  uploadId: 552963

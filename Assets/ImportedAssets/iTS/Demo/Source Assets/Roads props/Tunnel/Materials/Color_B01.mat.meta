@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: b6d8e98124acc7b4187babb9a2f94c03
+timeCreated: 1427472616
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 23564
+  packageName: iTS - Intelligent Traffic System
+  packageVersion: 2.1.1
+  assetPath: Assets/iTS/Demo/Source Assets/Roads props/Tunnel/Materials/Color_B01.mat
+  uploadId: 552963

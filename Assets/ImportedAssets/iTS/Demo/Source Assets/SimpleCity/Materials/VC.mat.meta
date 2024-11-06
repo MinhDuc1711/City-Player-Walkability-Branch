@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: c2b3a93c15b282949bf8b302b0d5ed25
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 23564
+  packageName: iTS - Intelligent Traffic System
+  packageVersion: 2.1.1
+  assetPath: Assets/iTS/Demo/Source Assets/SimpleCity/Materials/VC.mat
+  uploadId: 552963
