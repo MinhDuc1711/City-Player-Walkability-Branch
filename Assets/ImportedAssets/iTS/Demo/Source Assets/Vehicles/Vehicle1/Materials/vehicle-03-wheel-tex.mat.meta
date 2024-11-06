@@ -1,0 +1,11 @@
+fileFormatVersion: 2
+guid: cb80cfd8a0a191b46880b3ab7aab4ec3
+NativeFormatImporter:
+  userData: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 23564
+  packageName: iTS - Intelligent Traffic System
+  packageVersion: 2.1.1
+  assetPath: Assets/iTS/Demo/Source Assets/Vehicles/Vehicle1/Materials/vehicle-03-wheel-tex.mat
+  uploadId: 552963

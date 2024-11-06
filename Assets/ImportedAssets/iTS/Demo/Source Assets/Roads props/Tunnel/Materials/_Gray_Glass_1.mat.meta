@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: f3f73b66f1b3ff1499ba50734f45883a
+timeCreated: 1427472617
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 23564
+  packageName: iTS - Intelligent Traffic System
+  packageVersion: 2.1.1
+  assetPath: Assets/iTS/Demo/Source Assets/Roads props/Tunnel/Materials/_Gray_Glass_1.mat
+  uploadId: 552963

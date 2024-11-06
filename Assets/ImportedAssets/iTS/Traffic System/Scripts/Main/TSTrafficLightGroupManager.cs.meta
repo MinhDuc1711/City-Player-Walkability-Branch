@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: c8d1af30adecf0c428b14ac02f2f89b8
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 23564
+  packageName: iTS - Intelligent Traffic System
+  packageVersion: 2.1.1
+  assetPath: Assets/iTS/Traffic System/Scripts/Main/TSTrafficLightGroupManager.cs
+  uploadId: 552963

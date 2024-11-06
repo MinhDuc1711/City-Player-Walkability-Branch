@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 461b305bf7e365946923bd3e21af68ab
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 112000000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 188039
+  packageName: AT+MATERIALS V2 | On Demand PBR Materials and Skyboxes (BuiltIn/HDRP/URP)
+  packageVersion: 2.0
+  assetPath: Assets/Ambiens/Archtoolkit/AT+Materials/SampleScene/Builtin/SampleSceneBuiltIn/LightingData.asset
+  uploadId: 582406

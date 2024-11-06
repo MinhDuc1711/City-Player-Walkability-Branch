@@ -1,0 +1,11 @@
+fileFormatVersion: 2
+guid: 128a0c255b0bc3d46806387e291b8c33
+NativeFormatImporter:
+  userData: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 23564
+  packageName: iTS - Intelligent Traffic System
+  packageVersion: 2.1.1
+  assetPath: Assets/iTS/Demo/Source Assets/Vehicles/Vehicle1/Materials/vehicle-03-tex.mat
+  uploadId: 552963

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 6b330210ca1d60a40ab24fcf681de093
+timeCreated: 1427472616
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 23564
+  packageName: iTS - Intelligent Traffic System
+  packageVersion: 2.1.1
+  assetPath: Assets/iTS/Demo/Source Assets/Roads props/Tunnel/Materials/Material3.mat
+  uploadId: 552963
