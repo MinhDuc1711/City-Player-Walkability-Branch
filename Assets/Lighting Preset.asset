@@ -1,0 +1,104 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cd7e96ae81650145897cd8c3dc311d8, type: 3}
+  m_Name: Lighting Preset
+  m_EditorClassIdentifier: 
+  AmbientColor:
+    serializedVersion: 2
+    key0: {r: 0.14117648, g: 0.21568629, b: 0.4431373, a: 1}
+    key1: {r: 0.14117648, g: 0.21568629, b: 0.4431373, a: 1}
+    key2: {r: 0.5882353, g: 0.44705886, b: 0.3647059, a: 0}
+    key3: {r: 0.9528302, g: 0.90348154, b: 0.81350124, a: 0}
+    key4: {r: 0.5882353, g: 0.44705886, b: 0.3647059, a: 0}
+    key5: {r: 0.14117648, g: 0.21568629, b: 0.4431373, a: 0}
+    key6: {r: 0.14117648, g: 0.21568629, b: 0.4431373, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 0
+    ctime1: 11565
+    ctime2: 18311
+    ctime3: 32768
+    ctime4: 47609
+    ctime5: 55319
+    ctime6: 65535
+    ctime7: 0
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_ColorSpace: -1
+    m_NumColorKeys: 7
+    m_NumAlphaKeys: 2
+  DirectionalColor:
+    serializedVersion: 2
+    key0: {r: 0, g: 0, b: 0, a: 1}
+    key1: {r: 0.88822174, g: 0.88822174, b: 0.88822174, a: 1}
+    key2: {r: 1, g: 1, b: 1, a: 0}
+    key3: {r: 0.823542, g: 0.823542, b: 0.823542, a: 0}
+    key4: {r: 0, g: 0, b: 0, a: 0}
+    key5: {r: 0, g: 0, b: 0, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 0
+    ctime1: 26021
+    ctime2: 32768
+    ctime3: 41056
+    ctime4: 65535
+    ctime5: 0
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_ColorSpace: -1
+    m_NumColorKeys: 5
+    m_NumAlphaKeys: 2
+  FogColor:
+    serializedVersion: 2
+    key0: {r: 0.13207549, g: 0.11276256, b: 0.1194109, a: 1}
+    key1: {r: 0.3658995, g: 0.2924543, b: 0.17643306, a: 1}
+    key2: {r: 0.8679245, g: 0.67825615, b: 0.2988608, a: 0}
+    key3: {r: 0.59474015, g: 0.8380409, b: 0.9339623, a: 0}
+    key4: {r: 0.9339623, g: 0.8094961, b: 0.48900855, a: 0}
+    key5: {r: 0.34320956, g: 0.29611427, b: 0.21499544, a: 0}
+    key6: {r: 0.13333334, g: 0.1137255, b: 0.11764707, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 0
+    ctime1: 15998
+    ctime2: 20624
+    ctime3: 32382
+    ctime4: 45682
+    ctime5: 49922
+    ctime6: 65535
+    ctime7: 0
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_ColorSpace: -1
+    m_NumColorKeys: 7
+    m_NumAlphaKeys: 2
