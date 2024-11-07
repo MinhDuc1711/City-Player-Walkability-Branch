@@ -46,26 +46,26 @@ public class FPSController : MonoBehaviour
  
         #endregion
  
-        #region Handles Jumping
-        if (Input.GetButton("Jump") && canMove && characterController.isGrounded)
-        {
-            moveDirection.y = jumpPower;
-        }
-        else
-        {
-            moveDirection.y = movementDirectionY;
-        }
+        //#region Handles Jumping
+        //if (Input.GetButton("Jump") && canMove && characterController.isGrounded)
+        //{
+        //    moveDirection.y = jumpPower;
+        //}
+        //else
+        //{
+        //    moveDirection.y = movementDirectionY;
+        //}
  
-        if (!characterController.isGrounded)
-        {
-            moveDirection.y -= gravity * Time.deltaTime;
-        }
+        //if (!characterController.isGrounded)
+        //{
+        //    moveDirection.y -= gravity * Time.deltaTime;
+        //}
  
-        #endregion
+        //#endregion
  
         #region Handles Rotation
         characterController.Move(moveDirection * Time.deltaTime);
- 
+  
         if (canMove)
         {
             rotationX += -Input.GetAxis("Mouse Y") * lookSpeed;
