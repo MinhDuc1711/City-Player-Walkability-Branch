@@ -1,55 +1,34 @@
+using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ManageRemove : MonoBehaviour
+public class ManageBuilding : MonoBehaviour
 {
     [SerializeField]
     private GameObject Ui;
 
+    public static GameObject selectedBuilding;
+
     private GameObject highlight;
-
-    private GameObject buildingSelected;
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-
-    }
 
     // Update is called once per frame
     void Update()
     {
-        SelectBuilding();
-        Deselect();
+       
     }
 
-    void Deselect()
+    public void Deselect()
     {
-        if (Input.GetMouseButtonDown(1) && buildingSelected != null)
+        if (selectedBuilding != null)
         {
-            buildingSelected.GetComponent<Outline>().enabled = false;
+            selectedBuilding.GetComponent<Outline>().enabled = false;
             Ui.SetActive(false);
-            buildingSelected = null;
+            selectedBuilding = null;
         }
     }
 
-    void SelectBuilding()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            if (Physics.Raycast(ray, out hit))
-            {
-                if (hit.collider.gameObject.CompareTag("Building"))
-                {
-                    Highlight(hit.collider.gameObject);
-                }
-            }
-        }
-    }
-
-    void Highlight(GameObject obj)
+    public void Highlight(GameObject obj)
     {
         Outline outline = obj.GetComponent<Outline>();
         if (outline == null)
@@ -60,8 +39,10 @@ public class ManageRemove : MonoBehaviour
         {
             outline.enabled = true;
         }
-        Debug.Log("HIT");
-        buildingSelected = obj;
+        selectedBuilding = obj;
         Ui.SetActive(true);
+       
     }
+
+
 }
