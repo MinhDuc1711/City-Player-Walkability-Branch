@@ -63,7 +63,7 @@ public class DistanceMenuManager : MonoBehaviour
 
         if (isActive)
         {
-            // Show the Transport and Amenities buttons when the panel opens
+            // Show the Transport,Amenities and Occurences buttons when the panel opens
             transportButton.gameObject.SetActive(true);
             amenitiesButton.gameObject.SetActive(true);
             occurrencesButton.gameObject.SetActive(true);
