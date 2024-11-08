@@ -66,3 +66,20 @@ City Player allows users to:
 - **Plugin Usage**: Archtoolkit is used for materials, enabling detailed browsing and selection of materials. This can be accessed through Unity’s asset panel.
   
 ---
+
+## Contributors
+
+| Name | Student ID | Github |
+| :---         |     :---:      |          ---: |
+| Luca Dallaire          | 40132255  | lucadallaire  |
+| Cristian Gasparesc     | 40209205  |               |
+| Amirhossein Tavakkoly  | 40203604  |               |
+| Alexandre Careau       | 21336665  |               |
+| Jason Novio            | 40154259  |               |
+| Daniel Bondar          | 40213095  |               |
+| Ryan Sefrioui          | 40157471  |               |
+| Cosmin Suna            | 40125921  |               |
+| Minh Duc Vu            | 40166824  |               |
+| Jackson Jean           | 23507416  |               |
+| Jose Semaan            | 40244141  |               |
+
