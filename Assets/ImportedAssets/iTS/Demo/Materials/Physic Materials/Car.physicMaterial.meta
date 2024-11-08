@@ -1,0 +1,11 @@
+fileFormatVersion: 2
+guid: 7d9f8cb938aa5b543b32349b88d95971
+NativeFormatImporter:
+  userData: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 23564
+  packageName: iTS - Intelligent Traffic System
+  packageVersion: 2.1.1
+  assetPath: Assets/iTS/Demo/Physic Materials/Car.physicMaterial
+  uploadId: 552963

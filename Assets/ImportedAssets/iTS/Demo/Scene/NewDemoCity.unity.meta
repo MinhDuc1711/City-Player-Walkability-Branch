@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 0e358e2d357675543a21f7089e7c3e86
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 23564
+  packageName: iTS - Intelligent Traffic System
+  packageVersion: 2.1.1
+  assetPath: Assets/iTS/Demo/Scene/NewDemoCity.unity
+  uploadId: 552963
