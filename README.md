@@ -81,5 +81,5 @@ City Player allows users to:
 | Cosmin Suna            | 40125921  |               |
 | Minh Duc Vu            | 40166824  |               |
 | Jackson Jean           | 23507416  |               |
-| Jose Semaan            | 40244141  |               |
+| Jose Semaan            | 40244141  |  jozesemaan   |
 
