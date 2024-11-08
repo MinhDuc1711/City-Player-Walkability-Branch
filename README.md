@@ -29,6 +29,9 @@ City Player allows users to:
      - Amenities like public seating and social spaces.
    - Real-time changes will immediately affect the environment, allowing for a tailored experience.
 
+   **Scene Organization**:  
+   The key features of the simulation are divided into separate scenes, each focusing on a different aspect of the urban environment. This modular approach allows users to customize and test specific features, such as greenery, building layouts, and traffic flow, before integrating them into the main environment.
+
 ---
 
 ## Key Features
@@ -46,6 +49,7 @@ City Player allows users to:
   - Control the time of day (from 9 AM to 6 PM) to observe how shadows and lighting impact the walk.
 
 ---
+
 
 ## Assets and Dependencies
 
