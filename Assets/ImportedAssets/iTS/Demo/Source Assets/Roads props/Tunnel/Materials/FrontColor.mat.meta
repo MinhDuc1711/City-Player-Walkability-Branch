@@ -1,0 +1,11 @@
+fileFormatVersion: 2
+guid: 03a1699f1f8419b4180490a473dc62e6
+NativeFormatImporter:
+  userData: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 23564
+  packageName: iTS - Intelligent Traffic System
+  packageVersion: 2.1.1
+  assetPath: Assets/iTS/Demo/Source Assets/Roads props/Tunnel/Materials/FrontColor.mat
+  uploadId: 552963

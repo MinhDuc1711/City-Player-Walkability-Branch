@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: faca2f57334a7abd6ac947976a8346c6
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 23564
+  packageName: iTS - Intelligent Traffic System
+  packageVersion: 2.1.1
+  assetPath: Assets/iTS/Vehicles/Car1b.prefab
+  uploadId: 552963

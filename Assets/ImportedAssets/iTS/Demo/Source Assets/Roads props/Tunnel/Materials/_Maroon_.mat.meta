@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 31260978f5d70144d8b969315f910189
+timeCreated: 1427472617
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 23564
+  packageName: iTS - Intelligent Traffic System
+  packageVersion: 2.1.1
+  assetPath: Assets/iTS/Demo/Source Assets/Roads props/Tunnel/Materials/_Maroon_.mat
+  uploadId: 552963

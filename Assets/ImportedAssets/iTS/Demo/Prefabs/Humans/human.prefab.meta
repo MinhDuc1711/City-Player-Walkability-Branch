@@ -1,0 +1,11 @@
+fileFormatVersion: 2
+guid: c3a883bec06abf542a4200fa8d02567e
+NativeFormatImporter:
+  userData: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 23564
+  packageName: iTS - Intelligent Traffic System
+  packageVersion: 2.1.1
+  assetPath: Assets/iTS/Demo/Prefabs/Humans/hana.prefab
+  uploadId: 552963
