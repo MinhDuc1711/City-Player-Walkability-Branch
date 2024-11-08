@@ -1,27 +1,15 @@
+using System;
 using UnityEngine;
 
-public class AddOrRemove : MonoBehaviour
+public class RemoveBuilding : MonoBehaviour
 {
-    [SerializeField]
-    private bool delete;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public void DeleteSelectedBuilding()
     {
-        delete = false;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        Delete();
-    }
-
-    void Delete()
-    {
-        if (delete) 
-        { 
-            Destroy(gameObject);
-        }
+        if (ManageBuilding.selectedBuilding != null)
+        Destroy(ManageBuilding.selectedBuilding);
+        gameObject.SetActive(false);
+        
     }
 }
+ 
