@@ -5,7 +5,7 @@ using TMPro;
 public class DistanceMenuManager : MonoBehaviour
 {
     public Transform player; // Reference to the player's Transform
-    public Transform[] objects; // Array to hold the Transforms of the objects (cubes)
+    public Transform[] objects; // Array to hold the Transforms of the objects
     public TextMeshProUGUI[] distanceTexts; // Array to hold the Text UI elements for each object
     public GameObject distancePanel; // Reference to the DistancePanel
     public GameObject transportPanel;
@@ -16,15 +16,18 @@ public class DistanceMenuManager : MonoBehaviour
     public Transform[] amenitiesObjects; // Array for amenities objects
     public TextMeshProUGUI[] transportDistanceTexts; // Texts for transport objects
     public TextMeshProUGUI[] amenitiesDistanceTexts; // Texts for amenities objects
+    public GameObject occurrencesPanel; // Reference to the OccurrencesPanel
+    public Button occurrencesButton; 
 
     public void ShowTransportPanel()
     {
         transportPanel.SetActive(true);
         amenitiesPanel.SetActive(false);
+        occurrencesPanel.SetActive(false);
 
-        // Hide the Transport and Amenities buttons
         transportButton.gameObject.SetActive(false);
         amenitiesButton.gameObject.SetActive(false);
+        occurrencesButton.gameObject.SetActive(false);
 
         UpdateDistances(); // Update distances for transport objects
     }
@@ -33,12 +36,24 @@ public class DistanceMenuManager : MonoBehaviour
     {
         amenitiesPanel.SetActive(true);
         transportPanel.SetActive(false);
+        occurrencesPanel.SetActive(false);
 
-        // Hide the Transport and Amenities buttons
         transportButton.gameObject.SetActive(false);
         amenitiesButton.gameObject.SetActive(false);
+        occurrencesButton.gameObject.SetActive(false);
 
         UpdateDistances(); // Update distances for amenities objects
+    }
+
+    public void ShowOccurrencesPanel()
+    {
+        occurrencesPanel.SetActive(true);
+        transportPanel.SetActive(false);
+        amenitiesPanel.SetActive(false);
+
+        transportButton.gameObject.SetActive(false);
+        amenitiesButton.gameObject.SetActive(false);
+        occurrencesButton.gameObject.SetActive(false);
     }
 
     public void ToggleDistancePanel()
@@ -51,10 +66,12 @@ public class DistanceMenuManager : MonoBehaviour
             // Show the Transport and Amenities buttons when the panel opens
             transportButton.gameObject.SetActive(true);
             amenitiesButton.gameObject.SetActive(true);
+            occurrencesButton.gameObject.SetActive(true);
 
             // Hide the specific category panels
             transportPanel.SetActive(false);
             amenitiesPanel.SetActive(false);
+            occurrencesPanel.SetActive(false);
 
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
