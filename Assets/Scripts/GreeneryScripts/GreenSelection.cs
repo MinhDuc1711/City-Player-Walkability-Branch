@@ -1,12 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro; 
+using UnityEngine.UI;
 
 public class GreenSelection : MonoBehaviour
 {
     public GameObject selectedObj; 
-    public TextMeshProUGUI objNameText; 
+    public Text objNameText; 
     public GameObject selectUI; 
 
     public GreenObjectManager greenObjManager; 
@@ -47,8 +47,6 @@ public class GreenSelection : MonoBehaviour
         Outline outline = obj.GetComponent<Outline>();
         if (outline == null) obj.AddComponent<Outline>(); 
         else outline.enabled = true; 
-
-        objNameText.text = obj.name;
         selectedObj = obj;
         selectUI.SetActive(true);
     }
