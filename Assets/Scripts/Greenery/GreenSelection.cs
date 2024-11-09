@@ -1,3 +1,4 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,14 +14,7 @@ public class GreenSelection : MonoBehaviour
 
     private void Start()
     {
-        if (selectUI != null)
-        {
-            selectUI.SetActive(false);
-        }
-        else
-        {
-            Debug.LogError("selectUI is not assigned!");
-        }
+        selectUI.SetActive(false);
     }
 
     private void Update()
@@ -60,10 +54,7 @@ public class GreenSelection : MonoBehaviour
 
     private void Deselect()
     {
-        if (selectedObj != null)
-        {
-            selectedObj.GetComponent<Outline>().enabled = false;
-        }
+        selectedObj.GetComponent<Outline>().enabled = false;
         selectUI.SetActive(false);
         selectedObj = null;
     }
@@ -78,13 +69,6 @@ public class GreenSelection : MonoBehaviour
 
     public void Move()
     {
-        if (greenObjManager != null)
-        {
-            greenObjManager.pendingObj = selectedObj;
-        }
-        else
-        {
-            Debug.LogError("greenObjManager is not assigned!");
-        }
+        greenObjManager.pendingObj = selectedObj;
     }
 }
