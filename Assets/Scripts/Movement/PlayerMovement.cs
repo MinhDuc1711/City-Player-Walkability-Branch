@@ -20,6 +20,10 @@ public class PlayerMov : MonoBehaviour
     public float groundDrag;
     public float height;
 
+    //var for slope
+    public float maxSlopeAngle;
+    private RaycastHit slopeHit;
+
     //Scalling for crouch
     float scaleYStart;
     float crouchScale;
@@ -41,9 +45,9 @@ public class PlayerMov : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        addDrag();
         myInputs();
         speedControl();
-        addDrag();
     }
 
     private void FixedUpdate()
@@ -72,18 +76,35 @@ public class PlayerMov : MonoBehaviour
     {
         movDir = orientation.forward * vInput + orientation.right * hInput;
 
-        rb.AddForce(movDir.normalized * moveSpeed * 10f, ForceMode.Force);
+        if (OnSlope())
+        {
+            rb.AddForce(GetSlopeMoveDirection() * moveSpeed * 20f, ForceMode.Force);
+        }
+
+        if (grounded)
+            rb.AddForce(movDir.normalized * moveSpeed * 10f, ForceMode.Force);
+
+        rb.useGravity = !OnSlope();
     }
 
     void speedControl()
     {
-        Vector3 flatVel = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
-
-        if (flatVel.magnitude > moveSpeed)
+        if (OnSlope())
         {
-            Vector3 limitVel = flatVel.normalized * moveSpeed;
-            rb.linearVelocity = new Vector3(limitVel.x, rb.linearVelocity.y, limitVel.z);
+            if (rb.linearVelocity.magnitude > moveSpeed)
+                rb.linearVelocity = rb.linearVelocity.normalized * moveSpeed;
         }
+        else
+        {
+            Vector3 flatVel = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
+
+            if (flatVel.magnitude > moveSpeed)
+            {
+                Vector3 limitVel = flatVel.normalized * moveSpeed;
+                rb.linearVelocity = new Vector3(limitVel.x, rb.linearVelocity.y, limitVel.z);
+            }
+        }
+        
     }
     void addDrag()
     {
@@ -93,5 +114,21 @@ public class PlayerMov : MonoBehaviour
         {
             rb.linearDamping = groundDrag;
         }
+    }
+
+    bool OnSlope()
+    {
+        if (Physics.Raycast(transform.position, Vector3.down, out slopeHit, height * 0.5f + 0.3F))
+        {
+            float angle = Vector3.Angle(Vector3.up, slopeHit.normal);
+            return angle < maxSlopeAngle && angle != 0;
+        }
+
+        return false;
+    }
+
+    Vector3 GetSlopeMoveDirection()
+    {
+        return Vector3.ProjectOnPlane(movDir, slopeHit.normal).normalized;
     }
 }
