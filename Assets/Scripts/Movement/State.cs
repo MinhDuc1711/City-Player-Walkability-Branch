@@ -11,7 +11,7 @@ public class State : MonoBehaviour
 
     public LayerMask mask;
 
-    private enum state
+    public enum state
     {
         walking,
         crouching,
@@ -20,6 +20,12 @@ public class State : MonoBehaviour
     }
 
     private state playerState;
+
+    public state PlayerState 
+    {
+        set { playerState = value; }
+        get { return playerState; } 
+    }
 
     private Rigidbody player;
 
@@ -41,16 +47,13 @@ public class State : MonoBehaviour
         {
             playerState = state.jumping;
         }
+        else if (Input.GetKey(crouch))
+        {
+            playerState = state.crouching;
+        }
         else if(player.linearVelocity.x>0 || player.linearVelocity.z > 0)
         {
-            if (Input.GetKeyDown(crouch))
-            {
-                playerState = state.crouching;
-            }
-            else
-            {
-                playerState = state.walking;
-            }
+            playerState = state.walking;
         }
     }
 }
