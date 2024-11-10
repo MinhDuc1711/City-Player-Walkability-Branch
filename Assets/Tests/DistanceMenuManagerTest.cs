@@ -19,70 +19,70 @@ public class DistanceMenuManagerTests
     private TextMeshProUGUI transportText;
     private TextMeshProUGUI amenitiesText;
 
-[SetUp]
-public void SetUp()
-{
-    // Create GameObject for DistanceManager
-    distanceManagerObj = new GameObject("DistanceManager");
-    distanceMenuManager = distanceManagerObj.AddComponent<DistanceMenuManager>();
+    [SetUp]
+    public void SetUp()
+    {
+        // Create GameObject for DistanceManager
+        distanceManagerObj = new GameObject("DistanceManager");
+        distanceMenuManager = distanceManagerObj.AddComponent<DistanceMenuManager>();
 
-    // Create Canvas and DistancePanel
-    GameObject canvas = new GameObject("Canvas");
-    canvas.AddComponent<Canvas>().renderMode = RenderMode.ScreenSpaceOverlay;
-    GameObject distancePanel = new GameObject("DistancePanel");
-    distancePanel.transform.SetParent(canvas.transform);  // Nest under Canvas
-    distancePanel.AddComponent<RectTransform>(); // For proper UI hierarchy
-    distanceMenuManager.distancePanel = distancePanel;
+        // Create Canvas and DistancePanel
+        GameObject canvas = new GameObject("Canvas");
+        canvas.AddComponent<Canvas>().renderMode = RenderMode.ScreenSpaceOverlay;
+        GameObject distancePanel = new GameObject("DistancePanel");
+        distancePanel.transform.SetParent(canvas.transform);  // Nest under Canvas
+        distancePanel.AddComponent<RectTransform>(); // For proper UI hierarchy
+        distanceMenuManager.distancePanel = distancePanel;
 
-    // Create and configure TransportPanel
-    transportPanel = new GameObject("TransportPanel");
-    transportPanel.transform.SetParent(distancePanel.transform); // Nest under DistancePanel
-    transportPanel.AddComponent<RectTransform>();
-    distanceMenuManager.transportPanel = transportPanel;
-    CreateTextMeshPro("MetroDistanceText", transportPanel);
-    CreateTextMeshPro("BusDistanceText", transportPanel);
-    CreateTextMeshPro("TrainDistanceText", transportPanel);
+        // Create and configure TransportPanel
+        transportPanel = new GameObject("TransportPanel");
+        transportPanel.transform.SetParent(distancePanel.transform); // Nest under DistancePanel
+        transportPanel.AddComponent<RectTransform>();
+        distanceMenuManager.transportPanel = transportPanel;
+        CreateTextMeshPro("MetroDistanceText", transportPanel);
+        CreateTextMeshPro("BusDistanceText", transportPanel);
+        CreateTextMeshPro("TrainDistanceText", transportPanel);
 
-    // Create and configure AmenitiesPanel
-    amenitiesPanel = new GameObject("AmenitiesPanel");
-    amenitiesPanel.transform.SetParent(distancePanel.transform); // Nest under DistancePanel
-    amenitiesPanel.AddComponent<RectTransform>();
-    distanceMenuManager.amenitiesPanel = amenitiesPanel;
-    CreateTextMeshPro("ParkDistanceText", amenitiesPanel);
-    CreateTextMeshPro("GymDistanceText", amenitiesPanel);
+        // Create and configure AmenitiesPanel
+        amenitiesPanel = new GameObject("AmenitiesPanel");
+        amenitiesPanel.transform.SetParent(distancePanel.transform); // Nest under DistancePanel
+        amenitiesPanel.AddComponent<RectTransform>();
+        distanceMenuManager.amenitiesPanel = amenitiesPanel;
+        CreateTextMeshPro("ParkDistanceText", amenitiesPanel);
+        CreateTextMeshPro("GymDistanceText", amenitiesPanel);
 
-    // Create and configure OccurrencesPanel
-    occurrencesPanel = new GameObject("OccurrencesPanel");
-    occurrencesPanel.transform.SetParent(distancePanel.transform); // Nest under DistancePanel
-    occurrencesPanel.AddComponent<RectTransform>();
-    distanceMenuManager.occurrencesPanel = occurrencesPanel;
+        // Create and configure OccurrencesPanel
+        occurrencesPanel = new GameObject("OccurrencesPanel");
+        occurrencesPanel.transform.SetParent(distancePanel.transform); // Nest under DistancePanel
+        occurrencesPanel.AddComponent<RectTransform>();
+        distanceMenuManager.occurrencesPanel = occurrencesPanel;
 
-    // Create and assign buttons
-    transportButton = CreateButton("TransportButton", distancePanel);
-    amenitiesButton = CreateButton("AmenitiesButton", distancePanel);
-    occurrencesButton = CreateButton("OccurrencesButton", distancePanel);
+        // Create and assign buttons
+        transportButton = CreateButton("TransportButton", distancePanel);
+        amenitiesButton = CreateButton("AmenitiesButton", distancePanel);
+        occurrencesButton = CreateButton("OccurrencesButton", distancePanel);
 
-    distanceMenuManager.transportButton = transportButton;
-    distanceMenuManager.amenitiesButton = amenitiesButton;
-    distanceMenuManager.occurrencesButton = occurrencesButton;
+        distanceMenuManager.transportButton = transportButton;
+        distanceMenuManager.amenitiesButton = amenitiesButton;
+        distanceMenuManager.occurrencesButton = occurrencesButton;
 
-    // Initially deactivate all panels
-    transportPanel.SetActive(false);
-    amenitiesPanel.SetActive(false);
-    occurrencesPanel.SetActive(false);
-    distancePanel.SetActive(false); // Ensure DistancePanel is inactive by default
-}
+        // Initially deactivate all panels
+        transportPanel.SetActive(false);
+        amenitiesPanel.SetActive(false);
+        occurrencesPanel.SetActive(false);
+        distancePanel.SetActive(false); // Ensure DistancePanel is inactive by default
+    }
 
-private Button CreateButton(string name, GameObject parent)
-{
-    GameObject buttonObj = new GameObject(name);
-    buttonObj.transform.SetParent(parent.transform);
-    buttonObj.AddComponent<RectTransform>();
-    buttonObj.AddComponent<CanvasRenderer>();
-    Button button = buttonObj.AddComponent<Button>();
-    buttonObj.AddComponent<Image>(); // Image component required for Button
-    return button;
-}
+    private Button CreateButton(string name, GameObject parent)
+    {
+        GameObject buttonObj = new GameObject(name);
+        buttonObj.transform.SetParent(parent.transform);
+        buttonObj.AddComponent<RectTransform>();
+        buttonObj.AddComponent<CanvasRenderer>();
+        Button button = buttonObj.AddComponent<Button>();
+        buttonObj.AddComponent<Image>(); // Image component required for Button
+        return button;
+    }
 
 
     private TextMeshProUGUI CreateTextMeshPro(string name, GameObject parent)

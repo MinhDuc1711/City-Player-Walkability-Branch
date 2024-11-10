@@ -29,7 +29,7 @@ public class DistanceMenuManager : MonoBehaviour
         amenitiesButton.gameObject.SetActive(false);
         occurrencesButton.gameObject.SetActive(false);
 
-        UpdateDistances(); // Update distances for transport objects
+        //UpdateDistances(); // Update distances for transport objects
     }
 
     public void ShowAmenitiesPanel()
@@ -42,7 +42,7 @@ public class DistanceMenuManager : MonoBehaviour
         amenitiesButton.gameObject.SetActive(false);
         occurrencesButton.gameObject.SetActive(false);
 
-        UpdateDistances(); // Update distances for amenities objects
+        //UpdateDistances(); // Update distances for amenities objects
     }
 
     public void ShowOccurrencesPanel()
