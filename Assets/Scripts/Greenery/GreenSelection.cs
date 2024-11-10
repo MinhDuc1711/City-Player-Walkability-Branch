@@ -39,7 +39,7 @@ public class GreenSelection : MonoBehaviour
         }
     }
 
-    private void Select(GameObject obj)
+    public void Select(GameObject obj)
     {
         if (obj == selectedObj) return;
 
