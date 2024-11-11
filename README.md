@@ -1,4 +1,4 @@
-# City Player - Trash Collection Branch
+# City Player - Walkability Branch
 
 City Player is an interactive simulation designed to create a dynamic downtown walking experience. Users can adjust environmental features in real time, such as greenery, building height, traffic, and more, to create their ideal urban setting.
 
