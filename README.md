@@ -3,6 +3,10 @@
 City Player is an interactive simulation designed to create a dynamic downtown walking experience. Users can adjust environmental features in real time, such as greenery, building height, traffic, and more, to create their ideal urban setting.
 
 ---
+## Link to Demo
+
+https://drive.google.com/file/d/1c-k5c9XXBvXTFub0sim3KBsZMEhGBBcx/view?usp=sharing
+
 
 ## Project Overview
 
