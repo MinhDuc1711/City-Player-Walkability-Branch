@@ -9,25 +9,30 @@ public class GreeneryGeneration : MonoBehaviour
     public GameObject RightGreenStripEnd;
 
     public GameObject TreePrefab;
+    public GameObject GreenObjectPrefab;
 
-    public Slider treeDensitySlider; // Reference to the slider
-
+    public Slider treeDensitySlider; // Reference to the tree slider
+    public Slider greenObjectSlider;  // / reference to green objects (flowers, bushes, etc.)
 
     public void Start()
     {
         // Add a listener to detect slider value changes
-        treeDensitySlider.onValueChanged.AddListener(OnSliderValueChanged);
+        treeDensitySlider.onValueChanged.AddListener(OnTreeSliderValueChanged);
+        greenObjectSlider.onValueChanged.AddListener(OnGreenObjectSliderValueChanged);
 
         // Initial tree generation based on the default slider value
         GenerateTrees(treeDensitySlider.value);
+        GenerateGreenObjects(greenObjectSlider.value);
     }
 
-    public void Update()
+    void OnGreenObjectSliderValueChanged(float value)
     {
-
+        // Regenerate green objects whenever the green object slider value changes
+        Debug.Log("Green object slider value changed to: " + value);
+        GenerateGreenObjects(value);
     }
 
-    void OnSliderValueChanged(float value)
+    void OnTreeSliderValueChanged(float value)
     {
         // Regenerate trees whenever the slider value changes
         Debug.Log("Slider value changed to: " + value);
@@ -54,6 +59,22 @@ public class GreeneryGeneration : MonoBehaviour
         SpawnTreesWithSpacing(RightGreenStripStart.transform.position, RightGreenStripEnd.transform.position, density);
     }
 
+    void GenerateGreenObjects(float density)
+    {
+        // Adjust density logic for green objects
+        if (density != 0)
+        {
+            density = 11 - density;
+        }
+
+        // Clear existing green objects
+        ClearObjectsWithTag("GreenObject");
+
+        // Spawn green objects on both green strips
+        SpawnObjectsWithSpacing(LeftGreenStripStart.transform.position, LeftGreenStripEnd.transform.position, density, GreenObjectPrefab, "GreenObject");
+        SpawnObjectsWithSpacing(RightGreenStripStart.transform.position, RightGreenStripEnd.transform.position, density, GreenObjectPrefab, "GreenObject");
+    }
+
     void SpawnTreesWithSpacing(Vector3 start, Vector3 end, float spacing)
     {
         float distance = Vector3.Distance(start, end);
@@ -74,6 +95,28 @@ public class GreeneryGeneration : MonoBehaviour
         foreach (var tree in GameObject.FindGameObjectsWithTag("Tree"))
         {
             Destroy(tree);
+        }
+    }
+    void SpawnObjectsWithSpacing(Vector3 start, Vector3 end, float spacing, GameObject prefab, string tag)
+    {
+        float distance = Vector3.Distance(start, end);
+        int numberOfObjects = Mathf.FloorToInt(distance / spacing);
+
+        for (int i = 0; i <= numberOfObjects; i++)
+        {
+            float t = (float)i / numberOfObjects; 
+            Vector3 position = Vector3.Lerp(start, end, t);
+
+            GameObject newObject = Instantiate(prefab, position, Quaternion.identity);
+            newObject.tag = tag; 
+        }
+    }
+
+    void ClearObjectsWithTag(string tag)
+    {
+        foreach (var obj in GameObject.FindGameObjectsWithTag(tag))
+        {
+            Destroy(obj);
         }
     }
 
