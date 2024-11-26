@@ -19,7 +19,7 @@ public class CharacterNavigationController : MonoBehaviour
 
     private void Start()
     {
-        // Save the spawn position and apply random speed variation
+        //Save the spawn position and apply random speed variation
         spawnPosition = transform.position;
         movementSpeed += Random.Range(-speedVariationRange, speedVariationRange);
         movementSpeed = Mathf.Clamp(movementSpeed, 0.5f, 2f); //Clamp to ensure the speed is realistic

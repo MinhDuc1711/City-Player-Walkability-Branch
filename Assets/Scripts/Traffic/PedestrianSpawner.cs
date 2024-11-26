@@ -1,35 +1,68 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class PedestrianSpawner : MonoBehaviour
 {
-    public GameObject pedestrianPrefab;
-    public int pedestriansToSpawn; //Maximum pedestrians allowed at once
+    public List<GameObject> pedestrianPrefabs; 
+    public Transform waypointsLeftLane;       
+    public Transform waypointsRightLane;     
+    public int pedestriansToSpawn;           
+    public Transform trafficSystemParent;    
 
-    private int currentPedestrians = 0; //Tracks the number of pedestrians in the scene
+    private int currentPedestrians = 0;
 
     private void Start()
     {
+        if (trafficSystemParent == null)
+        {
+            Debug.LogError("Traffic System parent is not assigned in the Inspector!");
+        }
         StartCoroutine(Spawn());
     }
 
     IEnumerator Spawn()
     {
-        while (true) //Continuously attempt to spawn pedestrians
+        while (true)
         {
             if (currentPedestrians < pedestriansToSpawn)
             {
-                //Spawn pedestrian
-                GameObject obj = Instantiate(pedestrianPrefab);
+                //Randomly select a pedestrian prefab
+                GameObject selectedPrefab = pedestrianPrefabs[Random.Range(0, pedestrianPrefabs.Count)];
+                WaypointNavigator nav = selectedPrefab.GetComponent<WaypointNavigator>();
 
-                //Select a random starting waypoint
-                Transform randomStartWaypoint = transform.GetChild(Random.Range(0, transform.childCount));
+                if (nav == null)
+                {
+                    Debug.LogError("Selected prefab does not have a WaypointNavigator component!");
+                    yield break;
+                }
+
+                //Determine the lane based on the pedestrian's lane preference
+                Transform selectedWaypointGroup = nav.lanePreference == WaypointNavigator.Lane.Left ? waypointsLeftLane : waypointsRightLane;
+
+                if (selectedWaypointGroup == null)
+                {
+                    Debug.LogError("Waypoints group is not assigned!");
+                    yield break;
+                }
+
+                //Select a random starting waypoint from the chosen lane
+                Transform randomStartWaypoint = selectedWaypointGroup.GetChild(Random.Range(0, selectedWaypointGroup.childCount));
                 Waypoint startWaypoint = randomStartWaypoint.GetComponent<Waypoint>();
 
-                //Place pedestrian at the selected waypoint's position
-                obj.transform.position = randomStartWaypoint.position;
+                if (startWaypoint == null)
+                {
+                    Debug.LogError("Selected waypoint does not have a Waypoint component!");
+                    yield break;
+                }
 
-                //If there is a next waypoint, align the pedestrian to face it
+                //Spawn pedestrian at the waypoint's position
+                GameObject obj = Instantiate(selectedPrefab, randomStartWaypoint.position, Quaternion.identity);
+
+                //Set the spawned pedestrian's parent to the Traffic System
+                obj.transform.SetParent(trafficSystemParent);
+
+                //Align pedestrian to face the next waypoint (if available)
                 if (startWaypoint.nextWaypoint != null)
                 {
                     Vector3 direction = (startWaypoint.nextWaypoint.GetPosition() - startWaypoint.GetPosition()).normalized;
@@ -43,18 +76,17 @@ public class PedestrianSpawner : MonoBehaviour
                 //Assign the starting waypoint to the pedestrian
                 obj.GetComponent<WaypointNavigator>().currentWaypoint = startWaypoint;
 
-                //Increment the pedestrian counter
+                //Increment the pedestrian count
                 currentPedestrians++;
 
-                //Pass reference of the spawner to the pedestrian to reduce count when destroyed
+                //Pass reference of the spawner to the pedestrian
                 obj.GetComponent<WaypointNavigator>().SetSpawner(this);
             }
 
-            yield return new WaitForSeconds(0.5f); //Small delay between spawn checks
+            yield return new WaitForSeconds(0.5f); //Delay between spawn attempts
         }
     }
 
-    //Decrement pedestrian count (called by pedestrians when destroyed)
     public void PedestrianDestroyed()
     {
         currentPedestrians--;
