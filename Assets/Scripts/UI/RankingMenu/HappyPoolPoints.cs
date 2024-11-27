@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class HappyPoolPoints : MonoBehaviour
 {
-    public Text remainingPoints;
+    public InputField remainingPoints;
 
     private int pool = 100;
 
