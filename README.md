@@ -1,8 +1,32 @@
-# City Player - Trash Collection Branch
+# City Player - Walkability Branch
 
 City Player is an interactive simulation designed to create a dynamic downtown walking experience. Users can adjust environmental features in real time, such as greenery, building height, traffic, and more, to create their ideal urban setting.
 
 ---
+## Link to Demo
+
+https://drive.google.com/file/d/1c-k5c9XXBvXTFub0sim3KBsZMEhGBBcx/view?usp=sharing
+
+## Top Files
+
+| File path with clickable Github link | Purpose |
+| :---         |     :---:      |  
+| https://github.com/MinhDuc1711/City-Player---Walkability-Branch/blob/main/Assets/Scripts/ManageBuilding.cs      | Manage the selection, highlighting and deselection of buildings in the scene.   |
+| https://github.com/MinhDuc1711/City-Player---Walkability-Branch/blob/main/Assets/Scripts/LightingManager.cs   |Dynamically adjust the ambient light based on time of day in the scene.| 
+| https://github.com/MinhDuc1711/City-Player---Walkability-Branch/blob/main/Assets/Scripts/TreeManager.cs       | Manage the placement, positioning, and rotation of selectable tree objects based on user input.  | 
+| https://github.com/MinhDuc1711/City-Player---Walkability-Branch/blob/main/Assets/Scripts/AddBuilding.cs       | Contains function to Add a building.   | 
+| https://github.com/MinhDuc1711/City-Player---Walkability-Branch/blob/main/Assets/Scripts/RemoveBuilding.cs        | Contains function to Remove Selected building. | 
+
+
+## Top Test Files
+
+| Test file path with clickable Github link | Purpose |
+| :---         |     :---:      |  
+| https://github.com/MinhDuc1711/City-Player---Walkability-Branch/blob/main/Assets/Tests/DistanceMenuManagerTest.cs | Test DistanceMenuManager   |
+| https://github.com/MinhDuc1711/City-Player---Walkability-Branch/blob/main/Assets/Tests/SimpleDraggableItemTests.cs |Test the draggable aspects in the UI menu| 
+| https://github.com/MinhDuc1711/City-Player---Walkability-Branch/blob/main/Assets/Tests/GreeneryDragDropTest.cs | Test object placement and rotation  | 
+| https://github.com/MinhDuc1711/City-Player---Walkability-Branch/blob/main/Assets/Tests/GreeneryButtonTest.cs | Test object generation and delete buttons   | 
+
 
 ## Project Overview
 
