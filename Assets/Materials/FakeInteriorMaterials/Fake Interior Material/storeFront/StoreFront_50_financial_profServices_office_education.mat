@@ -1,0 +1,211 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: StoreFront_50_financial_profServices_office_education
+  m_Shader: {fileID: -6465566751694194690, guid: 9fea411826fe3954d8d1fef9be028128,
+    type: 3}
+  m_ValidKeywords:
+  - FAKEINTERIOR_ADD_SKYBOX_ON
+  - FAKEINTERIOR_FLIPPBOOK_TEXTS_INTERNALPLANE_ON
+  - FAKEINTERIOR_LIGHTMAPS_ON
+  m_InvalidKeywords: []
+  m_LightmapFlags: 2
+  m_EnableInstancingVariants: 1
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap:
+    MotionVector: User
+  disabledShaderPasses:
+  - TransparentDepthPrepass
+  - TransparentDepthPostpass
+  - TransparentBackface
+  - RayTracingPrepass
+  - MOTIONVECTORS
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BackWallLightmap:
+        m_Texture: {fileID: 2800000, guid: bbf2d10a500b8634dbc7b6a96613eb14, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BackWallTexture:
+        m_Texture: {fileID: 2800000, guid: e1133d32dca513647ae335890e81e87d, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _CeilingLightmap:
+        m_Texture: {fileID: 2800000, guid: bbf2d10a500b8634dbc7b6a96613eb14, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _CeilingTexture:
+        m_Texture: {fileID: 2800000, guid: 1f40458cacd80f546a5bd9eac6254ef0, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _FakeInteriorRayCasterInnerScale_898d1cbc7282c78d805c83ed097a014f_Texture2Df123fa0bc90348f4946bc2f0ffc0a22f_676815128:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _FakeInteriorRayCasterInnerScale_993a1b04ee9d1c8da63e06ae705c7e7c_Texture2Df123fa0bc90348f4946bc2f0ffc0a22f_676815128:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _FloorLightmap:
+        m_Texture: {fileID: 2800000, guid: bbf2d10a500b8634dbc7b6a96613eb14, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _FloorTexture:
+        m_Texture: {fileID: 2800000, guid: e6795f973119b9747b1f72ab7a45cdd8, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _GlassNormal:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _GlassTexture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _InteriorPlane:
+        m_Texture: {fileID: 2800000, guid: 6c86198d263a1cd4ba69d908514dc8e7, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _InteriorPlaneLightmap:
+        m_Texture: {fileID: 2800000, guid: 3734ec79dd5787d45a5a5bfdc9e4e1da, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OuterWallTexture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SideWallsLightmap:
+        m_Texture: {fileID: 2800000, guid: bbf2d10a500b8634dbc7b6a96613eb14, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SideWallsTexture:
+        m_Texture: {fileID: 2800000, guid: e7d9f9135bf9baf4786327fea88ff5b0, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Skybox:
+        m_Texture: {fileID: 8900000, guid: 684099670b4870445b52632277a27097, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - FAKEINTERIOR_ADD_SKYBOX: 1
+    - FAKEINTERIOR_FLIPPBOOK_TEXTS: 0
+    - FAKEINTERIOR_FLIPPBOOK_TEXTS_INTERNALPLANE: 1
+    - FAKEINTERIOR_LIGHTMAPS: 1
+    - FAKEINTERIOR_TILED: 0
+    - _AddPrecomputedVelocity: 0
+    - _AlphaCutoffEnable: 0
+    - _AlphaDstBlend: 0
+    - _AlphaSrcBlend: 1
+    - _AlphaToMask: 0
+    - _AlphaToMaskInspectorValue: 0
+    - _BaseReflection: 0.087
+    - _BlendMode: 0
+    - _CullMode: 2
+    - _CullModeForward: 2
+    - _Depth: 1
+    - _DepthOffsetEnable: 0
+    - _DoubleSidedEnable: 0
+    - _DoubleSidedNormalMode: 2
+    - _DstBlend: 0
+    - _EdgeReflection: 1
+    - _EmissiveStrength: -0.25
+    - _EnableBlendModePreserveSpecularLighting: 0
+    - _EnableFogOnTransparent: 1
+    - _GlassReflectionStrength: 16.6
+    - _GlassRefractionStrength: 0
+    - _HueShiftSpeed: 100
+    - _HueSpread: 0
+    - _InnerScale: 1
+    - _InteriorPlaneDepth: 0.522
+    - _LightSteps: 1
+    - _Metallic: 1
+    - _MinLightValue: 0.554
+    - _OpaqueCullMode: 2
+    - _OuterWallMetallic: 0
+    - _OuterWallSmoothness: 0.194
+    - _QueueControl: 1
+    - _QueueOffset: 0
+    - _RayTracing: 0
+    - _ReceivesSSR: 1
+    - _ReceivesSSRTransparent: 0
+    - _RefractionModel: 0
+    - _RenderQueueType: 1
+    - _RequireSplitLighting: 0
+    - _Seed: 1339.64
+    - _Smoothness: 0.782
+    - _SrcBlend: 1
+    - _StencilRef: 0
+    - _StencilRefDepth: 8
+    - _StencilRefDistortionVec: 4
+    - _StencilRefGBuffer: 10
+    - _StencilRefMV: 40
+    - _StencilWriteMask: 6
+    - _StencilWriteMaskDepth: 8
+    - _StencilWriteMaskDistortionVec: 4
+    - _StencilWriteMaskGBuffer: 14
+    - _StencilWriteMaskMV: 40
+    - _SupportDecals: 0
+    - _SurfaceType: 0
+    - _TransparentBackfaceEnable: 0
+    - _TransparentCullMode: 2
+    - _TransparentDepthPostpassEnable: 0
+    - _TransparentDepthPrepassEnable: 0
+    - _TransparentSortPriority: 0
+    - _TransparentWritingMotionVec: 0
+    - _TransparentZWrite: 0
+    - _UseShadowThreshold: 0
+    - _ZTestDepthEqualForOpaque: 3
+    - _ZTestGBuffer: 4
+    - _ZTestTransparent: 4
+    - _ZWrite: 1
+    m_Colors:
+    - _CutoffEdges: {r: 0, g: 0, b: 0, a: 0.36}
+    - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
+    - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
+    - _EmissiveColor: {r: 1, g: 1, b: 1, a: 1}
+    - _GlassColor: {r: 1, g: 1, b: 1, a: 0}
+    - _GlassTexture_TO: {r: 1, g: 0.63, b: 0, a: 1.03}
+    - _InteriorPlaneFlipbookSize: {r: 3.13, g: 1, b: 0, a: 0}
+    - _LightRemap: {r: 0, g: 10, b: 0, a: 0}
+    - _LightmapColor: {r: 1, g: 1, b: 1, a: 1}
+    - _LightmapColorA: {r: 1, g: 1, b: 1, a: 1}
+    - _LightmapColorB: {r: 1, g: 0.83232033, b: 0, a: 1}
+    - _OuterWallColor: {r: 0.101960786, g: 0.101960786, b: 0.101960786, a: 1}
+    - _OuterWall_TO: {r: 0, g: 1, b: 0, a: 0}
+    - _TextureFlipbookSize: {r: 4, g: 4, b: 0, a: 0}
+    - _TilingOffset: {r: 1, g: 1, b: 0, a: 0}
+  m_BuildTextureStacks: []
+--- !u!114 &2601809534685411661
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 5
