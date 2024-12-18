@@ -17,7 +17,7 @@ public class BuildingVarietyController : MonoBehaviour
 
     private void Start()
     {
-        
+
         if (varietySlider != null)
         {
             varietySlider.onValueChanged.AddListener(UpdateBuildingVariety);
@@ -91,5 +91,72 @@ public class BuildingVarietyController : MonoBehaviour
             currentReplacedIndices.Add(plotIndex);
         }
     }
+    /// <summary>
+    /// Restore default buildings by removing prefabs and returning to the initial state.
+    /// </summary>
+    /// <param name="count">How many buildings to revert to default.</param>
+    private void RestoreDefaultBuildings(int count)
+    {
+        for (int i = 0; i < count; i++)
+        {
+            if (currentReplacedIndices.Count == 0) return; // No buildings to restore
+
+            // Get a random plot that was replaced
+            int randomIndex = Random.Range(0, currentReplacedIndices.Count);
+            int plotIndex = currentReplacedIndices[randomIndex];
+
+            GameObject plot = buildingStreet.transform.GetChild(plotIndex).gameObject;
+
+            ReplaceBuilding(plot, buildingPrefabs[0]);
+
+
+            // Remove the index from the replaced indices list
+            currentReplacedIndices.RemoveAt(randomIndex);
+        }
+    }
+
+    /// <summary>
+    /// Resets the street to only show default buildings.
+    /// </summary>
+    private void ResetBuildings()
+    {
+
+        for (int i = 0; i < buildingStreet.transform.childCount; i++)
+        {
+            GameObject plot = buildingStreet.transform.GetChild(i).gameObject;
+            ReplaceBuilding(plot, buildingPrefabs[0]);
+        }
+
+        // Reset the replaced buildings list
+        currentReplacedIndices.Clear();
+
+    }
+
+    private void ReplaceBuilding(GameObject plot, GameObject buildingPrefab)
+    {
+        Vector3 plotPosition = plot.transform.position;
+        Quaternion plotRotation = plot.transform.rotation;
+        Vector3 plotScale = plot.transform.localScale;
+
+        foreach (Transform child in plot.transform)
+        {
+            Destroy(child.gameObject);
+        }
+
+
+        GameObject newPlot = Instantiate(buildingPrefab);
+        if (newPlot == null)
+        {
+            Debug.LogError("Failed to instantiate PlotWithBuilding prefab.");
+            return;
+        }
+        newPlot.transform.position = plotPosition;
+        newPlot.transform.rotation = plotRotation;
+        newPlot.transform.localScale = plotScale;
+        newPlot.transform.SetParent(plot.transform, true);
+        newPlot.SetActive(true);
+    }
+
+}
 
 
