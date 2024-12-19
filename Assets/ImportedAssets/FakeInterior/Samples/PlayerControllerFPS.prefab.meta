@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 0b42df557cc8c9a4f894762f03dde4e1
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 206855
+  packageName: Fake Interior
+  packageVersion: 1.2
+  assetPath: Assets/Knackelibang/FakeInterior/Samples/PlayerControllerFPS.prefab
+  uploadId: 673976

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 76bc441d633e35b408fdfd15df43909b
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 206855
+  packageName: Fake Interior
+  packageVersion: 1.2
+  assetPath: Assets/Knackelibang/FakeInterior/Samples/Materials/RoadMarkings_Crossing.mat
+  uploadId: 673976
