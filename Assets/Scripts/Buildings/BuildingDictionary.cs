@@ -14,6 +14,8 @@ public class BuildingDictionary : MonoBehaviour
     [SerializeField]
     List<ItemStruct> buildingList = new List<ItemStruct>();
 
+
+
     [ContextMenu("GetBuildings")]
     void GetBuildings()
     {
@@ -29,7 +31,6 @@ public class BuildingDictionary : MonoBehaviour
 
         }
     }
-
     void CleanBuildingList()
     {
         buildingList.Clear();
