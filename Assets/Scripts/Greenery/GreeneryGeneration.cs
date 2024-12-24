@@ -36,7 +36,7 @@ public class GreeneryGeneration : MonoBehaviour
     {
         if (density != 0)
         {
-            density = 14 - density; 
+            density = 15 - density; 
         }
         ClearGreenery();
 
@@ -69,6 +69,7 @@ public class GreeneryGeneration : MonoBehaviour
     }
             else
             {
+                position.z += (float)0.75;
                 Instantiate(FlowerPrefab, position, Quaternion.identity);
             }
 
