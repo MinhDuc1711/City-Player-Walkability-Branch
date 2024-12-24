@@ -10,15 +10,17 @@ public class GreeneryGeneration : MonoBehaviour
 
     public GameObject TreePrefab;
     public GameObject FlowerPrefab;
-    public GameObject PotPrefab;
+    //public GameObject PotPrefab;
 
-    public Slider greenObjSlider; 
+    public Slider greenObjSlider;
+
+    public float ExtraSpacing=3;
 
     private GameObject[] greeneryPrefabs; 
 
     public void Start()
     {
-        greeneryPrefabs = new GameObject[] { TreePrefab, FlowerPrefab, PotPrefab };
+        greeneryPrefabs = new GameObject[] { TreePrefab, FlowerPrefab};
         greenObjSlider.onValueChanged.AddListener(OnGreenObjectSliderValueChanged);
         // Initial generation 
         GenerateGreenery(greenObjSlider.value);
@@ -34,7 +36,7 @@ public class GreeneryGeneration : MonoBehaviour
     {
         if (density != 0)
         {
-            density = 11 - density; 
+            density = 14 - density; 
         }
         ClearGreenery();
 
@@ -53,7 +55,7 @@ public class GreeneryGeneration : MonoBehaviour
             float t = (float)i / numberOfObjects; 
             Vector3 position = Vector3.Lerp(start, end, t);
 
-            GameObject prefabToSpawn = greeneryPrefabs[Random.Range(0, greeneryPrefabs.Length)];
+            GameObject prefabToSpawn = greeneryPrefabs[i % 2];
 
             Instantiate(prefabToSpawn, position, Quaternion.identity);
         }
@@ -71,9 +73,5 @@ public class GreeneryGeneration : MonoBehaviour
             Destroy(obj);
         }
 
-        foreach (var obj in GameObject.FindGameObjectsWithTag("Pottery"))
-        {
-            Destroy(obj);
-        }
     }
 }
