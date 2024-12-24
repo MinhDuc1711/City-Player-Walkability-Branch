@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.Collections;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,12 +17,12 @@ public class BuildingDictionary2ListAttempt : MonoBehaviour
     private List<GameObject> unmodifiedBuildings = new List<GameObject>();
     private List<GameObject> modifiedBuildings = new List<GameObject>();
 
-    private float interval;
-    private int oldPercentage = 0;
+    private int interval;
+    private float oldPercentage = 0;
 
     private void Start()
     {
-        interval = 100.0f / slider.maxValue;
+        interval = Mathf.FloorToInt( 100 / slider.maxValue);
         slider.onValueChanged.AddListener(SliderChange);
     }
 
@@ -45,10 +46,11 @@ public class BuildingDictionary2ListAttempt : MonoBehaviour
 
     private void SliderChange(float value)
     {
-        float percentage = (value * interval) / 100.0f;
-        //Debug.Log(percentage);
+        float percentage = (value * interval) / 100;
+        Debug.Log(percentage);
+        Debug.Log(interval);
 
-        //get number of buildings to be changed
+        // Get number of buildings to be changed
         int numbOfBuildingsToChange = Mathf.RoundToInt(percentage * unmodifiedBuildings.Count);
         Debug.Log(numbOfBuildingsToChange);
 
@@ -60,6 +62,7 @@ public class BuildingDictionary2ListAttempt : MonoBehaviour
         {
             BuildingReset(numbOfBuildingsToChange);
         }
+        oldPercentage = percentage;
     }
 
     private void BuildingChange(int count)
@@ -85,14 +88,14 @@ public class BuildingDictionary2ListAttempt : MonoBehaviour
         GameObject selectedBuilding = unmodifiedBuildings[index].gameObject;
         Transform parentPlot = selectedBuilding.transform.parent;
 
-        Debug.Log(parentPlot.gameObject.name);
+        //Debug.Log(parentPlot.gameObject.name);
 
         GameObject newBuilding = Instantiate(buildingPrefab, 
-            new Vector3(selectedBuilding.transform.position.x, parentPlot.position.y + 1f, selectedBuilding.transform.position.z), 
+            new Vector3(selectedBuilding.transform.position.x, parentPlot.position.y + buildingPrefab.transform.localScale.y / 2, selectedBuilding.transform.position.z), 
             selectedBuilding.transform.rotation);
 
-        Debug.Log(parentPlot.position.y);
-        Debug.Log(newBuilding.transform.position.y);
+        //Debug.Log(parentPlot.position.y);
+        //Debug.Log(newBuilding.transform.position.y);
 
         newBuilding.transform.SetParent(parentPlot, true);
         newBuilding.SetActive(true);
