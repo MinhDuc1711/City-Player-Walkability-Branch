@@ -8,7 +8,7 @@ public class GreeneryGeneration : MonoBehaviour
     public GameObject RightGreenStripStart;
     public GameObject RightGreenStripEnd;
 
-    public GameObject TreePrefab;
+    public GameObject[] TreePrefabs;
     public GameObject FlowerPrefab;
     //public GameObject PotPrefab;
 
@@ -16,11 +16,11 @@ public class GreeneryGeneration : MonoBehaviour
 
     public float ExtraSpacing=3;
 
-    private GameObject[] greeneryPrefabs; 
+    //private GameObject[] greeneryPrefabs; 
 
     public void Start()
     {
-        greeneryPrefabs = new GameObject[] { TreePrefab, FlowerPrefab};
+        //greeneryPrefabs = new GameObject[] { TreePrefab, FlowerPrefab};
         greenObjSlider.onValueChanged.AddListener(OnGreenObjectSliderValueChanged);
         // Initial generation 
         GenerateGreenery(greenObjSlider.value);
@@ -49,15 +49,29 @@ public class GreeneryGeneration : MonoBehaviour
     {
         float distance = Vector3.Distance(start, end);
         int numberOfObjects = Mathf.FloorToInt(distance / spacing);
+        int TreeVariance = 0;
+
 
         for (int i = 0; i <= numberOfObjects; i++)
         {
             float t = (float)i / numberOfObjects; 
             Vector3 position = Vector3.Lerp(start, end, t);
+            GameObject prefabToSpawn;
 
-            GameObject prefabToSpawn = greeneryPrefabs[i % 2];
 
-            Instantiate(prefabToSpawn, position, Quaternion.identity);
+
+            if (i % 2 ==0)
+            {
+                float randomRotationY = 90 * Random.Range(0, 4); // 0, 90, 180, or 270
+                Quaternion rotation = Quaternion.Euler(0, randomRotationY, 0);
+                Instantiate(TreePrefabs[TreeVariance % 2], position, rotation);
+                TreeVariance++;
+    }
+            else
+            {
+                Instantiate(FlowerPrefab, position, Quaternion.identity);
+            }
+
         }
     }
 
