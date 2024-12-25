@@ -1,8 +1,5 @@
 using UnityEngine;
 using System.Collections.Generic;
-using Unity.VisualScripting;
-using ITS.Utils;
-using System.Linq;
 
 public class BuildingDictionary : MonoBehaviour
 {
@@ -20,21 +17,21 @@ public class BuildingDictionary : MonoBehaviour
         CleanBuildingList();
         foreach (Transform plot in plotParent.transform)
         {
-            ItemStruct itemStruct = new ItemStruct();
+            foreach (Transform child in plot.transform)
+            {
+                ItemStruct itemStruct = new ItemStruct();
             
-            itemStruct.prefab = plot.GetChild(0).gameObject;
-            itemStruct.taken = false;
+                itemStruct.prefab = child.GetChild(0).gameObject;
+                itemStruct.taken = false;
 
-            buildingList.Add(itemStruct);
-
+                buildingList.Add(itemStruct);
+            }
         }
     }
-
     void CleanBuildingList()
     {
         buildingList.Clear();
-    }
-    
+    }   
 }  
 
 [System.Serializable]
