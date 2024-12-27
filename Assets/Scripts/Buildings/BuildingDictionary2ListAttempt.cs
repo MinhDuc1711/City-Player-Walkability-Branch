@@ -23,6 +23,7 @@ public class BuildingDictionary2ListAttempt : MonoBehaviour
     private int interval;
     private int numOfBuildingsChanged;
     private float oldPercentage = 0;
+    private bool flag = true;
 
     private void Start()
     {
@@ -51,9 +52,11 @@ public class BuildingDictionary2ListAttempt : MonoBehaviour
     private void SliderChange(float value)
     {
         float percentage = (value * interval) / 100;
-        if(value == 1)
+        if(flag)
         {
+            Debug.Log("AAAAAAA");
             this.numOfBuildingsChanged = Mathf.FloorToInt(Mathf.Round(percentage * unmodifiedBuildings.Count));
+            flag = false;
         }
         Debug.Log(percentage);
         Debug.Log(interval);
@@ -83,8 +86,13 @@ public class BuildingDictionary2ListAttempt : MonoBehaviour
 
     private void BuildingReset(int count)
     {
-  
-        
+        for (int c = 0; c < count; ++c)
+        {
+            if (modifiedBuildings.Count == 0) return;
+            int randomIndex = Random.Range(0, modifiedBuildings.Count);
+            OldBuildingSpawn(randomIndex);
+            modifiedBuildings.Remove(modifiedBuildings[randomIndex]);
+        }
     }
 
     private void NewBuildingSpawn(int index)
@@ -110,5 +118,20 @@ public class BuildingDictionary2ListAttempt : MonoBehaviour
 
     }
 
+    private void OldBuildingSpawn(int index)
+    {
+        GameObject buildingPrefab = buildingPrefabs[0];
+        GameObject selectedBuilding = modifiedBuildings[index].gameObject;
+        Transform parentPlot = selectedBuilding.transform.parent;
+
+        GameObject newBuilding = Instantiate(buildingPrefab,
+            new Vector3(selectedBuilding.transform.position.x, parentPlot.position.y + buildingPrefab.transform.localScale.y / 2, selectedBuilding.transform.position.z),
+            selectedBuilding.transform.rotation);
+
+        newBuilding.transform.SetParent(parentPlot, true);
+        newBuilding.SetActive(true);
+        Destroy(selectedBuilding);
+        unmodifiedBuildings.Add(newBuilding);
+    }
     
 }
