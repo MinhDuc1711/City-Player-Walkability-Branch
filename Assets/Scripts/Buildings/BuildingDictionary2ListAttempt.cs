@@ -18,11 +18,12 @@ public class BuildingDictionary2ListAttempt : MonoBehaviour
     private List<GameObject> modifiedBuildings = new List<GameObject>();
 
     private int interval;
+    private int numOfBuildingsChanged;
     private float oldPercentage = 0;
 
     private void Start()
     {
-        interval = Mathf.FloorToInt( 100 / slider.maxValue);
+        interval = Mathf.FloorToInt(100 / slider.maxValue);
         slider.onValueChanged.AddListener(SliderChange);
     }
 
@@ -47,20 +48,21 @@ public class BuildingDictionary2ListAttempt : MonoBehaviour
     private void SliderChange(float value)
     {
         float percentage = (value * interval) / 100;
+        if(value == 1)
+        {
+            this.numOfBuildingsChanged = Mathf.FloorToInt(Mathf.Round(percentage * unmodifiedBuildings.Count));
+        }
         Debug.Log(percentage);
         Debug.Log(interval);
-
-        // Get number of buildings to be changed
-        int numbOfBuildingsToChange = Mathf.RoundToInt(percentage * unmodifiedBuildings.Count);
-        Debug.Log(numbOfBuildingsToChange);
+        Debug.Log(numOfBuildingsChanged);
 
         if (percentage > oldPercentage)
         {
-            BuildingChange(numbOfBuildingsToChange);
+            BuildingChange(numOfBuildingsChanged);
         }
         if (percentage < oldPercentage)
         {
-            BuildingReset(numbOfBuildingsToChange);
+            BuildingReset(numOfBuildingsChanged);
         }
         oldPercentage = percentage;
     }
@@ -69,6 +71,7 @@ public class BuildingDictionary2ListAttempt : MonoBehaviour
     {
         for (int c=0; c < count; c++)
         {
+            if (unmodifiedBuildings.Count == 0) return;
             int randomIndex = Random.Range(0, unmodifiedBuildings.Count);
             NewBuildingSpawn(randomIndex);
             modifiedBuildings.Add(unmodifiedBuildings[randomIndex]);
@@ -78,7 +81,7 @@ public class BuildingDictionary2ListAttempt : MonoBehaviour
 
     private void BuildingReset(int count)
     {
-
+        
     }
 
     private void NewBuildingSpawn(int index)
