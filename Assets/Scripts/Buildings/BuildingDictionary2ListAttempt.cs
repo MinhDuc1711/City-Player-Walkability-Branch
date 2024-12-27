@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using Unity.Collections;
+using Unity.VisualScripting;
+using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,6 +17,7 @@ public class BuildingDictionary2ListAttempt : MonoBehaviour
     private List<GameObject> buildingPrefabs = new List<GameObject>();
     [SerializeField]
     private List<GameObject> unmodifiedBuildings = new List<GameObject>();
+    [SerializeField]
     private List<GameObject> modifiedBuildings = new List<GameObject>();
 
     private int interval;
@@ -74,13 +77,13 @@ public class BuildingDictionary2ListAttempt : MonoBehaviour
             if (unmodifiedBuildings.Count == 0) return;
             int randomIndex = Random.Range(0, unmodifiedBuildings.Count);
             NewBuildingSpawn(randomIndex);
-            modifiedBuildings.Add(unmodifiedBuildings[randomIndex]);
             unmodifiedBuildings.Remove(unmodifiedBuildings[randomIndex]);
         }
     }
 
     private void BuildingReset(int count)
     {
+  
         
     }
 
@@ -103,7 +106,9 @@ public class BuildingDictionary2ListAttempt : MonoBehaviour
         newBuilding.transform.SetParent(parentPlot, true);
         newBuilding.SetActive(true);
         Destroy(selectedBuilding);
-
+        modifiedBuildings.Add(newBuilding);
 
     }
+
+    
 }
