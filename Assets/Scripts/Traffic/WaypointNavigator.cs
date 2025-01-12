@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class WaypointNavigator : MonoBehaviour
 {
+    //Lane Preference set to not overlap with other waypoints
     public enum Lane { Left, Right } 
     public Lane lanePreference;    
 
@@ -60,14 +61,14 @@ public class WaypointNavigator : MonoBehaviour
         }
     }
 
-    private void TeleportToRandomWaypoint()
+    private void TeleportToRandomWaypoint() //Teleport to a random waypoint
     {
         Transform waypointGroup = lanePreference == Lane.Left ? spawner.waypointsLeftLane : spawner.waypointsRightLane;
 
         Transform randomChild = waypointGroup.GetChild(Random.Range(0, waypointGroup.childCount));
         Waypoint randomWaypoint = randomChild.GetComponent<Waypoint>();
 
-        if (randomWaypoint == null)
+        if (randomWaypoint == null) //error check
         {
             Debug.LogError("Selected child does not have a Waypoint component!");
             return;
@@ -77,6 +78,7 @@ public class WaypointNavigator : MonoBehaviour
         controller.SetDestination(currentWaypoint.GetPosition());
     }
 
+    //reset pedestrian
     private void ResetToNewWaypoint()
     {
         Transform waypointGroup = lanePreference == Lane.Left ? spawner.waypointsLeftLane : spawner.waypointsRightLane;

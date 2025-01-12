@@ -5,12 +5,12 @@ using System.Collections.Generic;
 public class CarSpawner : MonoBehaviour
 {
     [Header("Car Spawner Settings")]
-    public List<GameObject> carPrefabs;        // List of car prefabs to spawn
-    public Transform waypointsRoot;            // Root object for waypoints
-    public int maxCars = 10;                   // Maximum number of cars
-    public float spawnInterval = 1f;           // Time between spawns
+    public List<GameObject> carPrefabs;        //List of car prefabs to spawn
+    public Transform waypointsRoot;            //Root object for waypoints
+    public int maxCars = 10;                   //Maximum number of cars
+    public float spawnInterval = 1f;           //Time between spawns
 
-    private int currentCarCount = 0;           // Active car count
+    private int currentCarCount = 0;           //Active car count
 
     private void Start()
     {
@@ -20,7 +20,7 @@ public class CarSpawner : MonoBehaviour
             return;
         }
 
-        // Start the spawning coroutine
+        //Start the spawning coroutine
         StartCoroutine(SpawnCars());
     }
 
@@ -38,13 +38,13 @@ public class CarSpawner : MonoBehaviour
 
     private void SpawnCar()
     {
-        // Randomly select a car prefab
+        //Randomly select a car prefab
         GameObject selectedCarPrefab = carPrefabs[Random.Range(0, carPrefabs.Count)];
 
-        // Instantiate the car
+        //Instantiate the car
         GameObject car = Instantiate(selectedCarPrefab);
 
-        // Get the CarNavigationController component
+        //Get the CarNavigationController component
         CarNavigationController carController = car.GetComponent<CarNavigationController>();
         if (carController == null)
         {
@@ -53,18 +53,18 @@ public class CarSpawner : MonoBehaviour
             return;
         }
 
-        // Assign first and last waypoints
+        //Assign first and last waypoints
         carController.Initialize(waypointsRoot.GetChild(0).GetComponent<Waypoint>(),
                                  waypointsRoot.GetChild(waypointsRoot.childCount - 1).GetComponent<Waypoint>(),
                                  this);
 
-        // Increment car count
+        //Increment car count
         currentCarCount++;
     }
 
     public void CarDestroyed()
     {
         currentCarCount--;
-        if (currentCarCount < 0) currentCarCount = 0; // Safety check
+        if (currentCarCount < 0) currentCarCount = 0; //Safety check
     }
 }
