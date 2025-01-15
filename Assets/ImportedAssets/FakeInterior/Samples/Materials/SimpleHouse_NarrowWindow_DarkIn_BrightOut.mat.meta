@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 11ee2baa3d861924288994955c258c27
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 206855
+  packageName: Fake Interior
+  packageVersion: 1.2
+  assetPath: Assets/Knackelibang/FakeInterior/Samples/Materials/SimpleHouse_NarrowWindow_DarkIn_BrightOut.mat
+  uploadId: 673976

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 5912e18f14e555f468f42e724f62cac5
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 206855
+  packageName: Fake Interior
+  packageVersion: 1.2
+  assetPath: Assets/Knackelibang/FakeInterior/Samples/Materials/SimpleHouse.mat
+  uploadId: 673976

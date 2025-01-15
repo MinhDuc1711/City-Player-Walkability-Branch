@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 9c315deaf6694234fa791db11648406b
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 60072b568d64c40a485e0fc55012dc9f, type: 3}
+AssetOrigin:
+  serializedVersion: 1
+  productId: 206855
+  packageName: Fake Interior
+  packageVersion: 1.2
+  assetPath: Assets/Knackelibang/FakeInterior/UtilityGraphs/FakeInterior_RayCaster_InnerScale.shadersubgraph
+  uploadId: 673976
