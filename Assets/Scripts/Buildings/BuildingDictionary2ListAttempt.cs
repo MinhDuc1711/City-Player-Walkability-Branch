@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using Unity.Collections;
+using Unity.VisualScripting;
+using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,14 +17,17 @@ public class BuildingDictionary2ListAttempt : MonoBehaviour
     private List<GameObject> buildingPrefabs = new List<GameObject>();
     [SerializeField]
     private List<GameObject> unmodifiedBuildings = new List<GameObject>();
+    [SerializeField]
     private List<GameObject> modifiedBuildings = new List<GameObject>();
 
     private int interval;
+    private int numOfBuildingsChanged;
     private float oldPercentage = 0;
+    private bool flag = true;
 
     private void Start()
     {
-        interval = Mathf.FloorToInt( 100 / slider.maxValue);
+        interval = Mathf.FloorToInt(100 / slider.maxValue);
         slider.onValueChanged.AddListener(SliderChange);
     }
 
@@ -47,20 +52,23 @@ public class BuildingDictionary2ListAttempt : MonoBehaviour
     private void SliderChange(float value)
     {
         float percentage = (value * interval) / 100;
+        if(flag)
+        {
+            Debug.Log("AAAAAAA");
+            this.numOfBuildingsChanged = Mathf.FloorToInt(Mathf.Round(percentage * unmodifiedBuildings.Count));
+            flag = false;
+        }
         Debug.Log(percentage);
         Debug.Log(interval);
-
-        // Get number of buildings to be changed
-        int numbOfBuildingsToChange = Mathf.RoundToInt(percentage * unmodifiedBuildings.Count);
-        Debug.Log(numbOfBuildingsToChange);
+        Debug.Log(numOfBuildingsChanged);
 
         if (percentage > oldPercentage)
         {
-            BuildingChange(numbOfBuildingsToChange);
+            BuildingChange(numOfBuildingsChanged);
         }
         if (percentage < oldPercentage)
         {
-            BuildingReset(numbOfBuildingsToChange);
+            BuildingReset(numOfBuildingsChanged);
         }
         oldPercentage = percentage;
     }
@@ -69,16 +77,22 @@ public class BuildingDictionary2ListAttempt : MonoBehaviour
     {
         for (int c=0; c < count; c++)
         {
+            if (unmodifiedBuildings.Count == 0) return;
             int randomIndex = Random.Range(0, unmodifiedBuildings.Count);
             NewBuildingSpawn(randomIndex);
-            modifiedBuildings.Add(unmodifiedBuildings[randomIndex]);
             unmodifiedBuildings.Remove(unmodifiedBuildings[randomIndex]);
         }
     }
 
     private void BuildingReset(int count)
     {
-
+        for (int c = 0; c < count; ++c)
+        {
+            if (modifiedBuildings.Count == 0) return;
+            int randomIndex = Random.Range(0, modifiedBuildings.Count);
+            OldBuildingSpawn(randomIndex);
+            modifiedBuildings.Remove(modifiedBuildings[randomIndex]);
+        }
     }
 
     private void NewBuildingSpawn(int index)
@@ -100,7 +114,24 @@ public class BuildingDictionary2ListAttempt : MonoBehaviour
         newBuilding.transform.SetParent(parentPlot, true);
         newBuilding.SetActive(true);
         Destroy(selectedBuilding);
-
+        modifiedBuildings.Add(newBuilding);
 
     }
+
+    private void OldBuildingSpawn(int index)
+    {
+        GameObject buildingPrefab = buildingPrefabs[0];
+        GameObject selectedBuilding = modifiedBuildings[index].gameObject;
+        Transform parentPlot = selectedBuilding.transform.parent;
+
+        GameObject newBuilding = Instantiate(buildingPrefab,
+            new Vector3(selectedBuilding.transform.position.x, parentPlot.position.y + buildingPrefab.transform.localScale.y / 2, selectedBuilding.transform.position.z),
+            selectedBuilding.transform.rotation);
+
+        newBuilding.transform.SetParent(parentPlot, true);
+        newBuilding.SetActive(true);
+        Destroy(selectedBuilding);
+        unmodifiedBuildings.Add(newBuilding);
+    }
+    
 }
