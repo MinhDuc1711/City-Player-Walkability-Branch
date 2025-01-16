@@ -4,8 +4,6 @@ using UnityEngine.EventSystems;
 
 public class toggleButton : UIMenu, IPointerClickHandler
 {
-    public KeyCode keyToOpen = KeyCode.E;
-
     public uiMenuManager menuManager;
 
     private Animator SlidderMenu;
@@ -38,19 +36,12 @@ public class toggleButton : UIMenu, IPointerClickHandler
     {
         SlidderMenu = GetComponentInParent<Animator>();
         s_RTransform = SlidderMenu.transform.GetComponent<RectTransform>();
-        menuManager.toggleBtns.Add(this);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(keyToOpen))
-        {
-            if (!state)
-                menuManager.showUIMenu(this);
-            else
-                menuManager.hideUIMenu(this);
-        }
+
     }
 
     public override void SetActive(bool state) //setting bool to true activate the open animation, false activate the close animation

@@ -13,19 +13,17 @@ public class uiMenuManager : MonoBehaviour
 
     public List<UIMenu> toggleBtns = new List<UIMenu>();
 
-    public List<KeyCode> keys = new List<KeyCode>();
-
     private void Awake()
     {
-        
     }
 
     private void Update()
     {
-        if (active == null)
-            lockCursor();
-        else
-            unlockCursor();
+    }
+
+    public void AddMenu(UIMenu menu)
+    {
+        toggleBtns.Add(menu);
     }
 
     public void unlockCursor()
@@ -42,9 +40,9 @@ public class uiMenuManager : MonoBehaviour
 
     public void showUIMenu(UIMenu obj) //obj is the ui menu that should be shown to the user
     {
+        
         if (active == null)
         {
-            Debug.Log(obj.gameObject.name);
             obj.SetActive(true);
             if (obj.AnimationTime != 0)
                 StartCoroutine(ActivateUIAfterDelay(obj));
@@ -53,8 +51,6 @@ public class uiMenuManager : MonoBehaviour
         }
         else
         {
-            Debug.Log(obj.gameObject.name);
-            Debug.Log(active.gameObject.name);
             active.State = false;
             active.SetActive(false);
             if (active.AnimationTime != 0)
@@ -63,15 +59,17 @@ public class uiMenuManager : MonoBehaviour
             obj.SetActive(true);
             if (obj.AnimationTime != 0)
                 StartCoroutine(ActivateUIAfterDelay(obj));
+            active = obj;
         }
     }
 
     public void hideUIMenu(UIMenu obj)
     {
-        if(active != null && obj.State==true)
+        obj.SetActive(false);
+        obj.State = false;
+
+        if (active == obj)
         {
-            obj.State=false;
-            obj.SetActive(false);
             active = null;
         }
     }
@@ -79,5 +77,13 @@ public class uiMenuManager : MonoBehaviour
     IEnumerator ActivateUIAfterDelay(UIMenu obj)
     {
         yield return new WaitForSeconds(obj.AnimationTime);
+    }
+
+    public void InputCall(int ind)
+    {
+        if (active != toggleBtns[ind])
+            showUIMenu(toggleBtns[ind]);
+        else
+            hideUIMenu(toggleBtns[ind]);
     }
 }
