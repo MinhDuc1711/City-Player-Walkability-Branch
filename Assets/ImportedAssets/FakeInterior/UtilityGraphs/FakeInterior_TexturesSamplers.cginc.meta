@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 49fd65ba913350b48a43b23d1e98d326
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 206855
+  packageName: Fake Interior
+  packageVersion: 1.2
+  assetPath: Assets/Knackelibang/FakeInterior/UtilityGraphs/FakeInterior_TexturesSamplers.cginc
+  uploadId: 673976

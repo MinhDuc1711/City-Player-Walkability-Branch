@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: d0469d61d0ee4a94cada20f9848cf8f1
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 206855
+  packageName: Fake Interior
+  packageVersion: 1.2
+  assetPath: Assets/Knackelibang/FakeInterior/Samples/Materials/Metal_Panels_01.mat
+  uploadId: 673976
