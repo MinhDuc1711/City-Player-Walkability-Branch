@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 8951590c7e3a55d40b208c2775d0e1c0
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 206855
+  packageName: Fake Interior
+  packageVersion: 1.2
+  assetPath: Assets/Knackelibang/FakeInterior/Samples/Materials/Concrete.mat
+  uploadId: 673976

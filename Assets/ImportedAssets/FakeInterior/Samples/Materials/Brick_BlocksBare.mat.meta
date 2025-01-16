@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: b4cbfeb97fd3ae74aa2b59f745966bb8
+labels:
+- Architecture
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 206855
+  packageName: Fake Interior
+  packageVersion: 1.2
+  assetPath: Assets/Knackelibang/FakeInterior/Samples/Materials/Brick_BlocksBare.mat
+  uploadId: 673976
