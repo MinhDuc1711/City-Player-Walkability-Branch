@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: a3e40bb6adaa6104f8b547bc631862a6
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 206855
+  packageName: Fake Interior
+  packageVersion: 1.2
+  assetPath: Assets/Knackelibang/FakeInterior/Samples/Materials/SidewalkEdge.mat
+  uploadId: 673976
