@@ -49,6 +49,8 @@ namespace TMPro.Examples
         private const string event_SmoothingValue = "Slider - Smoothing Value";
         private const string event_FollowDistance = "Slider - Camera Zoom";
 
+        public PImenuToggle menuToggle;
+
 
         void Awake()
         {
@@ -80,7 +82,6 @@ namespace TMPro.Examples
         void LateUpdate()
         {
             GetPlayerInput();
-
 
             // Check if we still have a valid target
             if (CameraTarget != null)
