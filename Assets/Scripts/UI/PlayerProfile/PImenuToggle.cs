@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
-using static State;
+using UnityEngine.SceneManagement;
 
 public class PImenuToggle : UIMenu, IPointerClickHandler
 {
@@ -8,20 +8,27 @@ public class PImenuToggle : UIMenu, IPointerClickHandler
     private float animationTime = 0;
 
     public uiMenuManager manager;
-
+    public GameObject traffic;
     public RectTransform menu;
+
+    private Vector3 originalCameraPosition;
+
+    public Transform cameraTransform;
 
     protected void Awake()
     {
-        if (menu)
-        {
-            menu.gameObject.SetActive(false);
-        }
     }
 
     protected void Update()
     {
-
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            BackToMenu();
+        }
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            ActivateProfilePanel();
+        }
     }
 
     public override void SetActive(bool _state)
@@ -33,6 +40,7 @@ public class PImenuToggle : UIMenu, IPointerClickHandler
         else if (!_state)
         {
             menu.gameObject.SetActive(false);
+            traffic.gameObject.SetActive(true);
         }
     }
 
@@ -51,6 +59,19 @@ public class PImenuToggle : UIMenu, IPointerClickHandler
     }
 
     public void OnPointerClick(PointerEventData eventData)
+    {
+        if (!state)
+            manager.showUIMenu(this);
+        else if (state)
+            manager.hideUIMenu(this);
+    }
+
+    public void BackToMenu()
+    {
+        SceneManager.LoadScene("UI-starting-Menu");
+    }
+
+    public void ActivateProfilePanel()
     {
         if (!state)
             manager.showUIMenu(this);
