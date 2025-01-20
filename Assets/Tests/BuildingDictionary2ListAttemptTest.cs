@@ -79,5 +79,19 @@ public class BuildingDictionary2ListAttemptTests
         
     }
 
+    [Test]
+    public void TestCleanBuildingList()
+    {
+        // Act
+        buildingManager.GetType()
+            .GetMethod("CleanBuildingList", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+            .Invoke(buildingManager, null);
+
+        // Assert
+        var cleanedList = (List<GameObject>)buildingManager.GetType()
+            .GetField("unmodifiedBuildings", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+            .GetValue(buildingManager);
+        Assert.AreEqual(0, cleanedList.Count);
+    }
 
 }
