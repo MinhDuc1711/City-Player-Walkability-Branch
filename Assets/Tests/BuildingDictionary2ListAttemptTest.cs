@@ -94,4 +94,30 @@ public class BuildingDictionary2ListAttemptTests
         Assert.AreEqual(0, cleanedList.Count);
     }
 
+    [Test]
+    public void TestBuildingChangeAndReset()
+    {
+        // Act
+        var buildingChangeMethod = buildingManager.GetType().GetMethod("BuildingChange", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+
+        // Pass the required count parameter to the method (e.g., 2)
+        buildingChangeMethod.Invoke(buildingManager, new object[] { 2 });
+
+        // Assert
+        var remainingBuildings = (List<GameObject>)buildingManager.GetType()
+            .GetField("unmodifiedBuildings", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+            .GetValue(buildingManager);
+        Assert.AreEqual(1, remainingBuildings.Count);
+
+        //Act
+        buildingManager.GetType()
+            .GetMethod("BuildingReset", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+            .Invoke(buildingManager, new object[] { 2 });
+        //Assert
+        remainingBuildings = (List<GameObject>)buildingManager.GetType()
+            .GetField("unmodifiedBuildings", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+            .GetValue(buildingManager);
+        Assert.AreEqual(3, remainingBuildings.Count);
+    }
+
 }
