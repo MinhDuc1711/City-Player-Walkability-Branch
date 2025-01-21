@@ -11,5 +11,7 @@ public class UIInputManager : MonoBehaviour
             manager.InputCall(0);
         else if (Input.GetKeyDown(KeyCode.P))
             manager.InputCall(1);
+        else if (Input.GetKeyDown(KeyCode.R))
+            manager.InputCall(2);
     }
 }

@@ -17,7 +17,7 @@ public class uiMenuManager : MonoBehaviour
     private void Awake()
     {
         camLock = this.gameObject.GetComponent<CameraLock>();
-        active = toggleBtns[1];
+        active = toggleBtns[2];
     }
 
     private void Update()
