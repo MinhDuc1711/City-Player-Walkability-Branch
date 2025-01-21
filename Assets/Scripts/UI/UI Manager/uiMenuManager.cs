@@ -9,12 +9,13 @@ public class uiMenuManager : MonoBehaviour
 {    
     public RectTransform canva;
 
-    private UIMenu active = null;
 
     public List<UIMenu> toggleBtns = new List<UIMenu>();
 
+    private UIMenu active;
     private void Awake()
     {
+        active = toggleBtns[1];
     }
 
     private void Update()
