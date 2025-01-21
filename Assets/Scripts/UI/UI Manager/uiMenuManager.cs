@@ -9,6 +9,7 @@ public class uiMenuManager : MonoBehaviour
 {    
     public RectTransform canva;
 
+    public CameraLock camLock;
 
     public List<UIMenu> toggleBtns = new List<UIMenu>();
 
@@ -20,6 +21,16 @@ public class uiMenuManager : MonoBehaviour
 
     private void Update()
     {
+        if (active)
+        {
+            camLock.controlCamera(true);
+            unlockCursor();
+        }
+        else
+        {
+            camLock.controlCamera(false);
+            lockCursor();
+        }
     }
 
     public void AddMenu(UIMenu menu)
