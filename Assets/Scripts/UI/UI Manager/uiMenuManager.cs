@@ -9,16 +9,29 @@ public class uiMenuManager : MonoBehaviour
 {    
     public RectTransform canva;
 
-    private UIMenu active = null;
+    public CameraLock camLock;
 
     public List<UIMenu> toggleBtns = new List<UIMenu>();
 
+    private UIMenu active;
     private void Awake()
     {
+        camLock = this.gameObject.GetComponent<CameraLock>();
+        active = toggleBtns[2];
     }
 
     private void Update()
     {
+        if (active)
+        {
+            camLock.controlCamera(true);
+            unlockCursor();
+        }
+        else
+        {
+            camLock.controlCamera(false);
+            lockCursor();
+        }
     }
 
     public void AddMenu(UIMenu menu)

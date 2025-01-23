@@ -1,6 +1,7 @@
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class toggleButton : UIMenu, IPointerClickHandler
 {
@@ -17,6 +18,24 @@ public class toggleButton : UIMenu, IPointerClickHandler
     private bool state = false; //this var is displaying when the UI is shown (true) or hidden (false)
 
     public float animationTime = 0.35f;
+
+    //temporary solution for animation
+
+    public RectTransform menu;
+
+    private Vector2 closedPos;
+
+    protected void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            BackToMenu();
+        }
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            ActivateMenu();
+        }
+    }
 
     public override bool State 
     { 
@@ -38,15 +57,23 @@ public class toggleButton : UIMenu, IPointerClickHandler
         s_RTransform = SlidderMenu.transform.GetComponent<RectTransform>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Start()
     {
-
+        closedPos = new Vector2(menu.anchoredPosition.x,menu.anchoredPosition.y);
     }
 
     public override void SetActive(bool state) //setting bool to true activate the open animation, false activate the close animation
     {
-        SlidderMenu.SetBool("SMenu", state);
+        //SlidderMenu.SetBool("SMenu", state);
+
+        if (state)
+        {
+            menu.anchoredPosition = new Vector2((closedPos.x+menu.sizeDelta.x*1.15f), closedPos.y);
+        }
+        else
+        {
+            menu.anchoredPosition = closedPos;
+        }
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -55,6 +82,19 @@ public class toggleButton : UIMenu, IPointerClickHandler
         if (!state)
             menuManager.showUIMenu(this);
         else
+            menuManager.hideUIMenu(this);
+    }
+
+    public void BackToMenu()
+    {
+        SceneManager.LoadScene("UI-starting-Menu");
+    }
+
+    public void ActivateMenu()
+    {
+        if (!state)
+            menuManager.showUIMenu(this);
+        else if (state)
             menuManager.hideUIMenu(this);
     }
 }
