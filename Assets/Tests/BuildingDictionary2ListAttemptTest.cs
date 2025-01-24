@@ -120,4 +120,39 @@ public class BuildingDictionary2ListAttemptTests
         Assert.AreEqual(3, remainingBuildings.Count);
     }
 
+    [Test]
+    public void TestSliderChange()
+    {
+        oldPercentage = 0;
+        buildingManager.GetType()
+            .GetField("oldPercentage", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+            .SetValue(buildingManager, oldPercentage);
+        buildingManager.GetType().GetField("numOfBuildingsChanged", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+            .SetValue(buildingManager, numOfBuildingsChanged);
+
+        buildingManager.GetType()
+            .GetMethod("SliderChange", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+            .Invoke(buildingManager, new object[] { 2 });
+
+        var remainingBuildings = (List<GameObject>)buildingManager.GetType()
+            .GetField("unmodifiedBuildings", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+            .GetValue(buildingManager);
+        Assert.AreEqual(2, remainingBuildings.Count);
+
+        oldPercentage = 32;
+        buildingManager.GetType()
+            .GetField("oldPercentage", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+            .SetValue(buildingManager, oldPercentage);
+
+        buildingManager.GetType()
+            .GetMethod("SliderChange", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+            .Invoke(buildingManager, new object[] { 1 });
+
+        remainingBuildings = (List<GameObject>)buildingManager.GetType()
+            .GetField("unmodifiedBuildings", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+            .GetValue(buildingManager);
+        Assert.AreEqual(3, remainingBuildings.Count);
+
+    }
+
 }
