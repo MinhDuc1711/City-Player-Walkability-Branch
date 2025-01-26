@@ -12,7 +12,7 @@ public class PedestrianSpawner : MonoBehaviour
 
     private int currentPedestrians = 0;
 
-    private void Start()
+    public void Start()
     {
         if (trafficSystemParent == null)
         {
