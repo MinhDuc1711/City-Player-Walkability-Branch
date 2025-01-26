@@ -32,7 +32,7 @@ public class GreeneryGeneration : MonoBehaviour
         GenerateGreenery(value);
     }
 
-    void GenerateGreenery(float density)
+    public void GenerateGreenery(float density)
     {
         if (density != 0)
         {
@@ -76,7 +76,7 @@ public class GreeneryGeneration : MonoBehaviour
         }
     }
 
-    void ClearGreenery()
+    public void ClearGreenery()
     {
         foreach (var obj in GameObject.FindGameObjectsWithTag("Tree"))
         {
