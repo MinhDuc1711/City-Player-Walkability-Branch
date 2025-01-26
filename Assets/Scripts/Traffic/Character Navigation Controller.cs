@@ -15,9 +15,9 @@ public class CharacterNavigationController : MonoBehaviour
     public float maxYMovement = 1f;      
 
     private Vector3 lastPosition;         
-    private Vector3 spawnPosition;                  
+    public Vector3 spawnPosition;                  
 
-    private void Start()
+    public void Start()
     {
         //Save the spawn position and apply random speed variation
         spawnPosition = transform.position;
@@ -27,7 +27,7 @@ public class CharacterNavigationController : MonoBehaviour
         lastPosition = transform.position;
     }
 
-    private void Update()
+    public void Update()
     {
         //Null check to ensure the object is valid
         if (this == null || gameObject == null) return;
@@ -89,7 +89,7 @@ public class CharacterNavigationController : MonoBehaviour
         reachedDestination = false;
     }
 
-    private void TeleportToWaypoint()
+    public void TeleportToWaypoint()
     {
         //Get the WaypointNavigator component
         WaypointNavigator navigator = GetComponent<WaypointNavigator>();
