@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class PImenuToggle : UIMenu, IPointerClickHandler
 {
-    private bool state = false;
+    private bool state = true;
     private float animationTime = 0;
 
     public uiMenuManager manager;
@@ -24,10 +24,6 @@ public class PImenuToggle : UIMenu, IPointerClickHandler
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             BackToMenu();
-        }
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            ActivateProfilePanel();
         }
     }
 
@@ -71,7 +67,7 @@ public class PImenuToggle : UIMenu, IPointerClickHandler
         SceneManager.LoadScene("UI-starting-Menu");
     }
 
-    public void ActivateProfilePanel()
+    public override void ActivateMenu()
     {
         if (!state)
             manager.showUIMenu(this);
