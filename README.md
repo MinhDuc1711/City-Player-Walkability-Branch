@@ -11,22 +11,22 @@ https://drive.google.com/file/d/1c-k5c9XXBvXTFub0sim3KBsZMEhGBBcx/view?usp=shari
 
 | File path with clickable Github link | Purpose |
 | :---         |     :---:      |  
-| https://github.com/MinhDuc1711/City-Player---Walkability-Branch/blob/main/Assets/Scripts/ManageBuilding.cs      | Manage the selection, highlighting and deselection of buildings in the scene.   |
-| https://github.com/MinhDuc1711/City-Player---Walkability-Branch/blob/main/Assets/Scripts/LightingManager.cs   |Dynamically adjust the ambient light based on time of day in the scene.| 
-| https://github.com/MinhDuc1711/City-Player---Walkability-Branch/blob/main/Assets/Scripts/TreeManager.cs       | Manage the placement, positioning, and rotation of selectable tree objects based on user input.  | 
-| https://github.com/MinhDuc1711/City-Player---Walkability-Branch/blob/main/Assets/Scripts/AddBuilding.cs       | Contains function to Add a building.   | 
-| https://github.com/MinhDuc1711/City-Player---Walkability-Branch/blob/main/Assets/Scripts/RemoveBuilding.cs        | Contains function to Remove Selected building. | 
+| https://github.com/MinhDuc1711/City-Player-Walkability-Branch/blob/main/Assets/Scripts/Buildings/BuildingDictionary2ListAttempt.cs      | Controls the variety of buildings along the street based on the slider value.    |
+| https://github.com/MinhDuc1711/City-Player-Walkability-Branch/blob/main/Assets/Scripts/Default%20street%20demo/GrassStrip.cs   |Controls grass strip dynamically| 
+| https://github.com/MinhDuc1711/City-Player-Walkability-Branch/blob/main/Assets/Scripts/UI/UI%20Manager/uiMenuManager.cs       | Control and manage the ui menus so that there is never 2 UIs at the same time | 
+| https://github.com/MinhDuc1711/City-Player-Walkability-Branch/blob/main/Assets/Scripts/Greenery/GreeneryGeneration.cs   | Generates the greenery with the selection of assets of trees and flower pots | 
+| https://github.com/MinhDuc1711/City-Player-Walkability-Branch/blob/main/Assets/Scripts/Traffic/WaypointNavigator.cs  | Allows the traffic system to follow the waypoints | 
 
 
 ## Top Test Files
 
 | Test file path with clickable Github link | Purpose |
 | :---         |     :---:      |  
-| https://github.com/MinhDuc1711/City-Player---Walkability-Branch/blob/main/Assets/Tests/DistanceMenuManagerTest.cs | Test DistanceMenuManager   |
-| https://github.com/MinhDuc1711/City-Player---Walkability-Branch/blob/main/Assets/Tests/SimpleDraggableItemTests.cs |Test the draggable aspects in the UI menu| 
-| https://github.com/MinhDuc1711/City-Player---Walkability-Branch/blob/main/Assets/Tests/GreeneryDragDropTest.cs | Test object placement and rotation  | 
-| https://github.com/MinhDuc1711/City-Player---Walkability-Branch/blob/main/Assets/Tests/GreeneryButtonTest.cs | Test object generation and delete buttons   | 
-
+| https://github.com/MinhDuc1711/City-Player-Walkability-Branch/blob/main/Assets/Tests/CharacterNavigationControllerTests.cs | Test Character Navigation Controller |
+| https://github.com/MinhDuc1711/City-Player-Walkability-Branch/blob/main/Assets/Tests/WaypointTests.cs | Test Waypoints in Traffic System | 
+| https://github.com/MinhDuc1711/City-Player-Walkability-Branch/blob/main/Assets/Tests/BuildingDictionary2ListAttemptTest.cs | Test Change in building density  | 
+| https://github.com/MinhDuc1711/City-Player-Walkability-Branch/blob/main/Assets/Tests/GreenerySliderTests.cs | Test Greenery generation and deletion  | 
+| https://github.com/MinhDuc1711/City-Player-Walkability-Branch/blob/main/Assets/Tests/PedestrianSpawnerTests.cs | Test Spawning of Pedestrians on Street | 
 
 ## Project Overview
 
