@@ -31,10 +31,6 @@ public class toggleButton : UIMenu, IPointerClickHandler
         {
             BackToMenu();
         }
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            ActivateMenu();
-        }
     }
 
     public override bool State 
@@ -90,7 +86,7 @@ public class toggleButton : UIMenu, IPointerClickHandler
         SceneManager.LoadScene("UI-starting-Menu");
     }
 
-    public void ActivateMenu()
+    public override void ActivateMenu()
     {
         if (!state)
             menuManager.showUIMenu(this);

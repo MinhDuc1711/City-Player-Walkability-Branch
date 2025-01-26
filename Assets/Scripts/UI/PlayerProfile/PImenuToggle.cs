@@ -25,10 +25,6 @@ public class PImenuToggle : UIMenu, IPointerClickHandler
         {
             BackToMenu();
         }
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            ActivateProfilePanel();
-        }
     }
 
     public override void SetActive(bool _state)
@@ -71,7 +67,7 @@ public class PImenuToggle : UIMenu, IPointerClickHandler
         SceneManager.LoadScene("UI-starting-Menu");
     }
 
-    public void ActivateProfilePanel()
+    public override void ActivateMenu()
     {
         if (!state)
             manager.showUIMenu(this);

@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class RA_toggle : UIMenu, IPointerClickHandler
 {
-    private bool state = false;
+    private bool state = true;
     private float animationTime = 0;
 
     public uiMenuManager manager;
@@ -19,10 +19,6 @@ public class RA_toggle : UIMenu, IPointerClickHandler
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             BackToMenu();
-        }
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            ActivatePanel();
         }
     }
 
@@ -65,7 +61,7 @@ public class RA_toggle : UIMenu, IPointerClickHandler
         SceneManager.LoadScene("UI-starting-Menu");
     }
 
-    public void ActivatePanel()
+    public override void ActivateMenu()
     {
         if (!state)
             manager.showUIMenu(this);
