@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class PImenuToggle : UIMenu, IPointerClickHandler
 {
-    private bool state = false;
+    private bool state = true;
     private float animationTime = 0;
 
     public uiMenuManager manager;

@@ -21,7 +21,7 @@ public class uiMenuManager : MonoBehaviour
 
     private void Start()
     {
-        active = toggleBtns[2];
+        active = toggleBtns[1];
     }
 
     private void Update()
