@@ -20,10 +20,6 @@ public class RA_toggle : UIMenu, IPointerClickHandler
         {
             BackToMenu();
         }
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            ActivatePanel();
-        }
     }
 
     public override void SetActive(bool _state)
@@ -65,7 +61,7 @@ public class RA_toggle : UIMenu, IPointerClickHandler
         SceneManager.LoadScene("UI-starting-Menu");
     }
 
-    public void ActivatePanel()
+    public override void ActivateMenu()
     {
         if (!state)
             manager.showUIMenu(this);

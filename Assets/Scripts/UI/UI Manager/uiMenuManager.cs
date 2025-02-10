@@ -17,11 +17,16 @@ public class uiMenuManager : MonoBehaviour
     private void Awake()
     {
         camLock = this.gameObject.GetComponent<CameraLock>();
-        active = toggleBtns[2];
+    }
+
+    private void Start()
+    {
+        active = toggleBtns[1];
     }
 
     private void Update()
     {
+
         if (active)
         {
             camLock.controlCamera(true);
@@ -92,11 +97,11 @@ public class uiMenuManager : MonoBehaviour
         yield return new WaitForSeconds(obj.AnimationTime);
     }
 
-    public void InputCall(int ind)
+    public void InputCall(UIMenu _menu)
     {
-        if (active != toggleBtns[ind])
-            showUIMenu(toggleBtns[ind]);
+        if (active != _menu)
+            showUIMenu(_menu);
         else
-            hideUIMenu(toggleBtns[ind]);
+            hideUIMenu(_menu);
     }
 }

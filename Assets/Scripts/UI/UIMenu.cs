@@ -7,4 +7,6 @@ public abstract class UIMenu : MonoBehaviour
 
     public abstract void SetActive(bool state);
 
+    public abstract void ActivateMenu();
+
 }
