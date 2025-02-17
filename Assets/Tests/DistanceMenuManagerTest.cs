@@ -1,4 +1,6 @@
+#if UNITY_EDITOR
 using NUnit.Framework;
+#endif
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro; // For TextMeshProUGUI

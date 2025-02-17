@@ -1,6 +1,6 @@
-
-
+#if UNITY_EDITOR
 using NUnit.Framework;
+#endif
 using UnityEngine;
 using System.Linq;
 using UnityEngine.UI;
