@@ -26,11 +26,11 @@ public class RA_toggle : UIMenu, IPointerClickHandler
     {
         if (_state)
         {
-            menu.gameObject.SetActive(true);
+            menu.anchoredPosition = Vector2.zero;
         }
         else if (!_state)
         {
-            menu.gameObject.SetActive(false);
+            menu.anchoredPosition = new Vector2(-1689f, 0f);
         }
     }
 
