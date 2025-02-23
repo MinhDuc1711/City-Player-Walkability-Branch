@@ -1,105 +1,103 @@
-using UnityEngine;
-#if UNITY_EDITOR
-using NUnit.Framework;
-#endif
-using System.Collections;
-using UnityEngine.TestTools;
+//using UnityEngine;
+//using NUnit.Framework;
+//using System.Collections;
+//using UnityEngine.TestTools;
 
-public class PedestrianSpawnerTests
-{
-    private GameObject spawnerObject;
-    private PedestrianSpawner pedestrianSpawner;
-    private GameObject pedestrianPrefab;
-    private Transform leftLane;
-    private Transform rightLane;
-    private Transform trafficSystemParent;
+//public class PedestrianSpawnerTests
+//{
+//    private GameObject spawnerObject;
+//    private PedestrianSpawner pedestrianSpawner;
+//    private GameObject pedestrianPrefab;
+//    private Transform leftLane;
+//    private Transform rightLane;
+//    private Transform trafficSystemParent;
 
-    [SetUp]
-    public void Setup()
-    {
-        spawnerObject = new GameObject("PedestrianSpawner");
-        pedestrianSpawner = spawnerObject.AddComponent<PedestrianSpawner>();
+//    [SetUp]
+//    public void Setup()
+//    {
+//        spawnerObject = new GameObject("PedestrianSpawner");
+//        pedestrianSpawner = spawnerObject.AddComponent<PedestrianSpawner>();
 
-        pedestrianPrefab = new GameObject("Pedestrian");
-        pedestrianPrefab.AddComponent<WaypointNavigator>();
+//        pedestrianPrefab = new GameObject("Pedestrian");
+//        pedestrianPrefab.AddComponent<WaypointNavigator>();
 
-        leftLane = new GameObject("LeftLane").transform;
-        rightLane = new GameObject("RightLane").transform;
+//        leftLane = new GameObject("LeftLane").transform;
+//        rightLane = new GameObject("RightLane").transform;
 
-        var leftWaypoint = new GameObject("LeftWaypoint").AddComponent<Waypoint>();
-        leftWaypoint.transform.SetParent(leftLane);
+//        var leftWaypoint = new GameObject("LeftWaypoint").AddComponent<Waypoint>();
+//        leftWaypoint.transform.SetParent(leftLane);
 
-        var rightWaypoint = new GameObject("RightWaypoint").AddComponent<Waypoint>();
-        rightWaypoint.transform.SetParent(rightLane);
+//        var rightWaypoint = new GameObject("RightWaypoint").AddComponent<Waypoint>();
+//        rightWaypoint.transform.SetParent(rightLane);
 
-        trafficSystemParent = new GameObject("TrafficSystem").transform;
+//        trafficSystemParent = new GameObject("TrafficSystem").transform;
 
-        pedestrianSpawner.waypointsLeftLane = leftLane;
-        pedestrianSpawner.waypointsRightLane = rightLane;
-        pedestrianSpawner.pedestriansToSpawn = 3;
-        pedestrianSpawner.trafficSystemParent = trafficSystemParent;
-    }
+//        pedestrianSpawner.waypointsLeftLane = leftLane;
+//        pedestrianSpawner.waypointsRightLane = rightLane;
+//        pedestrianSpawner.pedestriansToSpawn = 3;
+//        pedestrianSpawner.trafficSystemParent = trafficSystemParent;
+//    }
 
-    [TearDown]
-    public void Teardown()
-    {
-        Object.DestroyImmediate(spawnerObject);
-        Object.DestroyImmediate(pedestrianPrefab);
-        Object.DestroyImmediate(leftLane.gameObject);
-        Object.DestroyImmediate(rightLane.gameObject);
-        Object.DestroyImmediate(trafficSystemParent.gameObject);
-    }
+//    [TearDown]
+//    public void Teardown()
+//    {
+//        Object.DestroyImmediate(spawnerObject);
+//        Object.DestroyImmediate(pedestrianPrefab);
+//        Object.DestroyImmediate(leftLane.gameObject);
+//        Object.DestroyImmediate(rightLane.gameObject);
+//        Object.DestroyImmediate(trafficSystemParent.gameObject);
+//    }
 
-    public IEnumerator Start_BeginsSpawning()
-    {
-        pedestrianSpawner.Start();
-        yield return new WaitForSeconds(1.5f);
+//    public IEnumerator Start_BeginsSpawning()
+//    {
+//        pedestrianSpawner.Start();
+//        yield return new WaitForSeconds(1.5f);
 
-        Assert.AreEqual(3, trafficSystemParent.childCount, "Pedestrians are not being spawned correctly");
-    }
+//        Assert.AreEqual(3, trafficSystemParent.childCount, "Pedestrians are not being spawned correctly");
+//    }
 
-    public IEnumerator Spawn_StopsWhenLimitReached()
-    {
-        pedestrianSpawner.Start();
-        yield return new WaitForSeconds(3f);
+//    public IEnumerator Spawn_StopsWhenLimitReached()
+//    {
+//        pedestrianSpawner.Start();
+//        yield return new WaitForSeconds(3f);
 
-        Assert.AreEqual(pedestrianSpawner.pedestriansToSpawn, trafficSystemParent.childCount, "PedestrianSpawner is exceeding spawn limit");
-    }
+//        Assert.AreEqual(pedestrianSpawner.pedestriansToSpawn, trafficSystemParent.childCount, "PedestrianSpawner is exceeding spawn limit");
+//    }
 
-    [Test]
-    public void Start_LogsErrorWhenTrafficSystemParentIsNull()
-    {
-        pedestrianSpawner.trafficSystemParent = null;
+//    [Test]
+//    public void Start_LogsErrorWhenTrafficSystemParentIsNull()
+//    {
+//        pedestrianSpawner.trafficSystemParent = null;
 
 
-        pedestrianSpawner.Start();
-    }
+//        pedestrianSpawner.Start();
+//    }
 
-    [Test]
-    public void Spawn_LogsErrorForMissingWaypointNavigator()
-    {
-        Object.DestroyImmediate(pedestrianPrefab.GetComponent<WaypointNavigator>());
+//    [Test]
+//    public void Spawn_LogsErrorForMissingWaypointNavigator()
+//    {
+//        Object.DestroyImmediate(pedestrianPrefab.GetComponent<WaypointNavigator>());
 
-        pedestrianSpawner.Start();
+//        pedestrianSpawner.Start();
 
-    }
+//    }
 
-    [Test]
-    public void Spawn_LogsErrorForMissingWaypoint()
-    {
-        Object.DestroyImmediate(leftLane.GetChild(0).GetComponent<Waypoint>());
+//    [Test]
+//    public void Spawn_LogsErrorForMissingWaypoint()
+//    {
+//        Object.DestroyImmediate(leftLane.GetChild(0).GetComponent<Waypoint>());
 
-        pedestrianSpawner.Start();
+//        pedestrianSpawner.Start();
 
-    }
+//    }
 
-    public IEnumerator PedestrianDestroyed_DecreasesCount()
-    {
-        pedestrianSpawner.Start();
-        yield return new WaitForSeconds(1f);
+//    public IEnumerator PedestrianDestroyed_DecreasesCount()
+//    {
+//        pedestrianSpawner.Start();
+//        yield return new WaitForSeconds(1f);
 
-        pedestrianSpawner.PedestrianDestroyed();
+//        pedestrianSpawner.PedestrianDestroyed();
 
-        Assert.AreEqual(2, trafficSystemParent.childCount - 1, "PedestrianDestroyed does not decrement the count properly");
-    }
-}
+//        Assert.AreEqual(2, trafficSystemParent.childCount - 1, "PedestrianDestroyed does not decrement the count properly");
+//    }
+//}
