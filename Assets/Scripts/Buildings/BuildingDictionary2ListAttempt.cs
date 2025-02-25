@@ -105,7 +105,7 @@ public class BuildingDictionary2ListAttempt : MonoBehaviour
         //Debug.Log(parentPlot.gameObject.name);
 
         GameObject newBuilding = Instantiate(buildingPrefab, 
-            new Vector3(selectedBuilding.transform.position.x, parentPlot.position.y + buildingPrefab.transform.localScale.y / 2, selectedBuilding.transform.position.z), 
+            new Vector3(selectedBuilding.transform.position.x, parentPlot.position.y, selectedBuilding.transform.position.z), 
             selectedBuilding.transform.rotation);
 
         //Debug.Log(parentPlot.position.y);
