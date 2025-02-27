@@ -26,31 +26,31 @@ public class VisualImportanceAspect : MonoBehaviour
                 txt.color = Color.black;
                 break;
             case 2:
-                bg.color = new Color(255, 165, 0, 100);
+                bg.color = new Color(1f, 0.647f, 0f, 1f);
                 txt.color = Color.black;
                 break;
             case 3:
-                bg.color = new Color(255, 165, 0, 100);
+                bg.color = new Color(1f, 0.647f, 0f, 1f);
                 txt.color = Color.black;
                 break;
             case 4:
-                bg.color = Color.white;
+                bg.color = Color.yellow;
                 txt.color = Color.black;
                 break;
             case 5:
-                bg.color = Color.white;
+                bg.color = Color.yellow;
                 txt.color = Color.black;
                 break;
             case 6:
-                bg.color = Color.white;
+                bg.color = Color.yellow;
                 txt.color = Color.black;
                 break;
             case 7:
-                bg.color = new Color32(144, 238, 144, 100);
+                bg.color = new Color(0.565f, 0.933f, 0.565f, 1f);
                 txt.color = Color.black;
                 break;
             case 8:
-                bg.color = new Color32(144, 238, 144, 100);
+                bg.color = new Color(0.565f, 0.933f, 0.565f, 1f);
                 txt.color = Color.black;
                 break;
             case 9:
