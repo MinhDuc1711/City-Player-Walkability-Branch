@@ -1,39 +1,48 @@
 using System.Collections.Generic;
-using Unity.Collections;
-using Unity.VisualScripting;
-using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class StreetEnclosureController : MonoBehaviour
+public class StreetEnclosure : MonoBehaviour
 {
     [SerializeField] private float maxOffset = 3.0f; // Maximum distance buildings move towards the street
-    [SerializeField]
-    Slider slider;
-    [SerializeField]
-    private GameObject plotParent;
-    [SerializeField]
-    private List<GameObject> buildings = new List<GameObject>();
+    [SerializeField] private Slider slider;
+    [SerializeField] private GameObject plotParent;
+    [SerializeField] private List<GameObject> buildings = new List<GameObject>();
 
     private Vector3[] originalPositions;
 
     void Start()
     {
-        // Store the initial positions of buildings in left and right plot holders
-        int count = buildings.childCount;
+        // Ensure buildings are initialized
+        if (buildings.Count == 0)
+        {
+            GetBuildings();
+        }
 
-        originalPositions = new Vector3[leftCount];
-        rightOriginalPositions = new Vector3[rightCount];
+        // Initialize positions array
+        originalPositions = new Vector3[buildings.Count];
+
+        for (int i = 0; i < buildings.Count; i++)
+        {
+            originalPositions[i] = buildings[i].transform.position;
+        }
 
         // Attach slider event listener
-        streetEnclosureSlider.onValueChanged.AddListener(UpdateBuildingPositions);
+        if (slider != null)
+        {
+            slider.onValueChanged.AddListener(UpdateBuildingPositions);
+        }
+        else
+        {
+            Debug.LogError("Slider is not assigned in the Inspector!");
+        }
     }
 
     [ContextMenu("Get Buildings")]
     void GetBuildings()
     {
-        CleanBuildingList();
+        buildings.Clear(); // Clean list before adding new ones
         foreach (Transform plot in plotParent.transform)
         {
             foreach (Transform child in plot.transform)
@@ -41,17 +50,17 @@ public class StreetEnclosureController : MonoBehaviour
                 buildings.Add(child.GetChild(0).gameObject);
             }
         }
-        EditorSceneManager.MarkSceneDirty(gameObject.scene);
+        //EditorSceneManager.MarkSceneDirty(gameObject.scene);
     }
 
     void UpdateBuildingPositions(float value)
     {
         float offset = Mathf.Lerp(0, maxOffset, value / slider.maxValue);
 
-        foreach (Transform building in buildings)
+        for (int i = 0; i < buildings.Count; i++)
         {
-            building.position = new Vector3(originalPositions[i].x + offset, originalPositions[i].y, originalPositions[i].z);
+            Vector3 originalPos = originalPositions[i];
+            buildings[i].transform.position = new Vector3(originalPos.x + offset, originalPos.y, originalPos.z);
         }
-
     }
 }
