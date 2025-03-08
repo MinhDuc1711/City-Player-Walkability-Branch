@@ -8,24 +8,24 @@ public class StreetEnclosure : MonoBehaviour
     [SerializeField] private float maxOffset = 3.0f; // Maximum distance buildings move towards the street
     [SerializeField] private Slider slider;
     [SerializeField] private GameObject plotParent;
-    [SerializeField] private List<GameObject> buildings = new List<GameObject>();
+    [SerializeField] private List<GameObject> leftBuildings = new List<GameObject>();
 
     private Vector3[] originalPositions;
 
     void Start()
     {
         // Ensure buildings are initialized
-        if (buildings.Count == 0)
+        if (leftBuildings.Count == 0)
         {
             GetBuildings();
         }
 
         // Initialize positions array
-        originalPositions = new Vector3[buildings.Count];
+        originalPositions = new Vector3[leftBuildings.Count];
 
-        for (int i = 0; i < buildings.Count; i++)
+        for (int i = 0; i < leftBuildings.Count; i++)
         {
-            originalPositions[i] = buildings[i].transform.position;
+            originalPositions[i] = leftBuildings[i].transform.position;
         }
 
         // Attach slider event listener
@@ -42,13 +42,14 @@ public class StreetEnclosure : MonoBehaviour
     [ContextMenu("Get Buildings")]
     void GetBuildings()
     {
-        buildings.Clear(); // Clean list before adding new ones
-        foreach (Transform plot in plotParent.transform)
+        leftBuildings.Clear(); // Clean list before adding new ones
+        foreach (Transform plot in plotParent.transform.GetChild(0))
         {
             foreach (Transform child in plot.transform)
             {
-                buildings.Add(child.GetChild(0).gameObject);
+                leftBuildings.Add(child.GetChild(0).gameObject);
             }
+            
         }
         //EditorSceneManager.MarkSceneDirty(gameObject.scene);
     }
@@ -57,10 +58,10 @@ public class StreetEnclosure : MonoBehaviour
     {
         float offset = Mathf.Lerp(0, maxOffset, value / slider.maxValue);
 
-        for (int i = 0; i < buildings.Count; i++)
+        for (int i = 0; i < leftBuildings.Count; i++)
         {
             Vector3 originalPos = originalPositions[i];
-            buildings[i].transform.position = new Vector3(originalPos.x + offset, originalPos.y, originalPos.z);
+            leftBuildings[i].transform.position = new Vector3(originalPos.x + offset, originalPos.y, originalPos.z);
         }
     }
 }
