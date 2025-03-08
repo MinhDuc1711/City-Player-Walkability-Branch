@@ -21,6 +21,7 @@ public class PublicSpaceGeneration : MonoBehaviour
         if (publicSpaceSlider != null)
         {
             publicSpaceSlider.onValueChanged.AddListener(OnPublicSpaceSliderValueChanged);
+            GenerateBenches(publicSpaceSlider.value);
         }
         else
         {
@@ -40,13 +41,16 @@ public class PublicSpaceGeneration : MonoBehaviour
         ClearBenches();
 
         // Adjust density to increase with slider's right side
-        float adjustedDensity = 1 - density; // Invert the value: 0 -> 1, 1 -> 0
+        float adjustedDensity = 1 - density/20; // Invert the value: 0 -> 1, 1 -> 0
 
         // Adjust spacing based on inverted density
         float spacing = Mathf.Lerp(5f, 15f, adjustedDensity);  // Closer benches at higher density
 
-        SpawnBenchesWithSpacing(LeftStripStart.transform.position, LeftStripEnd.transform.position, spacing);
-        SpawnBenchesWithSpacing(RightStripStart.transform.position, RightStripEnd.transform.position, spacing);
+        if (density != 0)
+        {
+            SpawnBenchesWithSpacing(LeftStripStart.transform.position, LeftStripEnd.transform.position, spacing);
+            SpawnBenchesWithSpacing(RightStripStart.transform.position, RightStripEnd.transform.position, spacing);
+        }
     }
 
 
@@ -54,6 +58,7 @@ public class PublicSpaceGeneration : MonoBehaviour
     {
         float distance = Vector3.Distance(start, end);
         int numberOfBenches = Mathf.FloorToInt(distance / spacing);
+        int benchesCreated = 0;
 
         for (int i = 0; i <= numberOfBenches; i++)
         {
@@ -67,8 +72,11 @@ public class PublicSpaceGeneration : MonoBehaviour
                 GameObject newBench = Instantiate(benchPrefab, position, Quaternion.identity);
                 newBench.tag = "Bench";
                 benches.Add(newBench);
+                benchesCreated++;
             }
         }
+        Debug.Log("Benches to create: " + numberOfBenches);
+        Debug.Log("Benches actually added: " + benchesCreated);
     }
 
     bool IsOccupiedByTree(Vector3 position)
@@ -77,7 +85,7 @@ public class PublicSpaceGeneration : MonoBehaviour
         Collider[] hitColliders = Physics.OverlapSphere(position, checkRadius);
         foreach (Collider collider in hitColliders)
         {
-            if (collider.CompareTag("Tree")) return true;
+            if (collider.CompareTag("Tree") || collider.CompareTag("Flower")) return true;
         }
         return false;
     }
