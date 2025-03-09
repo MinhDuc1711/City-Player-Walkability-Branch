@@ -56,24 +56,35 @@ public class GreeneryGeneration : MonoBehaviour
         {
             float t = (float)i / numberOfObjects; 
             Vector3 position = Vector3.Lerp(start, end, t);
-            GameObject prefabToSpawn;
-
-
-
-            if (i % 2 ==0)
+            if (!IsOccupied(position))
             {
-                float randomRotationY = 90 * Random.Range(0, 4); // 0, 90, 180, or 270
-                Quaternion rotation = Quaternion.Euler(0, randomRotationY, 0);
-                Instantiate(TreePrefabs[TreeVariance % 2], position, rotation);
-                TreeVariance++;
-    }
-            else
-            {
-                position.z += (float)0.75;
-                Instantiate(FlowerPrefab, position, Quaternion.identity);
+                // GameObject prefabToSpawn;
+                if (i % 2 ==0)
+                {
+                    float randomRotationY = 90 * Random.Range(0, 4); // 0, 90, 180, or 270
+                    Quaternion rotation = Quaternion.Euler(0, randomRotationY, 0);
+                    Instantiate(TreePrefabs[TreeVariance % 2], position, rotation);
+                    TreeVariance++;
+                }
+                else
+                {
+                    position.z += (float)0.75;
+                    Instantiate(FlowerPrefab, position, Quaternion.identity);
+                }
             }
 
         }
+    }
+
+    private bool IsOccupied(Vector3 position)
+    {
+        float checkRadius = 3.0f; // Increase radius to avoid tree overlap
+        Collider[] hitColliders = Physics.OverlapSphere(position, checkRadius);
+        foreach (Collider collider in hitColliders)
+        {
+            if (collider.CompareTag("Tree") || collider.CompareTag("Flower") || collider.CompareTag("Bench")) return true;
+        }
+        return false;
     }
 
     public void ClearGreenery()
