@@ -47,33 +47,96 @@ public class GreeneryGeneration : MonoBehaviour
 
     void SpawnGreeneryWithSpacing(Vector3 start, Vector3 end, float spacing)
     {
+        // for (int i = 0; i <= numberOfObjects; i++)
+        // {
+        //     float t = (float)i / numberOfObjects; 
+        //     Vector3 position = Vector3.Lerp(start, end, t);
+        //     if (!IsOccupied(position))
+        //     {
+        //         // GameObject prefabToSpawn;
+        //         if (i % 2 ==0)
+        //         {
+        //             float randomRotationY = 90 * Random.Range(0, 4); // 0, 90, 180, or 270
+        //             Quaternion rotation = Quaternion.Euler(0, randomRotationY, 0);
+        //             Instantiate(TreePrefabs[TreeVariance % 2], position, rotation);
+        //             TreeVariance++;
+        //         }
+        //         else
+        //         {
+        //             position.z += (float)0.75;
+        //             Instantiate(FlowerPrefab, position, Quaternion.identity);
+        //         }
+        //     }
+
+        // }
         float distance = Vector3.Distance(start, end);
         int numberOfObjects = Mathf.FloorToInt(distance / spacing);
         int TreeVariance = 0;
 
+        float correctionFactor = 1;
+        int greeneryCreated = 0; // number of benches created
+        float currentDistance = 0f; // current distance relative to start point
+        Vector3 direction = (end - start).normalized; // direction to calculate distance
 
-        for (int i = 0; i <= numberOfObjects; i++)
+        while (currentDistance < distance)
         {
-            float t = (float)i / numberOfObjects; 
-            Vector3 position = Vector3.Lerp(start, end, t);
-            if (!IsOccupied(position))
+            Vector3 position = start + direction * currentDistance; // Calculate position
+            int attempts = 0;
+            bool placed = false;
+            while (attempts < 10 && !placed)
             {
-                // GameObject prefabToSpawn;
-                if (i % 2 ==0)
+                if (!IsOccupied(position))
                 {
-                    float randomRotationY = 90 * Random.Range(0, 4); // 0, 90, 180, or 270
-                    Quaternion rotation = Quaternion.Euler(0, randomRotationY, 0);
-                    Instantiate(TreePrefabs[TreeVariance % 2], position, rotation);
-                    TreeVariance++;
+                    if (attempts % 2 ==0)
+                    {
+                        float randomRotationY = 90 * Random.Range(0, 4); // 0, 90, 180, or 270
+                        Quaternion rotation = Quaternion.Euler(0, randomRotationY, 0);
+                        Instantiate(TreePrefabs[TreeVariance % 2], position, rotation);
+                        TreeVariance++;
+                    }
+                    else
+                    {
+                        position.z += (float)0.75;
+                        Instantiate(FlowerPrefab, position, Quaternion.identity);
+                    }
+                    greeneryCreated++;
+                    Debug.Log("Greenery spawned at: " + currentDistance + " in " + attempts+1 + " attempts");
+                    placed = true;
                 }
                 else
                 {
-                    position.z += (float)0.75;
-                    Instantiate(FlowerPrefab, position, Quaternion.identity);
+                    // If object not successfully placed because position is occupied by another object
+                    if (attempts % 2 == 0)
+                    {
+                        position += direction * 0.1f * attempts * spacing * correctionFactor; // Move forward
+                    }
+                    else
+                    {
+                        position -= direction * 0.1f * attempts * spacing * correctionFactor; // Move backward
+                    }
+                    attempts++;
                 }
             }
 
+            if (greeneryCreated > 1)
+            {
+                // average distance between current objects
+                float actualSpacing = currentDistance / (greeneryCreated+1);
+                // difference between current spacing and ideal maximum spacing
+                float errorRatio = spacing / actualSpacing;
+                correctionFactor = Mathf.Pow(errorRatio, 1.0f / 2.0f);
+                Debug.Log("currentDistance" + currentDistance + ", actualSpacing: " + actualSpacing + ", idealSpacing: " + spacing + ", correctionFactor: " + correctionFactor);
+            }
+            else
+            {
+                correctionFactor = 1;
+            }
+            // Reduce or increase distance between current and next object, based on current density of objects
+            currentDistance += spacing * correctionFactor;
         }
+
+        Debug.Log("Maximum greenery objects allowed: " + numberOfObjects);
+        Debug.Log("Greenery objects added: " + greeneryCreated);
     }
 
     private bool IsOccupied(Vector3 position)
