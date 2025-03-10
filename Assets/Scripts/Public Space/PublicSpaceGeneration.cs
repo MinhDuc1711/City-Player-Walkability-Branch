@@ -56,36 +56,75 @@ public class PublicSpaceGeneration : MonoBehaviour
 
     void SpawnBenchesWithSpacing(Vector3 start, Vector3 end, float spacing)
     {
-        float distance = Vector3.Distance(start, end);
-        int numberOfBenches = Mathf.FloorToInt(distance / spacing);
-        int benchesCreated = 0;
+        float distance = Vector3.Distance(start, end); // total distance to place benches
+        float currentDistance = 0f; // current distance relative to start point
+        Vector3 direction = (end - start).normalized; // direction to calculate distance
 
-        for (int i = 0; i <= numberOfBenches; i++)
+        int numberOfBenches = Mathf.FloorToInt(distance / spacing); // maximum number of benches able to bewcreated given density
+        int benchesCreated = 0; // number of benches created
+        float correctionFactor = 1;
+
+        while (currentDistance < distance)
         {
-            float t = (float)i / numberOfBenches;
-            Vector3 position = Vector3.Lerp(start, end, t);
-
-            // Check if a tree is nearby (avoid placing a bench on a tree)
-            if (!IsOccupiedByTree(position))
+            Vector3 position = start + direction * currentDistance; // Calculate position
+            int attempts = 0;
+            bool placed = false;
+            while (attempts < 10 && !placed)
             {
-                GameObject benchPrefab = BenchPrefabs[Random.Range(0, BenchPrefabs.Length)];
-                GameObject newBench = Instantiate(benchPrefab, position, Quaternion.identity);
-                newBench.tag = "Bench";
-                benches.Add(newBench);
-                benchesCreated++;
+                if (!IsOccupied(position))
+                {
+                    GameObject benchPrefab = BenchPrefabs[Random.Range(0, BenchPrefabs.Length)];
+                    GameObject newBench = Instantiate(benchPrefab, position, Quaternion.LookRotation(Vector3.forward));
+                    newBench.tag = "Bench";
+                    benches.Add(newBench);
+                    benchesCreated++;
+                    Debug.Log("Bench spawned at: " + currentDistance + " in " + attempts+1 + " attempts");
+                    placed = true;
+                }
+                else
+                {
+                    // If bench not successfully placed because position is occupied by another object
+                    if (attempts % 2 == 0)
+                    {
+                        position += direction * 0.1f * attempts * spacing * correctionFactor; // Move forward
+                    }
+                    else
+                    {
+                        position -= direction * 0.1f * attempts * spacing * correctionFactor; // Move backward
+                    }
+                    attempts++;
+                }
             }
+
+            if (benchesCreated > 1)
+            {
+                // average distance between current objects
+                float actualSpacing = currentDistance / (benchesCreated+1);
+                // difference between current spacing and ideal maximum spacing
+                float errorRatio = spacing / actualSpacing;
+                correctionFactor = Mathf.Pow(errorRatio, 1.0f / 2.0f);
+                Debug.Log("currentDistance" + currentDistance + ", actualSpacing: " + actualSpacing + ", idealSpacing: " + spacing + ", correctionFactor: " + correctionFactor);
+            }
+            else
+            {
+                correctionFactor = 1;
+            }
+            // Reduce or increase distance between current and next object, based on current density of objects
+            currentDistance += spacing * correctionFactor;
         }
-        Debug.Log("Benches to create: " + numberOfBenches);
-        Debug.Log("Benches actually added: " + benchesCreated);
+
+        Debug.Log("Maximum benches allowed: " + numberOfBenches);
+        Debug.Log("Benches added: " + benchesCreated);
     }
 
-    bool IsOccupiedByTree(Vector3 position)
+    bool IsOccupied(Vector3 position)
     {
-        float checkRadius = 3.0f; // Increase radius to avoid tree overlap
+        float checkRadius = 1.0f;
         Collider[] hitColliders = Physics.OverlapSphere(position, checkRadius);
         foreach (Collider collider in hitColliders)
         {
-            if (collider.CompareTag("Tree") || collider.CompareTag("Flower")) return true;
+            // This should be reworked to include any type of object
+            if (collider.CompareTag("Tree") || collider.CompareTag("Flower") || collider.CompareTag("Bench")) return true;
         }
         return false;
     }
