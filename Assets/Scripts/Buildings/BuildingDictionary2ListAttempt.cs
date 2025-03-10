@@ -126,7 +126,7 @@ public class BuildingDictionary2ListAttempt : MonoBehaviour
 
         GameObject newBuilding = Instantiate(buildingPrefab,
             new Vector3(selectedBuilding.transform.position.x, parentPlot.position.y, selectedBuilding.transform.position.z),
-            selectedBuilding.transform.rotation);
+            buildingPrefab.transform.rotation);
 
         newBuilding.transform.SetParent(parentPlot, true);
         newBuilding.SetActive(true);
