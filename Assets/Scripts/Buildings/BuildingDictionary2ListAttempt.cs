@@ -125,7 +125,7 @@ public class BuildingDictionary2ListAttempt : MonoBehaviour
         Transform parentPlot = selectedBuilding.transform.parent;
 
         GameObject newBuilding = Instantiate(buildingPrefab,
-            new Vector3(selectedBuilding.transform.position.x, parentPlot.position.y + buildingPrefab.transform.localScale.y / 2, selectedBuilding.transform.position.z),
+            new Vector3(selectedBuilding.transform.position.x, parentPlot.position.y, selectedBuilding.transform.position.z),
             selectedBuilding.transform.rotation);
 
         newBuilding.transform.SetParent(parentPlot, true);
