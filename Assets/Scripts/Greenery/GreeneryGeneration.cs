@@ -58,30 +58,34 @@ public class GreeneryGeneration : MonoBehaviour
         int greeneryCreated = 0; // number of benches created
         float currentDistance = 0f; // current distance relative to start point
         Vector3 direction = (end - start).normalized; // direction to calculate distance
+        bool placeTree = true; // if true then place tree, if false then place flower
 
         while (currentDistance < distance)
         {
             Vector3 position = start + direction * currentDistance; // Calculate position
             int attempts = 0;
             bool placed = false;
-            while (attempts < 10 && !placed)
+            float maxAttempts = 15;
+            while (attempts < maxAttempts && !placed)
             {
                 if (!IsOccupied(position))
                 {
-                    if (attempts % 2 ==0)
+                    if (placeTree)
                     {
                         float randomRotationY = 90 * Random.Range(0, 4); // 0, 90, 180, or 270
                         Quaternion rotation = Quaternion.Euler(0, randomRotationY, 0);
                         Instantiate(TreePrefabs[TreeVariance % 2], position, rotation);
                         TreeVariance++;
+                        placeTree = false;
                     }
                     else
                     {
                         position.z += (float)0.75;
                         Instantiate(FlowerPrefab, position, Quaternion.identity);
+                        placeTree = true;
                     }
                     greeneryCreated++;
-                    Debug.Log("Greenery spawned at: " + currentDistance + " in " + attempts+1 + " attempts");
+                    Debug.Log("Greenery spawned at: " + currentDistance + " in " + (attempts+1) + " attempts");
                     placed = true;
                 }
                 else
@@ -89,11 +93,11 @@ public class GreeneryGeneration : MonoBehaviour
                     // If object not successfully placed because position is occupied by another object
                     if (attempts % 2 == 0)
                     {
-                        position += direction * 0.1f * attempts * spacing * correctionFactor; // Move forward
+                        position += direction * attempts * spacing * correctionFactor / maxAttempts; // Move forward
                     }
                     else
                     {
-                        position -= direction * 0.1f * attempts * spacing * correctionFactor; // Move backward
+                        position -= direction * attempts * spacing * correctionFactor / maxAttempts; // Move backward
                     }
                     attempts++;
                 }
@@ -102,10 +106,11 @@ public class GreeneryGeneration : MonoBehaviour
             if (greeneryCreated > 1)
             {
                 // average distance between current objects
-                float actualSpacing = currentDistance / (greeneryCreated+1);
+                float actualSpacing = currentDistance / greeneryCreated;
                 // difference between current spacing and ideal maximum spacing
                 float errorRatio = spacing / actualSpacing;
-                correctionFactor = Mathf.Pow(errorRatio, 1.0f / 2.0f);
+                correctionFactor = Mathf.Pow(errorRatio, Mathf.Lerp(1.0f, 3.0f, currentDistance/distance));
+                // correctionFactor = errorRatio;
                 Debug.Log("currentDistance" + currentDistance + ", actualSpacing: " + actualSpacing + ", idealSpacing: " + spacing + ", correctionFactor: " + correctionFactor);
             }
             else

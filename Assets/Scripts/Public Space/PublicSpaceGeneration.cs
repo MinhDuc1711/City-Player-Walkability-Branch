@@ -69,7 +69,8 @@ public class PublicSpaceGeneration : MonoBehaviour
             Vector3 position = start + direction * currentDistance; // Calculate position
             int attempts = 0;
             bool placed = false;
-            while (attempts < 10 && !placed)
+            float maxAttempts = 15;
+            while (attempts < maxAttempts && !placed)
             {
                 if (!IsOccupied(position))
                 {
@@ -78,7 +79,7 @@ public class PublicSpaceGeneration : MonoBehaviour
                     newBench.tag = "Bench";
                     benches.Add(newBench);
                     benchesCreated++;
-                    Debug.Log("Bench spawned at: " + currentDistance + " in " + attempts+1 + " attempts");
+                    Debug.Log("Bench spawned at: " + currentDistance + " in " + (attempts+1) + " attempts");
                     placed = true;
                 }
                 else
@@ -86,11 +87,11 @@ public class PublicSpaceGeneration : MonoBehaviour
                     // If bench not successfully placed because position is occupied by another object
                     if (attempts % 2 == 0)
                     {
-                        position += direction * 0.1f * attempts * spacing * correctionFactor; // Move forward
+                        position += direction * attempts * spacing * correctionFactor / maxAttempts; // Move forward
                     }
                     else
                     {
-                        position -= direction * 0.1f * attempts * spacing * correctionFactor; // Move backward
+                        position -= direction * attempts * spacing * correctionFactor / maxAttempts; // Move backward
                     }
                     attempts++;
                 }
@@ -99,10 +100,11 @@ public class PublicSpaceGeneration : MonoBehaviour
             if (benchesCreated > 1)
             {
                 // average distance between current objects
-                float actualSpacing = currentDistance / (benchesCreated+1);
+                float actualSpacing = currentDistance / benchesCreated;
                 // difference between current spacing and ideal maximum spacing
                 float errorRatio = spacing / actualSpacing;
-                correctionFactor = Mathf.Pow(errorRatio, 1.0f / 2.0f);
+                correctionFactor = Mathf.Pow(errorRatio, Mathf.Lerp(1.0f, 3.0f, currentDistance/distance));
+                // correctionFactor = errorRatio;
                 Debug.Log("currentDistance" + currentDistance + ", actualSpacing: " + actualSpacing + ", idealSpacing: " + spacing + ", correctionFactor: " + correctionFactor);
             }
             else
