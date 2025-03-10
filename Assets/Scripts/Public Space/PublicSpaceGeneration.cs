@@ -41,7 +41,7 @@ public class PublicSpaceGeneration : MonoBehaviour
         ClearBenches();
 
         // Adjust density to increase with slider's right side
-        float adjustedDensity = 1 - density/20; // Invert the value: 0 -> 1, 1 -> 0
+        float adjustedDensity = 1 - density/20f; // Invert the value: 0 -> 1, 1 -> 0
 
         // Adjust spacing based on inverted density
         float spacing = Mathf.Lerp(5f, 15f, adjustedDensity);  // Closer benches at higher density
@@ -74,7 +74,7 @@ public class PublicSpaceGeneration : MonoBehaviour
                 if (!IsOccupied(position))
                 {
                     GameObject benchPrefab = BenchPrefabs[Random.Range(0, BenchPrefabs.Length)];
-                    GameObject newBench = Instantiate(benchPrefab, position, Quaternion.LookRotation(Vector3.forward));
+                    GameObject newBench = Instantiate(benchPrefab, position, Quaternion.identity);
                     newBench.tag = "Bench";
                     benches.Add(newBench);
                     benchesCreated++;

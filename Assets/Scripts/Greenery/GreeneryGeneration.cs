@@ -41,34 +41,15 @@ public class GreeneryGeneration : MonoBehaviour
         ClearGreenery();
 
         // Rnadom Pattern Generation
-        SpawnGreeneryWithSpacing(LeftGreenStripStart.transform.position, LeftGreenStripEnd.transform.position, density);
-        SpawnGreeneryWithSpacing(RightGreenStripStart.transform.position, RightGreenStripEnd.transform.position, density);
+        if (density > 0)
+        {
+            SpawnGreeneryWithSpacing(LeftGreenStripStart.transform.position, LeftGreenStripEnd.transform.position, density);
+            SpawnGreeneryWithSpacing(RightGreenStripStart.transform.position, RightGreenStripEnd.transform.position, density);
+        }
     }
 
     void SpawnGreeneryWithSpacing(Vector3 start, Vector3 end, float spacing)
     {
-        // for (int i = 0; i <= numberOfObjects; i++)
-        // {
-        //     float t = (float)i / numberOfObjects; 
-        //     Vector3 position = Vector3.Lerp(start, end, t);
-        //     if (!IsOccupied(position))
-        //     {
-        //         // GameObject prefabToSpawn;
-        //         if (i % 2 ==0)
-        //         {
-        //             float randomRotationY = 90 * Random.Range(0, 4); // 0, 90, 180, or 270
-        //             Quaternion rotation = Quaternion.Euler(0, randomRotationY, 0);
-        //             Instantiate(TreePrefabs[TreeVariance % 2], position, rotation);
-        //             TreeVariance++;
-        //         }
-        //         else
-        //         {
-        //             position.z += (float)0.75;
-        //             Instantiate(FlowerPrefab, position, Quaternion.identity);
-        //         }
-        //     }
-
-        // }
         float distance = Vector3.Distance(start, end);
         int numberOfObjects = Mathf.FloorToInt(distance / spacing);
         int TreeVariance = 0;
@@ -141,7 +122,7 @@ public class GreeneryGeneration : MonoBehaviour
 
     private bool IsOccupied(Vector3 position)
     {
-        float checkRadius = 3.0f; // Increase radius to avoid tree overlap
+        float checkRadius = 2.0f; // Increase radius to avoid tree overlap
         Collider[] hitColliders = Physics.OverlapSphere(position, checkRadius);
         foreach (Collider collider in hitColliders)
         {
