@@ -1,10 +1,10 @@
-//using NUnit.Framework;
-//using UnityEngine;
-//using UnityEngine.UI;
-//using TMPro; // For TextMeshProUGUI
+// using NUnit.Framework;
+// using UnityEngine;
+// using UnityEngine.UI;
+// using TMPro; // For TextMeshProUGUI
 
-//public class DistanceMenuManagerTests
-//{
+// public class DistanceMenuManagerTests
+// {
 //    private GameObject distanceManagerObj;
 //    private DistanceMenuManager distanceMenuManager;
 
@@ -146,4 +146,4 @@
 //        Object.DestroyImmediate(amenitiesPanel);
 //        Object.DestroyImmediate(occurrencesPanel);
 //    }
-//}
+// }
