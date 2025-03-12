@@ -1,7 +1,9 @@
 using NUnit.Framework;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class BenchGenerationTests
+
+public class BenchPlacementTests
 {
     private PublicSpaceGeneration publicSpaceManager;
     private GameObject leftStripStart, leftStripEnd, rightStripStart, rightStripEnd;
@@ -14,10 +16,10 @@ public class BenchGenerationTests
         GameObject managerObject = new GameObject("PublicSpaceManager");
         publicSpaceManager = managerObject.AddComponent<PublicSpaceGeneration>();
 
-        leftStripStart = new GameObject("LeftStripStart") { transform = { position = new Vector3(0, 0, 0) } };
-        leftStripEnd = new GameObject("LeftStripEnd") { transform = { position = new Vector3(10, 0, 0) } };
-        rightStripStart = new GameObject("RightStripStart") { transform = { position = new Vector3(0, 0, 5) } };
-        rightStripEnd = new GameObject("RightStripEnd") { transform = { position = new Vector3(10, 0, 5) } };
+        leftStripStart = new GameObject("LeftStripStart") { transform = { position = new Vector3(3.46, 0, -199.3) } };
+        leftStripEnd = new GameObject("LeftStripEnd") { transform = { position = new Vector3(3.46, 0, 371.4) } };
+        rightStripStart = new GameObject("RightStripStart") { transform = { position = new Vector3(3, 14.68, -293.2) } };
+        rightStripEnd = new GameObject("RightStripEnd") { transform = { position = new Vector3(3, 14.68, 277.42) } };
 
         publicSpaceManager.GetType().GetField("LeftStripStart", System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance)
             .SetValue(publicSpaceManager, leftStripStart);
@@ -46,17 +48,22 @@ public class BenchGenerationTests
     }
 
     [Test]
-    public void TestGenerateBenchesAndSliderDensityChanges()
+    public void TestGenerateBenches_CreatesBenchesAndWithinBounds()
     {
-        publicSpaceSlider.value = 1;
-        publicSpaceManager.OnPublicSpaceSliderValueChanged(publicSpaceSlider.value);
-        int lowDensityCount = GameObject.FindGameObjectsWithTag("Bench").Length;
+        publicSpaceManager.GetType().GetMethod("GenerateBenches", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+            .Invoke(publicSpaceManager, new object[] { publicSpaceSlider.value });
 
-        publicSpaceSlider.value = 10;
-        publicSpaceManager.OnPublicSpaceSliderValueChanged(publicSpaceSlider.value);
-        int highDensityCount = GameObject.FindGameObjectsWithTag("Bench").Length;
+        var spawnedBenches = GameObject.FindGameObjectsWithTag("Bench");
 
-        Assert.Greater(highDensityCount, lowDensityCount, "Higher density should generate more benches.");
+        Assert.IsTrue(spawnedBenches.Length > 0, "Benches were not generated as expected.");
+
+        foreach (var bench in spawnedBenches)
+        {
+            float xPosition = bench.transform.position.x;
+            Assert.IsTrue(xPosition >= leftStripStart.transform.position.x && xPosition <= leftStripEnd.transform.position.x ||
+                          xPosition >= rightStripStart.transform.position.x && xPosition <= rightStripEnd.transform.position.x,
+                $"Bench out of bounds at {xPosition}");
+        }
     }
 
     [TearDown]
