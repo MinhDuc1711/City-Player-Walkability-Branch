@@ -17,10 +17,10 @@ public class BenchOverlapTests
         GameObject managerObject = new GameObject("PublicSpaceManager");
         publicSpaceManager = managerObject.AddComponent<PublicSpaceGeneration>();
 
-        leftStripStart = new GameObject("LeftStripStart") { transform = { position = new Vector3(3.46, 0, -199.3) } };
-        leftStripEnd = new GameObject("LeftStripEnd") { transform = { position = new Vector3(3.46, 0, 371.4) } };
-        rightStripStart = new GameObject("RightStripStart") { transform = { position = new Vector3(3, 14.68, -293.2) } };
-        rightStripEnd = new GameObject("RightStripEnd") { transform = { position = new Vector3(3, 14.68, 277.42) } };
+        leftStripStart = new GameObject("LeftStripStart") { transform = { position = new Vector3(3.46f, 0, -199.3f) } };
+        leftStripEnd = new GameObject("LeftStripEnd") { transform = { position = new Vector3(3.46f, 0, 371.4f) } };
+        rightStripStart = new GameObject("RightStripStart") { transform = { position = new Vector3(3, 14.68f, -293.2f) } };
+        rightStripEnd = new GameObject("RightStripEnd") { transform = { position = new Vector3(3, 14.68f, 277.42f) } };
 
         publicSpaceManager.GetType().GetField("LeftStripStart", System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance)
             .SetValue(publicSpaceManager, leftStripStart);
@@ -75,9 +75,10 @@ public class BenchOverlapTests
     [TearDown]
     public void Teardown()
     {
-        foreach (var obj in Object.FindObjectsOfType<GameObject>())
+        foreach (var obj in Object.FindObjectsByType<GameObject>(FindObjectsSortMode.None))
         {
             Object.DestroyImmediate(obj);
         }
     }
+
 }
