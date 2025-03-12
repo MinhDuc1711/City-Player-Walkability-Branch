@@ -1,0 +1,83 @@
+using NUnit.Framework;
+using UnityEngine;
+using UnityEngine.UI;
+
+
+
+public class BenchOverlapTests
+{
+    private PublicSpaceGeneration publicSpaceManager;
+    private GameObject leftStripStart, leftStripEnd, rightStripStart, rightStripEnd;
+    private GameObject[] benchPrefabs;
+    private Slider publicSpaceSlider;
+
+    [SetUp]
+    public void Setup()
+    {
+        GameObject managerObject = new GameObject("PublicSpaceManager");
+        publicSpaceManager = managerObject.AddComponent<PublicSpaceGeneration>();
+
+        leftStripStart = new GameObject("LeftStripStart") { transform = { position = new Vector3(3.46, 0, -199.3) } };
+        leftStripEnd = new GameObject("LeftStripEnd") { transform = { position = new Vector3(3.46, 0, 371.4) } };
+        rightStripStart = new GameObject("RightStripStart") { transform = { position = new Vector3(3, 14.68, -293.2) } };
+        rightStripEnd = new GameObject("RightStripEnd") { transform = { position = new Vector3(3, 14.68, 277.42) } };
+
+        publicSpaceManager.GetType().GetField("LeftStripStart", System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance)
+            .SetValue(publicSpaceManager, leftStripStart);
+        publicSpaceManager.GetType().GetField("LeftStripEnd", System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance)
+            .SetValue(publicSpaceManager, leftStripEnd);
+        publicSpaceManager.GetType().GetField("RightStripStart", System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance)
+            .SetValue(publicSpaceManager, rightStripStart);
+        publicSpaceManager.GetType().GetField("RightStripEnd", System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance)
+            .SetValue(publicSpaceManager, rightStripEnd);
+
+        benchPrefabs = new GameObject[2];
+        benchPrefabs[0] = new GameObject("BenchPrefab1");
+        benchPrefabs[1] = new GameObject("BenchPrefab2");
+
+        publicSpaceManager.GetType().GetField("BenchPrefabs", System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance)
+            .SetValue(publicSpaceManager, benchPrefabs);
+
+        GameObject sliderObject = new GameObject("PublicSpaceSlider");
+        publicSpaceSlider = sliderObject.AddComponent<Slider>();
+        publicSpaceSlider.maxValue = 10;
+        publicSpaceSlider.minValue = 0;
+        publicSpaceSlider.value = 5;
+
+        publicSpaceManager.GetType().GetField("publicSpaceSlider", System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance)
+            .SetValue(publicSpaceManager, publicSpaceSlider);
+    }
+
+    [Test]
+    public void TestBenchesDoNotOverlap()
+    {
+        publicSpaceManager.GetType().GetMethod("GenerateBenches", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+            .Invoke(publicSpaceManager, new object[] { publicSpaceSlider.value });
+
+        var spawnedBenches = GameObject.FindGameObjectsWithTag("Bench");
+
+        bool hasOverlap = false;
+        for (int i = 0; i < spawnedBenches.Length; i++)
+        {
+            for (int j = i + 1; j < spawnedBenches.Length; j++)
+            {
+                if (Vector3.Distance(spawnedBenches[i].transform.position, spawnedBenches[j].transform.position) < 1.0f)
+                {
+                    hasOverlap = true;
+                    break;
+                }
+            }
+        }
+
+        Assert.IsFalse(hasOverlap, "Benches are overlapping.");
+    }
+
+    [TearDown]
+    public void Teardown()
+    {
+        foreach (var obj in Object.FindObjectsOfType<GameObject>())
+        {
+            Object.DestroyImmediate(obj);
+        }
+    }
+}
