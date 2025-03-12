@@ -17,10 +17,24 @@ public class ConnectivitySlider : MonoBehaviour
 
     public GreeneryGeneration GreeneryScript;
 
+    public List<GameObject> LeftPlots = new List<GameObject>();
+    public List<GameObject> RightPlots = new List<GameObject>();
+
+    private Dictionary<GameObject, Vector3> originalLeftPlotPositions = new Dictionary<GameObject, Vector3>();
+    private Dictionary<GameObject, Vector3> originalRightPlotPositions = new Dictionary<GameObject, Vector3>();
+
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
+        foreach (GameObject plot in LeftPlots)
+        {
+            originalLeftPlotPositions[plot] = plot.transform.position; // Save initial positions
+        }
+        foreach (GameObject plot in RightPlots)
+        {
+            originalRightPlotPositions[plot] = plot.transform.position; // Save initial positions
+        }
 
     }
 
@@ -31,6 +45,7 @@ public class ConnectivitySlider : MonoBehaviour
             DestroyIntersectionInstances();
             SetActiveForAll(true);
             NotifyGreeneryChange();
+            ResetPlots();
         }
         else if (IntersectionCount == 1)
         {
@@ -40,6 +55,10 @@ public class ConnectivitySlider : MonoBehaviour
 
             InstantiateAndAdjust(IntersectionPoint[0]);
             NotifyGreeneryChange();
+            ResetPlots();
+            AdjustPlots(LeftPlots);
+            AdjustPlots(RightPlots);
+            DebugPositions(RightPlots);
 
         }
         else if (IntersectionCount == 2)
@@ -50,6 +69,10 @@ public class ConnectivitySlider : MonoBehaviour
             InstantiateAndAdjust(Intersection2Points[0]);
             InstantiateAndAdjust(Intersection2Points[1]);
             NotifyGreeneryChange();
+            ResetPlots();
+            AdjustPlots(LeftPlots);
+            AdjustPlots(RightPlots);
+            DebugPositions(RightPlots);
         }
         else if (IntersectionCount == 3)
         {
@@ -60,10 +83,146 @@ public class ConnectivitySlider : MonoBehaviour
             InstantiateAndAdjust(Intersection3Points[1]);
             InstantiateAndAdjust(Intersection3Points[2]);
             NotifyGreeneryChange();
+            ResetPlots();
+            AdjustPlots(LeftPlots);
+            AdjustPlots(RightPlots);
+            DebugPositions(RightPlots);
         }
 
     }
 
+    void AdjustPlots(List<GameObject> Plots)
+    {
+
+        foreach (GameObject plot in Plots)
+        {
+            bool needsAdjustment = true;
+            int maxIterations = 100; // Prevent infinite loops
+            int iteration = 0;
+
+            while (needsAdjustment && iteration < maxIterations)
+            {
+                needsAdjustment = false;
+                iteration++;
+
+                // Get the correct world Z position
+                //WORLD AND LOCAL HAVE A 15 UNIT OFFSET !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                float plotWorldZ = plot.transform.position.z + 15;
+                float plotSize = 25f; // Replace with actual plot size if dynamic
+
+                foreach (GameObject street in IntersectionInstances)
+                {
+                    float streetWorldZ = street.transform.position.z;
+                    float streetSize = 10f; // Replace with actual street size if dynamic
+
+                    if (Mathf.Abs(plotWorldZ - streetWorldZ) <= (plotSize / 2 + streetSize / 2))
+                    {
+                        needsAdjustment = true;
+
+                        // Move the plot forward or backward in world space
+                        if (plotWorldZ >= streetWorldZ)
+                            plot.transform.position += Vector3.forward * plotSize; // Move forward
+                        else
+                            plot.transform.position += Vector3.back * plotSize; // Move backward
+
+                        break; // Recheck from the start after moving
+                    }
+                }
+                
+                foreach (GameObject otherPlot in Plots)
+                {
+                    if (otherPlot != plot) // Don't compare the plot to itself
+                    {
+                        float otherPlotWorldZ = otherPlot.transform.position.z + 15;
+
+                        // Check if the plots are overlapping (within half of the plot size)
+                        if (Mathf.Abs(plotWorldZ - otherPlotWorldZ) <= plotSize-6)
+                        {
+                            needsAdjustment = true;
+
+                            // Find the furthest plot (either leftmost or rightmost) from the colliding plot
+                            float furthestPlotZ = otherPlotWorldZ;
+
+                            // Find the furthest plot
+                            GameObject furthestPlot = null;
+                            float maxDistance = 0;
+
+                            foreach (GameObject other in Plots)
+                            {
+                                if (other != plot)
+                                {
+                                    float otherPlotZ = other.transform.position.z;
+                                    float distance = Mathf.Abs(plotWorldZ - otherPlotZ);
+
+                                    if (distance >= maxDistance)
+                                    {
+                                        furthestPlot = other;
+                                        maxDistance = distance;
+                                    }
+                                }
+                            }
+
+                            // Once the furthest plot is found, move the colliding plot 24 units away from it
+                            if (furthestPlot != null)
+                            {
+                                float furthestPlotWorldZ = furthestPlot.transform.position.z;
+
+                                plot.transform.position = new Vector3(plot.transform.position.x, plot.transform.position.y, furthestPlotWorldZ);
+
+                                if (plotWorldZ < furthestPlotWorldZ)
+                                {
+                                    plot.transform.position += Vector3.forward * plotSize; // Move plot forward
+                                }
+                                else
+                                {
+                                    plot.transform.position += Vector3.back * plotSize; // Move plot backward
+                                }
+                            }
+                            else
+                            {
+                                plot.transform.position += Vector3.forward * plotSize; // Move plot forward
+                            }
+
+                            break; // Recheck after moving
+                        }
+                    }
+                }
+            }
+
+        }
+        
+    }
+
+    void DebugPositions(List<GameObject> Plots)
+    {
+        foreach (GameObject plot in Plots)
+        {
+            Debug.Log($"Plot: {plot.name}, World Z: {plot.transform.position.z}, Local Z: {plot.transform.localPosition.z}");
+        }
+
+        foreach (GameObject street in IntersectionInstances)
+        {
+            Debug.Log($"Street: {street.name}, World Z: {street.transform.position.z}, Local Z: {street.transform.localPosition.z}");
+        }
+    }
+
+    void ResetPlots()
+    {
+        foreach (GameObject plot in LeftPlots)
+        {
+            if (originalLeftPlotPositions.ContainsKey(plot))
+            {
+                plot.transform.position = originalLeftPlotPositions[plot]; // Restore original position
+            }
+        }
+        foreach (GameObject plot in RightPlots)
+        {
+            if (originalRightPlotPositions.ContainsKey(plot))
+            {
+                plot.transform.position = originalRightPlotPositions[plot]; // Restore original position
+            }
+        }
+    }
 
     void InstantiateAndAdjust(Transform inter)
     {
