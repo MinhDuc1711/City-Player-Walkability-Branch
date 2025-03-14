@@ -1,6 +1,9 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 using UnityEngine.Audio;
+using UnityEngine.Rendering; 
+using UnityEngine.Rendering.Universal;
 using System.Collections.Generic;
 
 
@@ -16,11 +19,18 @@ public class UIManager_CPW : MonoBehaviour
     public GameObject quitButton;
 
     [Header("Settings UI Elements")]
-    public Dropdown resolutionDropdown;
+    public TMP_Dropdown resolutionDropdown;
+
     public Toggle fullscreenToggle;
-    public Dropdown graphicsDropdown;
+
+    public TMP_Dropdown graphicsDropdown;
+
     public Slider volumeSlider;
     public AudioMixer audioMixer; // Reference to Audio Mixer for volume control
+    //public Dropdown graphicsDropdown;
+    public UniversalRenderPipelineAsset lowQualityURP;
+    public UniversalRenderPipelineAsset mediumQualityURP;
+    public UniversalRenderPipelineAsset highQualityURP;
 
     private Resolution[] resolutions;
 
@@ -88,23 +98,47 @@ public class UIManager_CPW : MonoBehaviour
     public void SetFullscreen(bool isFullscreen)
     {
         Screen.fullScreen = isFullscreen;
-        PlayerPrefs.SetInt("Fullscreen", isFullscreen ? 1 : 0);
+        PlayerPrefs.SetInt("Fullscreen", isFullscreen ? 1 : 0); // Save fullscreen preference
+        PlayerPrefs.Save();
     }
 
     // 📌 Handle Graphics Quality
-    public void SetGraphicsQuality(int qualityIndex)
+     public void SetGraphicsQuality(int qualityIndex)
     {
-        QualitySettings.SetQualityLevel(qualityIndex);
+        switch (qualityIndex)
+        {
+            case 0:
+                QualitySettings.SetQualityLevel(0);
+                GraphicsSettings.defaultRenderPipeline = lowQualityURP;
+                break;
+            case 1:
+                QualitySettings.SetQualityLevel(1);
+                GraphicsSettings.defaultRenderPipeline = mediumQualityURP;
+                break;
+            case 2:
+                QualitySettings.SetQualityLevel(2);
+                GraphicsSettings.defaultRenderPipeline = highQualityURP;
+                break;
+        }
+
         PlayerPrefs.SetInt("GraphicsQuality", qualityIndex);
+        PlayerPrefs.Save();
     }
 
-    // 📌 Handle Volume Control
+    
+
+    // 📌 Handle Volume Control                                            
     public void SetVolume(float volume)
     {
-        audioMixer.SetFloat("Volume", Mathf.Log10(volume) * 20); // Convert to logarithmic scale for better control
-        PlayerPrefs.SetFloat("Volume", volume);
+       if (audioMixer != null) 
+    {
+        audioMixer.SetFloat("Volume", Mathf.Log10(volume) * 20); // Convert linear slider value to logarithmic scale
+        PlayerPrefs.SetFloat("Volume", volume); // Save volume setting
+        PlayerPrefs.Save();
+    } 
+       
     }
-
+                                                                                                   
     // 📌 Load saved settings when the game starts
     void LoadSettings()
     {
@@ -115,11 +149,11 @@ public class UIManager_CPW : MonoBehaviour
         }
 
         if (PlayerPrefs.HasKey("Fullscreen"))
-        {
+    {
             bool isFullscreen = PlayerPrefs.GetInt("Fullscreen") == 1;
-            fullscreenToggle.isOn = isFullscreen;
-            Screen.fullScreen = isFullscreen;
-        }
+            fullscreenToggle.isOn = isFullscreen;  // Sync toggle state
+            Screen.fullScreen = isFullscreen;  // Apply fullscreen mode
+    }
 
         if (PlayerPrefs.HasKey("GraphicsQuality"))
         {
