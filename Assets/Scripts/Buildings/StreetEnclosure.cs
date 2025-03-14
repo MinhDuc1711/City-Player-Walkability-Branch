@@ -16,26 +16,8 @@ public class StreetEnclosure : MonoBehaviour
 
     void Start()
     {
-        // Ensure buildings are initialized
-        if (leftBuildings.Count == 0 || rightBuildings.Count == 0)
-        {
-            GetBuildings();
-        }
+        GetBuildings();
 
-        // Initialize positions array
-        leftOriginalPositions = new Vector3[leftBuildings.Count];
-        rightOriginalPositions = new Vector3[rightBuildings.Count];
-
-        for (int i = 0; i < leftBuildings.Count; i++)
-        {
-            leftOriginalPositions[i] = leftBuildings[i].transform.position;
-        }
-        for (int i = 0; i < rightBuildings.Count; i++)
-        {
-            rightOriginalPositions[i] = rightBuildings[i].transform.position;
-        }
-
-        // Attach slider event listener
         if (slider != null)
         {
             slider.onValueChanged.AddListener(UpdateBuildingPositions);
@@ -43,6 +25,24 @@ public class StreetEnclosure : MonoBehaviour
         else
         {
             Debug.LogError("Slider is not assigned in the Inspector!");
+        }
+    }
+
+    void RefreshBuildings()
+    {
+        // Initialize positions array
+        leftOriginalPositions = new Vector3[leftBuildings.Count];
+        rightOriginalPositions = new Vector3[rightBuildings.Count];
+
+        for (int i = 0; i < leftBuildings.Count; i++)
+        {
+            if (leftBuildings[i] != null) // Avoid null reference exception
+                leftOriginalPositions[i] = leftBuildings[i].transform.position;
+        }
+        for (int i = 0; i < rightBuildings.Count; i++)
+        {
+            if (rightBuildings[i] != null) // Avoid null reference exception
+                rightOriginalPositions[i] = rightBuildings[i].transform.position;
         }
     }
 
@@ -67,7 +67,7 @@ public class StreetEnclosure : MonoBehaviour
             }
             
         }
-        //EditorSceneManager.MarkSceneDirty(gameObject.scene);
+        RefreshBuildings();
     }
 
     void UpdateBuildingPositions(float value)
@@ -76,13 +76,19 @@ public class StreetEnclosure : MonoBehaviour
 
         for (int i = 0; i < leftBuildings.Count; i++)
         {
-            Vector3 originalPos = leftOriginalPositions[i];
-            leftBuildings[i].transform.position = new Vector3(originalPos.x + offset, originalPos.y, originalPos.z);
+            if(leftBuildings[i] != null)
+            {
+                Vector3 originalPos = leftOriginalPositions[i];
+                leftBuildings[i].transform.position = new Vector3(originalPos.x + offset, originalPos.y, originalPos.z);
+            }
         }
         for (int i = 0; i < rightBuildings.Count; i++)
         {
-            Vector3 originalPos = rightOriginalPositions[i];
-            rightBuildings[i].transform.position = new Vector3(originalPos.x - offset, originalPos.y, originalPos.z);
+            if(rightBuildings != null)
+            {
+                Vector3 originalPos = rightOriginalPositions[i];
+                rightBuildings[i].transform.position = new Vector3(originalPos.x - offset, originalPos.y, originalPos.z);
+            }
         }
     }
 }
