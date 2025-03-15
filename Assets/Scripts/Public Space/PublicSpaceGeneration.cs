@@ -75,7 +75,7 @@ public class PublicSpaceGeneration : MonoBehaviour
                 if (!IsOccupied(position))
                 {
                     GameObject benchPrefab = BenchPrefabs[Random.Range(0, BenchPrefabs.Length)];
-                    GameObject newBench = Instantiate(benchPrefab, position, Quaternion.identity);
+                    GameObject newBench = Instantiate(benchPrefab, position, benchPrefab.transform.rotation);
                     newBench.tag = "Bench";
                     benches.Add(newBench);
                     benchesCreated++;
