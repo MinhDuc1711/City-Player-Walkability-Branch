@@ -7,7 +7,7 @@ public class StreetEnclosure : MonoBehaviour
 {
     [SerializeField] private float maxOffset = 3.0f; // Maximum distance buildings move towards the street
     [SerializeField] private Slider slider;
-    [SerializeField] private GameObject plotParent;
+    private GameObject plotParent;
     [SerializeField] private List<GameObject> leftBuildings = new List<GameObject>();
     [SerializeField] private List<GameObject> rightBuildings = new List<GameObject>();
 
@@ -49,30 +49,63 @@ public class StreetEnclosure : MonoBehaviour
     [ContextMenu("Get Buildings")]
     void GetBuildings()
     {
+        plotParent = GameObject.Find("Plots");
         leftBuildings.Clear(); // Clean list before adding new ones
         rightBuildings.Clear();
-        foreach (Transform plot in plotParent.transform.GetChild(0))
+        if (plotParent.transform.childCount > 0)
         {
-            foreach (Transform child in plot.transform)
+            Transform leftHolder = plotParent.transform.GetChild(0);
+            Transform rightHolder = plotParent.transform.GetChild(1);
+
+            foreach (Transform plot in leftHolder)
             {
-                leftBuildings.Add(child.GetChild(0).gameObject);
+                if (plot.childCount > 0)
+                {
+                    leftBuildings.Add(plot.GetChild(0).gameObject);
+                }
             }
-            
+
+            foreach (Transform plot in rightHolder)
+            {
+                if (plot.childCount > 0)
+                {
+                    rightBuildings.Add(plot.GetChild(0).gameObject);
+                }
+            }
         }
-        foreach (Transform plot in plotParent.transform.GetChild(1))
+        else
         {
-            foreach (Transform child in plot.transform)
-            {
-                rightBuildings.Add(child.GetChild(0).gameObject);
-            }
-            
+            Debug.LogError("Plots object found, but it has no children!");
         }
-        RefreshBuildings();
-    }
+            RefreshBuildings();
+        }
 
     void UpdateBuildingPositions(float value)
     {
         float offset = Mathf.Lerp(0, maxOffset, value / slider.maxValue);
+                bool needsRefresh = false;
+
+        for (int i = 0; i < leftBuildings.Count; i++)
+        {
+            if (leftBuildings[i] == null || leftBuildings[i].transform.parent == null)
+            {
+                needsRefresh = true;
+                break;
+            }
+        }
+        for (int i = 0; i < rightBuildings.Count; i++)
+        {
+            if (rightBuildings[i] == null || rightBuildings[i].transform.parent == null)
+            {
+                needsRefresh = true;
+                break;
+            }
+        }
+        if (needsRefresh)
+        {
+            Debug.LogWarning("Buildings have changed, calling GetBuildings()...");
+            GetBuildings();
+        }
 
         for (int i = 0; i < leftBuildings.Count; i++)
         {
@@ -90,5 +123,6 @@ public class StreetEnclosure : MonoBehaviour
                 rightBuildings[i].transform.position = new Vector3(originalPos.x - offset, originalPos.y, originalPos.z);
             }
         }
+        
     }
 }
