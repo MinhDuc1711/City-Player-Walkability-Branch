@@ -14,6 +14,7 @@ public class PublicSpaceGeneration : MonoBehaviour
 
     public Slider publicSpaceSlider;
 
+    public ConnectivitySlider ConnectScript;
     private List<GameObject> benches = new List<GameObject>();
 
     void Start()
@@ -127,6 +128,15 @@ public class PublicSpaceGeneration : MonoBehaviour
         {
             // This should be reworked to include any type of object
             if (collider.CompareTag("Tree") || collider.CompareTag("Flower") || collider.CompareTag("Bench")) return true;
+        }
+        foreach (var instance in ConnectScript.IntersectionInstances)
+        {
+            //The -12 is a custom offset, its a horrible fix but it works ish
+            float intersectionZ = instance.transform.position.z-12;
+            if (Mathf.Abs(position.z - intersectionZ) <= 10)
+            {
+                return true;
+            }
         }
         return false;
     }
