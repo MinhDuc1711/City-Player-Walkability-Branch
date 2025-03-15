@@ -16,6 +16,8 @@ public class GreeneryGeneration : MonoBehaviour
 
     public float ExtraSpacing=3;
 
+    public ConnectivitySlider ConnectScript;
+
     //private GameObject[] greeneryPrefabs; 
 
     public void Start()
@@ -24,6 +26,11 @@ public class GreeneryGeneration : MonoBehaviour
         greenObjSlider.onValueChanged.AddListener(OnGreenObjectSliderValueChanged);
         // Initial generation 
         GenerateGreenery(greenObjSlider.value);
+    }
+
+    public void Update()
+    {
+        
     }
 
     void OnGreenObjectSliderValueChanged(float value)
@@ -36,7 +43,7 @@ public class GreeneryGeneration : MonoBehaviour
     {
         if (density != 0)
         {
-            density = 15 - density; 
+            density = 16 - density; 
         }
         ClearGreenery();
 

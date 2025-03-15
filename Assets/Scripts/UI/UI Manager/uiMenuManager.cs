@@ -14,8 +14,12 @@ public class uiMenuManager : MonoBehaviour
     public List<UIMenu> toggleBtns = new List<UIMenu>();
 
     private UIMenu active;
+
+    public FileSaver fs;
+
     private void Awake()
     {
+        fs = this.gameObject.GetComponent<FileSaver>();
         camLock = this.gameObject.GetComponent<CameraLock>();
     }
 
