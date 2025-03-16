@@ -37,12 +37,12 @@ public class PublicSpaceGeneration : MonoBehaviour
         GenerateBenches(value);
     }
 
-    void GenerateBenches(float density)
+    public void GenerateBenches(float density)
     {
         ClearBenches();
 
         // Adjust density to increase with slider's right side
-        float adjustedDensity = 1 - density/20f; // Invert the value: 0 -> 1, 1 -> 0
+        float adjustedDensity = 1 - density/10f; // Invert the value: 0 -> 1, 1 -> 0
 
         // Adjust spacing based on inverted density
         float spacing = Mathf.Lerp(5f, 15f, adjustedDensity);  // Closer benches at higher density
@@ -129,13 +129,16 @@ public class PublicSpaceGeneration : MonoBehaviour
             // This should be reworked to include any type of object
             if (collider.CompareTag("Tree") || collider.CompareTag("Flower") || collider.CompareTag("Bench")) return true;
         }
-        foreach (var instance in ConnectScript.IntersectionInstances)
+        if (ConnectScript != null)
         {
-            //The -12 is a custom offset, its a horrible fix but it works ish
-            float intersectionZ = instance.transform.position.z-12;
-            if (Mathf.Abs(position.z - intersectionZ) <= 10)
+            foreach (var instance in ConnectScript.IntersectionInstances)
             {
-                return true;
+                //The -12 is a custom offset, its a horrible fix but it works ish
+                float intersectionZ = instance.transform.position.z-12;
+                if (Mathf.Abs(position.z - intersectionZ) <= 10)
+                {
+                    return true;
+                }
             }
         }
         return false;
