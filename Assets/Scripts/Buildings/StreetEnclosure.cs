@@ -30,19 +30,29 @@ public class StreetEnclosure : MonoBehaviour
 
     void RefreshBuildings()
     {
-        // Initialize positions array
-        leftOriginalPositions = new Vector3[leftBuildings.Count];
-        rightOriginalPositions = new Vector3[rightBuildings.Count];
+        if (leftOriginalPositions == null || leftOriginalPositions.Length != leftBuildings.Count)
+            leftOriginalPositions = new Vector3[leftBuildings.Count];
+
+        if (rightOriginalPositions == null || rightOriginalPositions.Length != rightBuildings.Count)
+            rightOriginalPositions = new Vector3[rightBuildings.Count];
 
         for (int i = 0; i < leftBuildings.Count; i++)
         {
-            if (leftBuildings[i] != null) // Avoid null reference exception
-                leftOriginalPositions[i] = leftBuildings[i].transform.position;
+            if (leftBuildings[i] != null)
+            {
+                // ✅ If it's a new building, keep the original position from the plot
+                if (i >= leftOriginalPositions.Length || leftOriginalPositions[i] == Vector3.zero)
+                    leftOriginalPositions[i] = leftBuildings[i].transform.position;
+            }
         }
+        
         for (int i = 0; i < rightBuildings.Count; i++)
         {
-            if (rightBuildings[i] != null) // Avoid null reference exception
-                rightOriginalPositions[i] = rightBuildings[i].transform.position;
+            if (rightBuildings[i] != null)
+            {
+                if (i >= rightOriginalPositions.Length || rightOriginalPositions[i] == Vector3.zero)
+                    rightOriginalPositions[i] = rightBuildings[i].transform.position;
+            }
         }
     }
 
@@ -77,12 +87,12 @@ public class StreetEnclosure : MonoBehaviour
         {
             Debug.LogError("Plots object found, but it has no children!");
         }
-            RefreshBuildings();
-        }
+        RefreshBuildings();
+    }
 
     void UpdateBuildingPositions(float value)
     {
-        float offset = (value / slider.maxValue) * maxOffset * 2.0f;
+        float offset = Mathf.Lerp(0, maxOffset, value / slider.maxValue);
         bool needsRefresh = false;
 
         for (int i = 0; i < leftBuildings.Count; i++)
