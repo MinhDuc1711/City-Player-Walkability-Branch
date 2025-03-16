@@ -140,6 +140,8 @@ public class GreeneryGeneration : MonoBehaviour
         {
             if (collider.CompareTag("Tree") || collider.CompareTag("Flower") || collider.CompareTag("Bench")) return true;
         }
+        if (ConnectScript != null)
+        {
             foreach (var instance in ConnectScript.IntersectionInstances)
             {
                 //The -12 is a custom offset, its a horrible fix but it works ish
