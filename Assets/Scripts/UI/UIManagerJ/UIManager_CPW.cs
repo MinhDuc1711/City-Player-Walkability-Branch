@@ -2,10 +2,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.Audio;
-using UnityEngine.Rendering; 
+using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 using System.Collections.Generic;
-
 
 public class UIManager_CPW : MonoBehaviour
 {
@@ -20,14 +19,12 @@ public class UIManager_CPW : MonoBehaviour
 
     [Header("Settings UI Elements")]
     public TMP_Dropdown resolutionDropdown;
-
     public Toggle fullscreenToggle;
-
     public TMP_Dropdown graphicsDropdown;
-
     public Slider volumeSlider;
     public AudioMixer audioMixer; // Reference to Audio Mixer for volume control
-    //public Dropdown graphicsDropdown;
+
+    [Header("Graphics Settings (URP)")]
     public UniversalRenderPipelineAsset lowQualityURP;
     public UniversalRenderPipelineAsset mediumQualityURP;
     public UniversalRenderPipelineAsset highQualityURP;
@@ -36,14 +33,20 @@ public class UIManager_CPW : MonoBehaviour
 
     void Start()
     {
-        // Ensure only the Main Menu is visible at the start
+        // ✅ Ensure Panels are Correctly Managed
+        if (mainMenuPanel == null || settingsPanel == null)
+        {
+            Debug.LogError("UIManager_CPW: Missing UI panel references. Assign them in the Inspector!");
+            return;
+        }
+
         mainMenuPanel.SetActive(true);
         settingsPanel.SetActive(false);
 
-        // Initialize resolution options
+        // ✅ Initialize Resolution Options
         InitializeResolutions();
 
-        // Load saved settings
+        // ✅ Load User Preferences
         LoadSettings();
     }
 
@@ -68,8 +71,8 @@ public class UIManager_CPW : MonoBehaviour
         resolutions = Screen.resolutions;
         resolutionDropdown.ClearOptions();
 
-        int currentResolutionIndex = 0;
         List<string> options = new List<string>();
+        int currentResolutionIndex = 0;
 
         for (int i = 0; i < resolutions.Length; i++)
         {
@@ -92,54 +95,68 @@ public class UIManager_CPW : MonoBehaviour
         Resolution resolution = resolutions[resolutionIndex];
         Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
         PlayerPrefs.SetInt("ResolutionIndex", resolutionIndex);
+        PlayerPrefs.Save();
     }
 
     // 📌 Handle Fullscreen Toggle
     public void SetFullscreen(bool isFullscreen)
     {
         Screen.fullScreen = isFullscreen;
-        PlayerPrefs.SetInt("Fullscreen", isFullscreen ? 1 : 0); // Save fullscreen preference
+        PlayerPrefs.SetInt("Fullscreen", isFullscreen ? 1 : 0);
         PlayerPrefs.Save();
     }
 
-    // 📌 Handle Graphics Quality
-     public void SetGraphicsQuality(int qualityIndex)
+    // 📌 Fix Graphics Quality (Now Works and Saves)
+    public void SetQuality(int qualityIndex)
+{
+    // Apply Unity's Built-in Quality Setting
+    QualitySettings.SetQualityLevel(qualityIndex);
+
+    // ✅ Apply the Correct URP Render Pipeline Asset
+    switch (qualityIndex)
     {
-        switch (qualityIndex)
-        {
-            case 0:
-                QualitySettings.SetQualityLevel(0);
-                GraphicsSettings.defaultRenderPipeline = lowQualityURP;
-                break;
-            case 1:
-                QualitySettings.SetQualityLevel(1);
-                GraphicsSettings.defaultRenderPipeline = mediumQualityURP;
-                break;
-            case 2:
-                QualitySettings.SetQualityLevel(2);
-                GraphicsSettings.defaultRenderPipeline = highQualityURP;
-                break;
-        }
+        case 0: // Low Quality
+            GraphicsSettings.defaultRenderPipeline = lowQualityURP;
+            Debug.Log("Graphics set to LOW");
+            break;
 
-        PlayerPrefs.SetInt("GraphicsQuality", qualityIndex);
-        PlayerPrefs.Save();
+        case 1: // Medium Quality
+            GraphicsSettings.defaultRenderPipeline = mediumQualityURP;
+            Debug.Log("Graphics set to MEDIUM");
+            break;
+
+        case 2: // High Quality
+            GraphicsSettings.defaultRenderPipeline = highQualityURP;
+            Debug.Log("Graphics set to HIGH");
+            break;
+
+        default:
+            Debug.LogError("Invalid graphics quality index!");
+            return;
     }
 
-    
+    // ✅ Save Setting for Future Sessions
+    PlayerPrefs.SetInt("GraphicsQuality", qualityIndex);
+    PlayerPrefs.Save();
+}
 
-    // 📌 Handle Volume Control                                            
+
+    // 📌 Fix Volume Control (Now Prevents Log(0) Error)
     public void SetVolume(float volume)
     {
-       if (audioMixer != null) 
-    {
-        audioMixer.SetFloat("Volume", Mathf.Log10(volume) * 20); // Convert linear slider value to logarithmic scale
-        PlayerPrefs.SetFloat("Volume", volume); // Save volume setting
-        PlayerPrefs.Save();
-    } 
-       
+        if (audioMixer != null)
+        {
+            audioMixer.SetFloat("Volume", Mathf.Log10(Mathf.Max(volume, 0.0001f)) * 20); // Prevent log(0) issue
+            PlayerPrefs.SetFloat("Volume", volume);
+            PlayerPrefs.Save();
+        }
+        else
+        {
+            Debug.LogError("UIManager_CPW: Audio Mixer not assigned!");
+        }
     }
-                                                                                                   
-    // 📌 Load saved settings when the game starts
+
+    // 📌 Load User Preferences
     void LoadSettings()
     {
         if (PlayerPrefs.HasKey("ResolutionIndex"))
@@ -149,24 +166,24 @@ public class UIManager_CPW : MonoBehaviour
         }
 
         if (PlayerPrefs.HasKey("Fullscreen"))
-    {
+        {
             bool isFullscreen = PlayerPrefs.GetInt("Fullscreen") == 1;
             fullscreenToggle.isOn = isFullscreen;  // Sync toggle state
             Screen.fullScreen = isFullscreen;  // Apply fullscreen mode
-    }
+        }
 
         if (PlayerPrefs.HasKey("GraphicsQuality"))
         {
             int qualityIndex = PlayerPrefs.GetInt("GraphicsQuality");
             graphicsDropdown.value = qualityIndex;
-            QualitySettings.SetQualityLevel(qualityIndex);
+            SetQuality(qualityIndex); // ✅ Ensures URP Assets are Applied
         }
 
         if (PlayerPrefs.HasKey("Volume"))
         {
             float volume = PlayerPrefs.GetFloat("Volume");
             volumeSlider.value = volume;
-            audioMixer.SetFloat("Volume", Mathf.Log10(volume) * 20);
+            SetVolume(volume);
         }
     }
 }
