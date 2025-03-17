@@ -1,6 +1,8 @@
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic;
+
 
 
 
@@ -49,28 +51,34 @@ public class BenchOverlapTests
     }
 
     [Test]
-    public void TestBenchesDoNotOverlap()
+    public void TestBenchesDoNotOverlap_Optimized()
     {
-        publicSpaceManager.GetType().GetMethod("GenerateBenches", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
-            .Invoke(publicSpaceManager, new object[] { publicSpaceSlider.value });
+        publicSpaceSlider.value = 5; // Mid-range density
+        publicSpaceSlider.onValueChanged.Invoke(publicSpaceSlider.value); // Triggers actual generation
 
         var spawnedBenches = GameObject.FindGameObjectsWithTag("Bench");
+        Assert.Greater(spawnedBenches.Length, 0, "No benches were spawned, test is invalid.");
 
-        bool hasOverlap = false;
-        for (int i = 0; i < spawnedBenches.Length; i++)
+        float minSpacing = 5.0f; // Adjust based on spacing logic
+        HashSet<Vector3> occupiedPositions = new HashSet<Vector3>();
+
+        foreach (var bench in spawnedBenches)
         {
-            for (int j = i + 1; j < spawnedBenches.Length; j++)
+            Vector3 pos = bench.transform.position;
+
+            // Check if any previously placed bench is too close
+            foreach (var existingPos in occupiedPositions)
             {
-                if (Vector3.Distance(spawnedBenches[i].transform.position, spawnedBenches[j].transform.position) < 1.0f)
+                if (Vector3.Distance(pos, existingPos) < minSpacing)
                 {
-                    hasOverlap = true;
-                    break;
+                    Assert.Fail($"Benches are overlapping at {pos} and {existingPos}");
                 }
             }
-        }
 
-        Assert.IsFalse(hasOverlap, "Benches are overlapping.");
+            occupiedPositions.Add(pos);
+        }
     }
+
 
     [TearDown]
     public void Teardown()

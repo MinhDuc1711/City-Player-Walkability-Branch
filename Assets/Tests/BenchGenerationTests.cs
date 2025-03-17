@@ -51,15 +51,27 @@ public class BenchGenerationTests
     public void TestGenerateBenchesAndSliderDensityChanges()
     {
         publicSpaceSlider.value = 1;
-        publicSpaceManager.OnPublicSpaceSliderValueChanged(publicSpaceSlider.value);
+        publicSpaceSlider.onValueChanged.Invoke(publicSpaceSlider.value); // Ensures event call
         int lowDensityCount = GameObject.FindGameObjectsWithTag("Bench").Length;
 
         publicSpaceSlider.value = 10;
-        publicSpaceManager.OnPublicSpaceSliderValueChanged(publicSpaceSlider.value);
+        publicSpaceSlider.onValueChanged.Invoke(publicSpaceSlider.value);
         int highDensityCount = GameObject.FindGameObjectsWithTag("Bench").Length;
 
         Assert.Greater(highDensityCount, lowDensityCount, "Higher density should generate more benches.");
+
+        // Additional check to ensure spacing logic is respected
+        if (highDensityCount > 1)
+        {
+            GameObject[] benches = GameObject.FindGameObjectsWithTag("Bench");
+            for (int i = 0; i < benches.Length - 1; i++)
+            {
+                float dist = Vector3.Distance(benches[i].transform.position, benches[i + 1].transform.position);
+                Assert.GreaterOrEqual(dist, 5f, "Benches should maintain a minimum spacing based on density.");
+            }
+        }
     }
+
 
     [TearDown]
     public void Teardown()
