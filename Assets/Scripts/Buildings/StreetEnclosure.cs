@@ -92,7 +92,7 @@ public class StreetEnclosure : MonoBehaviour
 
     void UpdateBuildingPositions(float value)
     {
-        float offset = Mathf.Lerp(0, maxOffset, value / slider.maxValue);
+        float offset = (value / slider.maxValue) * maxOffset * 2.0f;
         bool needsRefresh = false;
 
         for (int i = 0; i < leftBuildings.Count; i++)
