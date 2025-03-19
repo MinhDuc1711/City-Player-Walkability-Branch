@@ -40,7 +40,6 @@ public class StreetEnclosure : MonoBehaviour
         {
             if (leftBuildings[i] != null)
             {
-                // ✅ If it's a new building, keep the original position from the plot
                 if (i >= leftOriginalPositions.Length || leftOriginalPositions[i] == Vector3.zero)
                     leftOriginalPositions[i] = leftBuildings[i].transform.position;
             }
@@ -60,7 +59,7 @@ public class StreetEnclosure : MonoBehaviour
     void GetBuildings()
     {
         plotParent = GameObject.Find("Plots");
-        leftBuildings.Clear(); // Clean list before adding new ones
+        leftBuildings.Clear(); 
         rightBuildings.Clear();
         if (plotParent.transform.childCount > 0)
         {
