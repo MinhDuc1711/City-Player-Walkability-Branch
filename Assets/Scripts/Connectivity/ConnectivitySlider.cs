@@ -17,6 +17,8 @@ public class ConnectivitySlider : MonoBehaviour
 
     public GreeneryGeneration GreeneryScript;
 
+    public PublicSpaceGeneration PublicSpaceScript;
+
     public List<GameObject> LeftPlots = new List<GameObject>();
     public List<GameObject> RightPlots = new List<GameObject>();
 
@@ -45,6 +47,7 @@ public class ConnectivitySlider : MonoBehaviour
             DestroyIntersectionInstances();
             SetActiveForAll(true);
             NotifyGreeneryChange();
+            NotifyPublicSpaceChange();
             ResetPlots();
         }
         else if (IntersectionCount == 1)
@@ -55,6 +58,7 @@ public class ConnectivitySlider : MonoBehaviour
 
             InstantiateAndAdjust(IntersectionPoint[0]);
             NotifyGreeneryChange();
+            NotifyPublicSpaceChange();
             ResetPlots();
             AdjustPlots(LeftPlots);
             AdjustPlots(RightPlots);
@@ -69,6 +73,7 @@ public class ConnectivitySlider : MonoBehaviour
             InstantiateAndAdjust(Intersection2Points[0]);
             InstantiateAndAdjust(Intersection2Points[1]);
             NotifyGreeneryChange();
+            NotifyPublicSpaceChange();
             ResetPlots();
             AdjustPlots(LeftPlots);
             AdjustPlots(RightPlots);
@@ -83,6 +88,7 @@ public class ConnectivitySlider : MonoBehaviour
             InstantiateAndAdjust(Intersection3Points[1]);
             InstantiateAndAdjust(Intersection3Points[2]);
             NotifyGreeneryChange();
+            NotifyPublicSpaceChange();
             ResetPlots();
             AdjustPlots(LeftPlots);
             AdjustPlots(RightPlots);
@@ -276,6 +282,14 @@ public class ConnectivitySlider : MonoBehaviour
         if (GreeneryScript != null)
         {
             GreeneryScript.GenerateGreenery(GreeneryScript.greenObjSlider.value);
+        }
+    }
+
+    private void NotifyPublicSpaceChange()
+    {
+        if (PublicSpaceScript != null)
+        {
+            PublicSpaceScript.GenerateBenches(PublicSpaceScript.publicSpaceSlider.value);
         }
     }
 
