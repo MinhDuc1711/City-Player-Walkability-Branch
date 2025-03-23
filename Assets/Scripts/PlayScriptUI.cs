@@ -11,7 +11,7 @@ public class PlayScript : MonoBehaviour
 
     public void ssttings()
     {
-        SceneManager.LoadSceneAsync(2);
+        SceneManager.LoadSceneAsync(0);
     }
 
     public void QuitGame()

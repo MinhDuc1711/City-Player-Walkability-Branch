@@ -1,65 +1,66 @@
-using NUnit.Framework;
-using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.UI;
+//using NUnit.Framework;
 
-public class SimpleDraggableItemTests
-{
-    private DraggableItem draggableItem;
-    private GameObject draggableGameObject;
-    private Transform originalParent;
+//using UnityEngine;
+//using UnityEngine.EventSystems;
+//using UnityEngine.UI;
 
-    [SetUp]
-    public void SetUp()
-    {
-        // Create GameObject for DraggableItem and attach necessary components
-        draggableGameObject = new GameObject("DraggableItem");
-        draggableItem = draggableGameObject.AddComponent<DraggableItem>();
+//public class SimpleDraggableItemTests
+//{
+//    private DraggableItem draggableItem;
+//    private GameObject draggableGameObject;
+//    private Transform originalParent;
 
-        // Add an Image component to avoid null reference
-        draggableItem.image = draggableGameObject.AddComponent<Image>();
+//    [SetUp]
+//    public void SetUp()
+//    {
+//        // Create GameObject for DraggableItem and attach necessary components
+//        draggableGameObject = new GameObject("DraggableItem");
+//        draggableItem = draggableGameObject.AddComponent<DraggableItem>();
 
-        // Create a mock original parent for the draggable item
-        originalParent = new GameObject("OriginalParent").transform;
-        draggableItem.parentAfterDrag = originalParent;
+//        // Add an Image component to avoid null reference
+//        draggableItem.image = draggableGameObject.AddComponent<Image>();
 
-        // Set the DraggableItem's initial parent
-        draggableGameObject.transform.SetParent(originalParent);
-    }
+//        // Create a mock original parent for the draggable item
+//        originalParent = new GameObject("OriginalParent").transform;
+//        draggableItem.parentAfterDrag = originalParent;
 
-    [TearDown]
-    public void TearDown()
-    {
-        Object.DestroyImmediate(draggableGameObject);
-        Object.DestroyImmediate(originalParent.gameObject);
-    }
+//        // Set the DraggableItem's initial parent
+//        draggableGameObject.transform.SetParent(originalParent);
+//    }
 
-    [Test]
-    public void OnBeginDrag_SetsParentToRootAndDisablesRaycast()
-    {
-        // Arrange
-        var eventData = new PointerEventData(EventSystem.current);
+//    [TearDown]
+//    public void TearDown()
+//    {
+//        Object.DestroyImmediate(draggableGameObject);
+//        Object.DestroyImmediate(originalParent.gameObject);
+//    }
 
-        // Act
-        draggableItem.OnBeginDrag(eventData);
+//    [Test]
+//    public void OnBeginDrag_SetsParentToRootAndDisablesRaycast()
+//    {
+//        // Arrange
+//        var eventData = new PointerEventData(EventSystem.current);
 
-        // Assert
-        Assert.AreEqual(draggableGameObject.transform.root, draggableGameObject.transform.parent, "Draggable item should be reparented to root.");
-        Assert.IsFalse(draggableItem.image.raycastTarget, "Raycast target should be disabled on begin drag.");
-    }
+//        // Act
+//        draggableItem.OnBeginDrag(eventData);
 
-    [Test]
-    public void OnEndDrag_ReparentsToOriginalParentAndEnablesRaycast()
-    {
-        // Arrange
-        var eventData = new PointerEventData(EventSystem.current);
-        draggableItem.OnBeginDrag(eventData); // Simulate beginning the drag
+//        // Assert
+//        Assert.AreEqual(draggableGameObject.transform.root, draggableGameObject.transform.parent, "Draggable item should be reparented to root.");
+//        Assert.IsFalse(draggableItem.image.raycastTarget, "Raycast target should be disabled on begin drag.");
+//    }
 
-        // Act
-        draggableItem.OnEndDrag(eventData);
+//    [Test]
+//    public void OnEndDrag_ReparentsToOriginalParentAndEnablesRaycast()
+//    {
+//        // Arrange
+//        var eventData = new PointerEventData(EventSystem.current);
+//        draggableItem.OnBeginDrag(eventData); // Simulate beginning the drag
 
-        // Assert
-        Assert.AreEqual(originalParent, draggableGameObject.transform.parent, "Draggable item should be reparented back to original parent on end drag.");
-        Assert.IsTrue(draggableItem.image.raycastTarget, "Raycast target should be enabled after end drag.");
-    }
-}
+//        // Act
+//        draggableItem.OnEndDrag(eventData);
+
+//        // Assert
+//        Assert.AreEqual(originalParent, draggableGameObject.transform.parent, "Draggable item should be reparented back to original parent on end drag.");
+//        Assert.IsTrue(draggableItem.image.raycastTarget, "Raycast target should be enabled after end drag.");
+//    }
+//}

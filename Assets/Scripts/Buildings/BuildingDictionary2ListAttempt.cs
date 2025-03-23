@@ -1,8 +1,4 @@
 using System.Collections.Generic;
-using Unity.Collections;
-using Unity.VisualScripting;
-using Unity.VisualScripting.Antlr3.Runtime.Tree;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -42,7 +38,9 @@ public class BuildingDictionary2ListAttempt : MonoBehaviour
                 unmodifiedBuildings.Add(child.GetChild(0).gameObject);
             }
         }
-        EditorSceneManager.MarkSceneDirty(gameObject.scene);
+        #if UNITY_EDITOR
+        UnityEditor.SceneManagement.EditorSceneManager.MarkSceneDirty(gameObject.scene);
+        #endif
     }
     void CleanBuildingList()
     {

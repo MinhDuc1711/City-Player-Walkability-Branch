@@ -23,6 +23,7 @@ public class PImenuToggle : UIMenu, IPointerClickHandler
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
+            manager.fs.writeTofile();
             BackToMenu();
         }
     }
