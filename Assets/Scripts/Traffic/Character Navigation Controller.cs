@@ -3,7 +3,8 @@ using UnityEngine;
 public class CharacterNavigationController : MonoBehaviour
 {
     [Header("Movement Settings")]
-    public float movementSpeed = 1f;       
+
+    public float movementSpeed;
     public float rotationSpeed = 120f;    
     public float stopDistance = 2.5f;     
     public float speedVariationRange = 0.2f; 
@@ -19,7 +20,8 @@ public class CharacterNavigationController : MonoBehaviour
 
     public void Start()
     {
-        //Save the spawn position and apply random speed variation
+      movementSpeed = UnityEngine.Random.Range(1.2f, 1.6f);
+    //Save the spawn position and apply random speed variation
         spawnPosition = transform.position;
         movementSpeed += Random.Range(-speedVariationRange, speedVariationRange);
         movementSpeed = Mathf.Clamp(movementSpeed, 0.5f, 2f); //Clamp to ensure the speed is realistic
