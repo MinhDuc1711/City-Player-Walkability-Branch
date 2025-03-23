@@ -10,6 +10,9 @@ public class RA_toggle1 : UIMenu, IPointerClickHandler
     public uiMenuManager manager;
     public RectTransform menu;
 
+    //public float closed = -182f;
+   // public float open = 1693f+(91f);
+
     protected void Awake()
     {
     }
@@ -21,28 +24,18 @@ public class RA_toggle1 : UIMenu, IPointerClickHandler
             manager.fs.writeTofile();
             BackToMenu();
         }
-
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            if (!state)
-            {
-                manager.showUIMenu(this);
-            }
-            else
-            {
-                manager.hideUIMenu(this);
-            }
-        }
     }
 
     public override void SetActive(bool _state)
     {
         if (_state)
         {
-            menu.gameObject.SetActive(true);
+           //menu.anchoredPosition = new Vector2(open, menu.anchoredPosition.y);
+           menu.gameObject.SetActive(true);
         }
-        else if (!_state)
+        else
         {
+            //menu.anchoredPosition = new Vector2(closed, menu.anchoredPosition.y); ;
             menu.gameObject.SetActive(false);
         }
     }
