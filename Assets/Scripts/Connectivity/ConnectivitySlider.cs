@@ -271,7 +271,7 @@ public class ConnectivitySlider : MonoBehaviour
     {
         if (PublicSpaceScript != null)
         {
-            PublicSpaceScript.GenerateBenches(PublicSpaceScript.publicSpaceSlider.value);
+            PublicSpaceScript.OnPublicSpaceSliderValueChanged(PublicSpaceScript.publicSpaceSlider.value);
         }
     }
 
