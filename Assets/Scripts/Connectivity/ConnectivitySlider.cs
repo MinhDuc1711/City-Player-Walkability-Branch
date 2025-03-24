@@ -42,63 +42,40 @@ public class ConnectivitySlider : MonoBehaviour
 
     }
 
+
     public void GenerateIntersection(float IntersectionCount)
     {
+        DestroyIntersectionInstances();
+        SetActiveForAll(true);
+
         if (IntersectionCount == 0)
         {
-            DestroyIntersectionInstances();
-            SetActiveForAll(true);
-            NotifyGreeneryChange();
-            NotifyPublicSpaceChange();
             ResetPlots();
-            NotifyEnclosureChange();
         }
         else if (IntersectionCount == 1)
         {
-
-            DestroyIntersectionInstances();
-            SetActiveForAll(true);
-
             InstantiateAndAdjust(IntersectionPoint[0]);
-            NotifyGreeneryChange();
-            NotifyPublicSpaceChange();      
-            ResetPlots();
-            AdjustPlots(LeftPlots);
-            AdjustPlots(RightPlots);
-            DebugPositions(RightPlots);
-            NotifyEnclosureChange();
-
         }
         else if (IntersectionCount == 2)
         {
-            DestroyIntersectionInstances();
-            SetActiveForAll(true);
             InstantiateAndAdjust(Intersection2Points[0]);
             InstantiateAndAdjust(Intersection2Points[1]);
-            NotifyGreeneryChange();
-            NotifyPublicSpaceChange();        
-            ResetPlots();
-            AdjustPlots(LeftPlots);
-            AdjustPlots(RightPlots);
-            DebugPositions(RightPlots);
-            NotifyEnclosureChange();
         }
         else if (IntersectionCount == 3)
         {
-            DestroyIntersectionInstances();
-            SetActiveForAll(true);
-
             InstantiateAndAdjust(Intersection3Points[0]);
             InstantiateAndAdjust(Intersection3Points[1]);
             InstantiateAndAdjust(Intersection3Points[2]);
-            NotifyGreeneryChange();
-            NotifyPublicSpaceChange();
-            ResetPlots();
-            AdjustPlots(LeftPlots);
-            AdjustPlots(RightPlots);
-            DebugPositions(RightPlots);
-            NotifyEnclosureChange();
         }
+
+        NotifyGreeneryChange();
+        NotifyPublicSpaceChange();
+        ResetPlots();
+
+        AdjustPlots(LeftPlots);
+        AdjustPlots(RightPlots);
+
+        NotifyEnclosureChange();
 
     }
 
