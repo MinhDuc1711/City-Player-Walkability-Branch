@@ -94,6 +94,8 @@ public class StreetEnclosure : MonoBehaviour
         float offset = (value / slider.maxValue) * maxOffset * 2.0f;
         bool needsRefresh = false;
 
+        
+
         for (int i = 0; i < leftBuildings.Count; i++)
         {
             if (leftBuildings[i] == null || leftBuildings[i].transform.parent == null)
@@ -116,9 +118,17 @@ public class StreetEnclosure : MonoBehaviour
             GetBuildings();
         }
 
+        UpdateOriginalPos(offset);
+
+
+    }
+
+
+    public void UpdateOriginalPos(float offset)
+    {
         for (int i = 0; i < leftBuildings.Count; i++)
         {
-            if(leftBuildings[i] != null)
+            if (leftBuildings[i] != null)
             {
                 Vector3 originalPos = leftOriginalPositions[i];
                 leftBuildings[i].transform.position = new Vector3(originalPos.x + offset, originalPos.y, originalPos.z);
@@ -126,12 +136,13 @@ public class StreetEnclosure : MonoBehaviour
         }
         for (int i = 0; i < rightBuildings.Count; i++)
         {
-            if(rightBuildings != null)
+            if (rightBuildings != null)
             {
                 Vector3 originalPos = rightOriginalPositions[i];
                 rightBuildings[i].transform.position = new Vector3(originalPos.x - offset, originalPos.y, originalPos.z);
             }
         }
-        
     }
+
+
 }
