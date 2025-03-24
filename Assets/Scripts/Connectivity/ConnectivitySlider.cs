@@ -19,6 +19,8 @@ public class ConnectivitySlider : MonoBehaviour
 
     public PublicSpaceGeneration PublicSpaceScript;
 
+    public StreetEnclosure EnclosureScript;
+
     public List<GameObject> LeftPlots = new List<GameObject>();
     public List<GameObject> RightPlots = new List<GameObject>();
 
@@ -49,6 +51,7 @@ public class ConnectivitySlider : MonoBehaviour
             NotifyGreeneryChange();
             NotifyPublicSpaceChange();
             ResetPlots();
+            NotifyEnclosureChange();
         }
         else if (IntersectionCount == 1)
         {
@@ -58,26 +61,27 @@ public class ConnectivitySlider : MonoBehaviour
 
             InstantiateAndAdjust(IntersectionPoint[0]);
             NotifyGreeneryChange();
-            NotifyPublicSpaceChange();
+            NotifyPublicSpaceChange();      
             ResetPlots();
             AdjustPlots(LeftPlots);
             AdjustPlots(RightPlots);
             DebugPositions(RightPlots);
+            NotifyEnclosureChange();
 
         }
         else if (IntersectionCount == 2)
         {
             DestroyIntersectionInstances();
             SetActiveForAll(true);
-
             InstantiateAndAdjust(Intersection2Points[0]);
             InstantiateAndAdjust(Intersection2Points[1]);
             NotifyGreeneryChange();
-            NotifyPublicSpaceChange();
+            NotifyPublicSpaceChange();        
             ResetPlots();
             AdjustPlots(LeftPlots);
             AdjustPlots(RightPlots);
             DebugPositions(RightPlots);
+            NotifyEnclosureChange();
         }
         else if (IntersectionCount == 3)
         {
@@ -93,6 +97,7 @@ public class ConnectivitySlider : MonoBehaviour
             AdjustPlots(LeftPlots);
             AdjustPlots(RightPlots);
             DebugPositions(RightPlots);
+            NotifyEnclosureChange();
         }
 
     }
@@ -293,6 +298,16 @@ public class ConnectivitySlider : MonoBehaviour
         }
     }
 
+    private void NotifyEnclosureChange()
+    {
+        if(EnclosureScript!=null)
+        {
+            EnclosureScript.UpdateOriginalBuildingPos();
+            EnclosureScript.UpdateBuildingPos(EnclosureScript.SliderOffset);
+        }
+    }
+        
+
     void SetActiveForAll(bool isActive)
     {
         // Loop through each array and set active state
@@ -329,9 +344,4 @@ public class ConnectivitySlider : MonoBehaviour
         return null;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
