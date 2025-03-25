@@ -55,12 +55,8 @@ public class DisplaceDecoration : MonoBehaviour
 
     bool IsOccupied(Vector3 position)
     {
-        // Vector3 boxSize = new Vector3(1f, 1f, 1f); // Adjust as needed
-        // if (Physics.CheckBox(position, boxSize / 2, Quaternion.identity, LayerMask.GetMask("Default")))
-        // {
-        //     return true;
-        // }
-        float checkRadius = 1.0f;
+        // WOrk will be done later to optimize this
+        float checkRadius = 0.5f;
         Collider[] hitColliders = Physics.OverlapSphere(position, checkRadius);
         foreach (Collider collider in hitColliders)
         {
