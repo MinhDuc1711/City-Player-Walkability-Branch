@@ -123,7 +123,8 @@ public class PublicSpaceGeneration : MonoBehaviour
     bool IsOccupied(Vector3 position)
     {
         float checkRadius = 1.0f;
-        Collider[] hitColliders = Physics.OverlapSphere(position, checkRadius);
+        int layerMask = LayerMask.GetMask("Tree", "Flower", "Bench");
+        Collider[] hitColliders = Physics.OverlapSphere(position, checkRadius, layerMask);
         foreach (Collider collider in hitColliders)
         {
             // This should be reworked to include any type of object
