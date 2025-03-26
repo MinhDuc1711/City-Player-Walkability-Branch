@@ -6,31 +6,35 @@ using System.Linq;
 
 public class BackgroundBuildingsMover : MonoBehaviour
 {
-    private float[] initialPos;
-
+    private List<float> initialPos = new List<float>();
     public GameObject block;
+
+    private float initialBlockPosX;
 
     private void Start()
     {
+        initialBlockPosX = block.transform.position.x;
+
         foreach (Transform child in transform)
         {
-            initialPos.Append(child.transform.position.x);  
+            initialPos.Add(child.transform.position.x);
         }
-
     }
 
     private void Update()
     {
-        int i = 0;
+        float blockDeltaX = block.transform.position.x - initialBlockPosX;
 
+        int i = 0;
         foreach (Transform child in transform)
         {
-           
-            child.transform.position = new Vector3(initialPos[i] + block.transform.position.x, child.transform.position.y, child.transform.position.z);
+            child.transform.position = new Vector3(
+                initialPos[i] + blockDeltaX,
+                child.transform.position.y,
+                child.transform.position.z
+            );
 
             i++;
-
         }
-            
     }
 }
