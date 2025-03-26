@@ -125,7 +125,15 @@ public class GreeneryGeneration : MonoBehaviour
                 correctionFactor = 1;
             }
             // Reduce or increase distance between current and next object, based on current density of objects
-            currentDistance += spacing * correctionFactor;
+            float minDistance = 3.0f;
+            if (spacing * correctionFactor < minDistance)
+            {
+                currentDistance += minDistance;
+            }
+            else
+            {
+                currentDistance += spacing * correctionFactor;
+            }
         }
 
         Debug.Log("Maximum greenery objects allowed: " + numberOfObjects);
