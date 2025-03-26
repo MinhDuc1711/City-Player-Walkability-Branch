@@ -48,8 +48,11 @@ public class GreeneryGeneration : MonoBehaviour
         ClearGreenery();
 
         // Rnadom Pattern Generation
-        SpawnGreeneryWithSpacing(LeftGreenStripStart.transform.position, LeftGreenStripEnd.transform.position, density);
-        SpawnGreeneryWithSpacing(RightGreenStripStart.transform.position, RightGreenStripEnd.transform.position, density);
+        if (density > 0)
+        {
+            SpawnGreeneryWithSpacing(LeftGreenStripStart.transform.position, LeftGreenStripEnd.transform.position, density);
+            SpawnGreeneryWithSpacing(RightGreenStripStart.transform.position, RightGreenStripEnd.transform.position, density);
+        }
     }
 
     void SpawnGreeneryWithSpacing(Vector3 start, Vector3 end, float spacing)
@@ -58,46 +61,98 @@ public class GreeneryGeneration : MonoBehaviour
         int numberOfObjects = Mathf.FloorToInt(distance / spacing);
         int TreeVariance = 0;
 
+        float correctionFactor = 1;
+        int greeneryCreated = 0; // number of benches created
+        float currentDistance = 0f; // current distance relative to start point
+        Vector3 direction = (end - start).normalized; // direction to calculate distance
+        bool placeTree = true; // if true then place tree, if false then place flower
 
-        for (int i = 0; i <= numberOfObjects; i++)
+        while (currentDistance < distance)
         {
-            float t = (float)i / numberOfObjects; 
-            Vector3 position = Vector3.Lerp(start, end, t);
-            GameObject prefabToSpawn;
+            Vector3 position = start + direction * currentDistance; // Calculate position
+            int attempts = 0;
+            bool placed = false;
+            float maxAttempts = 15;
+            while (attempts < maxAttempts && !placed)
+            {
+                if (!IsOccupied(position))
+                {
+                    if (placeTree)
+                    {
+                        float randomRotationY = 90 * Random.Range(0, 4); // 0, 90, 180, or 270
+                        Quaternion rotation = Quaternion.Euler(0, randomRotationY, 0);
+                        Instantiate(TreePrefabs[TreeVariance % 2], position, rotation);
+                        TreeVariance++;
+                        placeTree = false;
+                    }
+                    else
+                    {
+                        position.z += (float)0.75;
+                        Instantiate(FlowerPrefab, position, Quaternion.identity);
+                        placeTree = true;
+                    }
+                    greeneryCreated++;
+                    Debug.Log("Greenery spawned at: " + currentDistance + " in " + (attempts+1) + " attempts");
+                    placed = true;
+                }
+                else
+                {
+                    // If object not successfully placed because position is occupied by another object
+                    if (attempts % 2 == 0)
+                    {
+                        position += direction * attempts * spacing * correctionFactor / maxAttempts; // Move forward
+                    }
+                    else
+                    {
+                        position -= direction * attempts * spacing * correctionFactor / maxAttempts; // Move backward
+                    }
+                    attempts++;
+                }
+            }
 
-            // Check if the z-value is too close to any IntersectionInstance
-            bool isTooClose = false;
+            if (greeneryCreated > 1)
+            {
+                // average distance between current objects
+                float actualSpacing = currentDistance / greeneryCreated;
+                // difference between current spacing and ideal maximum spacing
+                float errorRatio = spacing / actualSpacing;
+                correctionFactor = Mathf.Pow(errorRatio, Mathf.Lerp(1.0f, 3.0f, currentDistance/distance));
+                // correctionFactor = errorRatio;
+                Debug.Log("currentDistance" + currentDistance + ", actualSpacing: " + actualSpacing + ", idealSpacing: " + spacing + ", correctionFactor: " + correctionFactor);
+            }
+            else
+            {
+                correctionFactor = 1;
+            }
+            // Reduce or increase distance between current and next object, based on current density of objects
+            currentDistance += spacing * correctionFactor;
+        }
+
+        Debug.Log("Maximum greenery objects allowed: " + numberOfObjects);
+        Debug.Log("Greenery objects added: " + greeneryCreated);
+    }
+
+    private bool IsOccupied(Vector3 position)
+    {
+        float checkRadius = 2.0f; // Increase radius to avoid tree overlap
+        Collider[] hitColliders = Physics.OverlapSphere(position, checkRadius);
+        foreach (Collider collider in hitColliders)
+        {
+            if (collider.CompareTag("Tree") || collider.CompareTag("Flower") || collider.CompareTag("Bench")) return true;
+        }
+        if (ConnectScript != null)
+        {
             foreach (var instance in ConnectScript.IntersectionInstances)
             {
                 //The -12 is a custom offset, its a horrible fix but it works ish
                 float intersectionZ = instance.transform.position.z-12;
                 if (Mathf.Abs(position.z - intersectionZ) <= 10)
                 {
-                    isTooClose = true;
-                    break;
+                    return true;
                 }
             }
-
-            // Skip this position if it's too close
-            if (isTooClose)
-                continue;
-
-
-            if (i % 2 ==0)
-            {
-                float randomRotationY = 90 * Random.Range(0, 4); // 0, 90, 180, or 270
-                Quaternion rotation = Quaternion.Euler(0, randomRotationY, 0);
-                Instantiate(TreePrefabs[TreeVariance % 2], position, rotation);
-                TreeVariance++;
-    }
-            else
-            {
-                //Custom Adjustment based on prefab
-                position.z += (float)0.75;
-                Instantiate(FlowerPrefab, position, Quaternion.identity);
-            }
-
         }
+        return false;
     }
 
     public void ClearGreenery()

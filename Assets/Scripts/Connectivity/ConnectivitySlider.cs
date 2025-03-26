@@ -17,6 +17,10 @@ public class ConnectivitySlider : MonoBehaviour
 
     public GreeneryGeneration GreeneryScript;
 
+    public PublicSpaceGeneration PublicSpaceScript;
+
+    public StreetEnclosure EnclosureScript;
+
     public List<GameObject> LeftPlots = new List<GameObject>();
     public List<GameObject> RightPlots = new List<GameObject>();
 
@@ -38,56 +42,40 @@ public class ConnectivitySlider : MonoBehaviour
 
     }
 
+
     public void GenerateIntersection(float IntersectionCount)
     {
+        DestroyIntersectionInstances();
+        SetActiveForAll(true);
+
         if (IntersectionCount == 0)
         {
-            DestroyIntersectionInstances();
-            SetActiveForAll(true);
-            NotifyGreeneryChange();
             ResetPlots();
         }
         else if (IntersectionCount == 1)
         {
-
-            DestroyIntersectionInstances();
-            SetActiveForAll(true);
-
             InstantiateAndAdjust(IntersectionPoint[0]);
-            NotifyGreeneryChange();
-            ResetPlots();
-            AdjustPlots(LeftPlots);
-            AdjustPlots(RightPlots);
-            DebugPositions(RightPlots);
-
         }
         else if (IntersectionCount == 2)
         {
-            DestroyIntersectionInstances();
-            SetActiveForAll(true);
-
             InstantiateAndAdjust(Intersection2Points[0]);
             InstantiateAndAdjust(Intersection2Points[1]);
-            NotifyGreeneryChange();
-            ResetPlots();
-            AdjustPlots(LeftPlots);
-            AdjustPlots(RightPlots);
-            DebugPositions(RightPlots);
         }
         else if (IntersectionCount == 3)
         {
-            DestroyIntersectionInstances();
-            SetActiveForAll(true);
-
             InstantiateAndAdjust(Intersection3Points[0]);
             InstantiateAndAdjust(Intersection3Points[1]);
             InstantiateAndAdjust(Intersection3Points[2]);
-            NotifyGreeneryChange();
-            ResetPlots();
-            AdjustPlots(LeftPlots);
-            AdjustPlots(RightPlots);
-            DebugPositions(RightPlots);
         }
+
+        NotifyGreeneryChange();
+        NotifyPublicSpaceChange();
+        ResetPlots();
+
+        AdjustPlots(LeftPlots);
+        AdjustPlots(RightPlots);
+
+        NotifyEnclosureChange();
 
     }
 
@@ -279,6 +267,24 @@ public class ConnectivitySlider : MonoBehaviour
         }
     }
 
+    private void NotifyPublicSpaceChange()
+    {
+        if (PublicSpaceScript != null)
+        {
+            PublicSpaceScript.OnPublicSpaceSliderValueChanged(PublicSpaceScript.publicSpaceSlider.value);
+        }
+    }
+
+    private void NotifyEnclosureChange()
+    {
+        if(EnclosureScript!=null)
+        {
+            EnclosureScript.UpdateOriginalBuildingPos();
+            EnclosureScript.UpdateBuildingPos(EnclosureScript.SliderOffset);
+        }
+    }
+        
+
     void SetActiveForAll(bool isActive)
     {
         // Loop through each array and set active state
@@ -315,9 +321,4 @@ public class ConnectivitySlider : MonoBehaviour
         return null;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
