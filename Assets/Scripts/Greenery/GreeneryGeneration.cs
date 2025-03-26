@@ -125,7 +125,15 @@ public class GreeneryGeneration : MonoBehaviour
                 correctionFactor = 1;
             }
             // Reduce or increase distance between current and next object, based on current density of objects
-            currentDistance += spacing * correctionFactor;
+            float minDistance = 3.0f;
+            if (spacing * correctionFactor < minDistance)
+            {
+                currentDistance += minDistance;
+            }
+            else
+            {
+                currentDistance += spacing * correctionFactor;
+            }
         }
 
         Debug.Log("Maximum greenery objects allowed: " + numberOfObjects);
@@ -135,7 +143,8 @@ public class GreeneryGeneration : MonoBehaviour
     private bool IsOccupied(Vector3 position)
     {
         float checkRadius = 2.0f; // Increase radius to avoid tree overlap
-        Collider[] hitColliders = Physics.OverlapSphere(position, checkRadius);
+        int layerMask = LayerMask.GetMask("Tree", "Flower", "Bench");
+        Collider[] hitColliders = Physics.OverlapSphere(position, checkRadius, layerMask);
         foreach (Collider collider in hitColliders)
         {
             if (collider.CompareTag("Tree") || collider.CompareTag("Flower") || collider.CompareTag("Bench")) return true;
