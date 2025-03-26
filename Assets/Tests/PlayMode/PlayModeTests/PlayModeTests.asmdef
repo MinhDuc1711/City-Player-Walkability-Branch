@@ -1,0 +1,16 @@
+{
+    "name": "PlayModeTests",
+    "references": [
+        "Assembly-CSharp",  
+        "UnityEngine.TestRunner",
+        "UnityEditor.TestRunner",
+        "nunit.framework"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "defineConstraints": [],
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true
+}

@@ -1,11 +1,11 @@
-//using NUnit.Framework;
-//using UnityEngine;
-//using System.Linq;
-//using UnityEngine.UI;
-//using System.Collections.Generic;
+// using NUnit.Framework;
+// using UnityEngine;
+// using System.Linq;
+// using UnityEngine.UI;
+// using System.Collections.Generic;
 
-//public class GreeneryGenerationTests
-//{
+// public class GreeneryGenerationTests
+// {
 //    private GreeneryGeneration greeneryManager;
 //    private GameObject leftGreenStripStart;
 //    private GameObject leftGreenStripEnd;
@@ -121,6 +121,6 @@
 //            Object.DestroyImmediate(obj);
 //        }
 //    }
-//}
+// }
 
 

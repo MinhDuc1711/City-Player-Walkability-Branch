@@ -1,8 +1,8 @@
-//using UnityEngine;
-//using NUnit.Framework;
+// using UnityEngine;
+// using NUnit.Framework;
 
-//public class WaypointTests
-//{
+// public class WaypointTests
+// {
 //    private GameObject waypointObject;
 //    private Waypoint waypoint;
 
@@ -54,4 +54,4 @@
 
 //        Assert.IsFalse(waypoint.HasNextWaypoint(), "HasNextWaypoint should return false when nextWaypoint is null");
 //    }
-//}
+// }

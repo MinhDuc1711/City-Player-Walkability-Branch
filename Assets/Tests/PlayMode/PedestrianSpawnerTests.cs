@@ -1,10 +1,10 @@
-//using UnityEngine;
-//using NUnit.Framework;
-//using System.Collections;
-//using UnityEngine.TestTools;
+// using UnityEngine;
+// using NUnit.Framework;
+// using System.Collections;
+// using UnityEngine.TestTools;
 
-//public class PedestrianSpawnerTests
-//{
+// public class PedestrianSpawnerTests
+// {
 //    private GameObject spawnerObject;
 //    private PedestrianSpawner pedestrianSpawner;
 //    private GameObject pedestrianPrefab;
@@ -100,4 +100,4 @@
 
 //        Assert.AreEqual(2, trafficSystemParent.childCount - 1, "PedestrianDestroyed does not decrement the count properly");
 //    }
-//}
+// }

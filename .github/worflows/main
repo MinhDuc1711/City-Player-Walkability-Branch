@@ -1,0 +1,21 @@
+- uses: game-ci/unity-test-runner@v4
+  env:
+    UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+    UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+    UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+  with:
+    projectPath: "C:\Users\jozes\OneDrive\Desktop\SOEN490\Project\City-Player-Walkability-Branch"
+    githubToken: ${{ secrets.GITHUB_TOKEN }}
+
+- uses: game-ci/unity-test-runner@v4
+  with:
+    packageMode: true
+
+- uses: game-ci/unity-test-runner@v4
+  with:
+    scopedRegistryUrl: https://example.com/registry
+    registryScopes: 'com.example, com.example.tools.physics'
+
+- uses: game-ci/unity-test-runner@v4
+  with:
+    unityVersion: [6000.0.24f1]

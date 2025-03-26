@@ -1,8 +1,8 @@
-//using UnityEngine;
-//using NUnit.Framework;
+// using UnityEngine;
+// using NUnit.Framework;
 
-//public class CharacterNavigationControllerTests
-//{
+// public class CharacterNavigationControllerTests
+// {
 //    private GameObject characterObject;
 //    private CharacterNavigationController characterController;
 
@@ -69,4 +69,4 @@
 //        Assert.AreEqual(newDestination, characterController.destination, "SetDestination does not update the destination correctly");
 //        Assert.IsFalse(characterController.reachedDestination, "SetDestination should reset the reachedDestination flag");
 //    }
-//}
+// }
