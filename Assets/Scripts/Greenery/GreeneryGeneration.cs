@@ -143,7 +143,8 @@ public class GreeneryGeneration : MonoBehaviour
     private bool IsOccupied(Vector3 position)
     {
         float checkRadius = 2.0f; // Increase radius to avoid tree overlap
-        Collider[] hitColliders = Physics.OverlapSphere(position, checkRadius);
+        int layerMask = LayerMask.GetMask("Tree", "Flower", "Bench");
+        Collider[] hitColliders = Physics.OverlapSphere(position, checkRadius, layerMask);
         foreach (Collider collider in hitColliders)
         {
             if (collider.CompareTag("Tree") || collider.CompareTag("Flower") || collider.CompareTag("Bench")) return true;
