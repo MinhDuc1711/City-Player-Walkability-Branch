@@ -9,18 +9,19 @@ public class PublicSpaceGeneration : MonoBehaviour
     public GameObject LeftStripEnd;
     public GameObject RightStripStart;
     public GameObject RightStripEnd;
-
     public GameObject[] BenchPrefabs; // Array for different bench types
-
     public Slider publicSpaceSlider;
-
     public ConnectivitySlider ConnectScript;
     private List<GameObject> benches = new List<GameObject>();
+    private GameObject LeftBenches;
+    private GameObject RightBenches;
 
     void Start()
     {
         if (publicSpaceSlider != null)
         {
+            LeftBenches = new GameObject("GeneratedLeftBenches");
+            RightBenches = new GameObject("GeneratedRightBenches");
             publicSpaceSlider.onValueChanged.AddListener(OnPublicSpaceSliderValueChanged);
             GenerateBenches(publicSpaceSlider.value);
         }
@@ -41,21 +42,16 @@ public class PublicSpaceGeneration : MonoBehaviour
     {
         ClearBenches();
 
-        // Adjust density to increase with slider's right side
-        float adjustedDensity = 1 - density/10f; // Invert the value: 0 -> 1, 1 -> 0
-
-        // Adjust spacing based on inverted density
-        float spacing = Mathf.Lerp(5f, 15f, adjustedDensity);  // Closer benches at higher density
-
         if (density != 0)
         {
-            SpawnBenchesWithSpacing(LeftStripStart.transform.position, LeftStripEnd.transform.position, spacing);
-            SpawnBenchesWithSpacing(RightStripStart.transform.position, RightStripEnd.transform.position, spacing);
+            density = 30 - 2 * density; // from 30 (max) to 10 (min)
+            SpawnBenchesWithSpacing(LeftStripStart.transform.position, LeftStripEnd.transform.position, density, LeftBenches.transform);
+            SpawnBenchesWithSpacing(RightStripStart.transform.position, RightStripEnd.transform.position, density, RightBenches.transform);
         }
     }
 
 
-    void SpawnBenchesWithSpacing(Vector3 start, Vector3 end, float spacing)
+    void SpawnBenchesWithSpacing(Vector3 start, Vector3 end, float spacing, Transform parentObject)
     {
         float distance = Vector3.Distance(start, end); // total distance to place benches
         float currentDistance = 0f; // current distance relative to start point
@@ -65,7 +61,7 @@ public class PublicSpaceGeneration : MonoBehaviour
         int benchesCreated = 0; // number of benches created
         float correctionFactor = 1;
 
-        while (currentDistance < distance)
+        while (currentDistance < distance - spacing*correctionFactor) // check if next entity will spawn outside allowed distance
         {
             Vector3 position = start + direction * currentDistance; // Calculate position
             int attempts = 0;
@@ -76,11 +72,12 @@ public class PublicSpaceGeneration : MonoBehaviour
                 if (!IsOccupied(position))
                 {
                     GameObject benchPrefab = BenchPrefabs[Random.Range(0, BenchPrefabs.Length)];
-                    GameObject newBench = Instantiate(benchPrefab, position, benchPrefab.transform.rotation);
+                    GameObject newBench = Instantiate(benchPrefab, position, benchPrefab.transform.rotation, parentObject);
                     newBench.tag = "Bench";
                     benches.Add(newBench);
                     benchesCreated++;
-                    Debug.Log("Bench spawned at: " + currentDistance + " in " + (attempts+1) + " attempts");
+                    newBench.name = "Bench " + benchesCreated;
+                    // Debug.Log("Bench spawned at: " + currentDistance + " in " + (attempts+1) + " attempts");
                     placed = true;
                 }
                 else
@@ -94,6 +91,7 @@ public class PublicSpaceGeneration : MonoBehaviour
                     {
                         position -= direction * attempts * spacing * correctionFactor / maxAttempts; // Move backward
                     }
+                    // position += direction * attempts * spacing * correctionFactor / (2*maxAttempts);
                     attempts++;
                 }
             }
@@ -101,12 +99,12 @@ public class PublicSpaceGeneration : MonoBehaviour
             if (benchesCreated > 1)
             {
                 // average distance between current objects
-                float actualSpacing = currentDistance / benchesCreated;
+                float actualSpacing = currentDistance / (benchesCreated-1);
                 // difference between current spacing and ideal maximum spacing
                 float errorRatio = spacing / actualSpacing;
                 correctionFactor = Mathf.Pow(errorRatio, Mathf.Lerp(1.0f, 3.0f, currentDistance/distance));
                 // correctionFactor = errorRatio;
-                Debug.Log("currentDistance" + currentDistance + ", actualSpacing: " + actualSpacing + ", idealSpacing: " + spacing + ", correctionFactor: " + correctionFactor);
+                Debug.Log("benchesCreated: " + benchesCreated + " currentDistance: " + currentDistance + ", actualSpacing: " + actualSpacing + ", idealSpacing: " + spacing + ", correctionFactor: " + correctionFactor);
             }
             else
             {
