@@ -16,7 +16,7 @@ public class BuildingDictionary2ListAttempt : MonoBehaviour
     [SerializeField]
     private List<GameObject> modifiedBuildings = new List<GameObject>();
 
-    private List<int> buildingsToReset;
+    private List<int> buildingsToReset = new List<int>();
     private int interval;
     private int numOfBuildingsChanged;
     private float oldPercentage = 0;
@@ -77,22 +77,20 @@ public class BuildingDictionary2ListAttempt : MonoBehaviour
         for (int c=0; c < count; c++)
         {
             if (buildingList.Count == 0) return;
-            int randomIndex = 0;
+            int randomIndex = Random.Range(0, buildingList.Count);
             
             if (newBuildingType)
             {
-                randomIndex = Random.Range(0, buildingList.Count);
                 buildingsToReset.Add(randomIndex);
                 BuildingSpawn(randomIndex);
             }
             else
             {
-                unmodifiedBuildings[buildingsToReset[c]].SetActive(true);
+                unmodifiedBuildings[buildingsToReset[0]].SetActive(true);
+                Destroy(buildingList[randomIndex].gameObject);
                 buildingList.Remove(buildingList[randomIndex]);
-
-            }
-
-            
+                buildingsToReset.RemoveAt(0);
+            }   
         }
     }
 
