@@ -52,14 +52,10 @@ public class BuildingDictionary2ListAttempt : MonoBehaviour
     {
         float percentage = (value * interval) / 100;
         if(flag)
-        {
-            Debug.Log("AAAAAAA");
+        {           
             this.numOfBuildingsChanged = Mathf.FloorToInt(Mathf.Round(percentage * unmodifiedBuildings.Count));
             flag = false;
         }
-        Debug.Log(percentage);
-        Debug.Log(interval);
-        Debug.Log(numOfBuildingsChanged);
 
         if (percentage > oldPercentage)
         {
@@ -83,6 +79,7 @@ public class BuildingDictionary2ListAttempt : MonoBehaviour
             {
                 buildingsToReset.Add(randomIndex);
                 BuildingSpawn(randomIndex);
+                Debug.Log(buildingsToReset[c]);
             }
             else
             {
