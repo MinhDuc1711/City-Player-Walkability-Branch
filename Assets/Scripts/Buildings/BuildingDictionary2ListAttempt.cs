@@ -16,6 +16,7 @@ public class BuildingDictionary2ListAttempt : MonoBehaviour
     [SerializeField]
     private List<GameObject> modifiedBuildings = new List<GameObject>();
 
+    private List<int> buildingsToReset;
     private int interval;
     private int numOfBuildingsChanged;
     private float oldPercentage = 0;
@@ -76,34 +77,41 @@ public class BuildingDictionary2ListAttempt : MonoBehaviour
         for (int c=0; c < count; c++)
         {
             if (buildingList.Count == 0) return;
-            int randomIndex = Random.Range(0, buildingList.Count);
-            BuildingSpawn(randomIndex, buildingList, newBuildingType);
-            if(!newBuildingType)
-            buildingList.Remove(buildingList[randomIndex]);
+            int randomIndex = 0;
+            
+            if (newBuildingType)
+            {
+                randomIndex = Random.Range(0, buildingList.Count);
+                buildingsToReset.Add(randomIndex);
+                BuildingSpawn(randomIndex);
+            }
+            else
+            {
+                unmodifiedBuildings[buildingsToReset[c]].SetActive(true);
+                buildingList.Remove(buildingList[randomIndex]);
+
+            }
+
+            
         }
     }
 
-    private void BuildingSpawn(int index, List<GameObject> buildingList, bool newBuildingType)
+    private void BuildingSpawn(int index)
     {
-        GameObject buildingPrefab = null;
-        GameObject selectedBuilding = buildingList[index].gameObject;
+       int randomPrefab = Random.Range(0, buildingPrefabs.Count);
+       GameObject buildingPrefab = buildingPrefabs[randomPrefab];
 
-        if (newBuildingType)
-        {
-            int randomPrefab = Random.Range(0, buildingPrefabs.Count);
-            buildingPrefab = buildingPrefabs[randomPrefab];
+       GameObject selectedBuilding = unmodifiedBuildings[index].gameObject;
+       Transform parentPlot = selectedBuilding.transform.parent;
 
-            Transform parentPlot = selectedBuilding.transform.parent;
-            GameObject newBuilding = Instantiate(buildingPrefab,
-                new Vector3(selectedBuilding.transform.position.x, parentPlot.position.y, selectedBuilding.transform.position.z),
-                selectedBuilding.transform.rotation);
+       GameObject newBuilding = Instantiate(buildingPrefab,
+           new Vector3(selectedBuilding.transform.position.x, parentPlot.position.y, selectedBuilding.transform.position.z),
+           selectedBuilding.transform.rotation);
 
-            newBuilding.transform.SetParent(parentPlot, true);
-            newBuilding.SetActive(true);
-            selectedBuilding.SetActive(false);
-            modifiedBuildings.Add(newBuilding);
-        }
-     
+       newBuilding.transform.SetParent(parentPlot, true);
+       newBuilding.SetActive(true);
+       selectedBuilding.SetActive(false);
+       modifiedBuildings.Add(newBuilding); 
     }
     
 }
