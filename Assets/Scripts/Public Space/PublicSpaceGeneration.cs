@@ -77,7 +77,7 @@ public class PublicSpaceGeneration : MonoBehaviour
                     benches.Add(newBench);
                     benchesCreated++;
                     newBench.name = "Bench " + benchesCreated;
-                    // Debug.Log("Bench spawned at: " + currentDistance + " in " + (attempts+1) + " attempts");
+                    Debug.Log("Bench " + benchesCreated + " spawned at: " + position + " in " + (attempts+1) + " attempts");
                     placed = true;
                 }
                 else
@@ -95,7 +95,7 @@ public class PublicSpaceGeneration : MonoBehaviour
                     attempts++;
                 }
             }
-
+            currentDistance = Vector3.Dot(position-start, direction);
             if (benchesCreated > 1)
             {
                 // average distance between current objects
@@ -104,7 +104,7 @@ public class PublicSpaceGeneration : MonoBehaviour
                 float errorRatio = spacing / actualSpacing;
                 correctionFactor = Mathf.Pow(errorRatio, Mathf.Lerp(1.0f, 3.0f, currentDistance/distance));
                 // correctionFactor = errorRatio;
-                Debug.Log("benchesCreated: " + benchesCreated + " currentDistance: " + currentDistance + ", actualSpacing: " + actualSpacing + ", idealSpacing: " + spacing + ", correctionFactor: " + correctionFactor);
+                Debug.Log("benchesCreated: " + benchesCreated + " currentDistance: " + currentDistance + ", correctionFactor: " + correctionFactor);
             }
             else
             {
@@ -128,13 +128,17 @@ public class PublicSpaceGeneration : MonoBehaviour
 
     bool IsOccupied(Vector3 position)
     {
-        float checkRadius = 1.0f;
+        float checkRadius = 3.0f;
         int layerMask = LayerMask.GetMask("Tree", "Flower", "Bench");
         Collider[] hitColliders = Physics.OverlapSphere(position, checkRadius, layerMask);
         foreach (Collider collider in hitColliders)
         {
             // This should be reworked to include any type of object
-            if (collider.CompareTag("Tree") || collider.CompareTag("Flower") || collider.CompareTag("Bench")) return true;
+            if (collider.CompareTag("Tree") || collider.CompareTag("Flower") || collider.CompareTag("Bench")) 
+            {
+                Debug.Log("Position: " + position + " occupied with: " + collider.gameObject.name + " at " + collider.gameObject.transform.position);
+                return true;
+            }
         }
         if (ConnectScript != null)
         {
@@ -144,6 +148,7 @@ public class PublicSpaceGeneration : MonoBehaviour
                 float intersectionZ = instance.transform.position.z-12;
                 if (Mathf.Abs(position.z - intersectionZ) <= 10)
                 {
+                    Debug.Log("Position: " + position + " occupied with intersection");
                     return true;
                 }
             }
@@ -156,7 +161,7 @@ public class PublicSpaceGeneration : MonoBehaviour
     {
         foreach (GameObject bench in benches)
         {
-            Destroy(bench);
+            DestroyImmediate(bench);
         }
         benches.Clear();
     }

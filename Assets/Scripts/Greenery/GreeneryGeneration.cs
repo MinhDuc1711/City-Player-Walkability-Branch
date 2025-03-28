@@ -84,7 +84,7 @@ public class GreeneryGeneration : MonoBehaviour
                         placeTree = true;
                     }
                     greeneryCreated++;
-                    // Debug.Log("Greenery spawned at: " + currentDistance + " in " + (attempts+1) + " attempts");
+                    Debug.Log("Greenery " + greeneryCreated + " spawned at: " + position + " in " + (attempts+1) + " attempts");
                     placed = true;
                 }
                 else
@@ -102,6 +102,7 @@ public class GreeneryGeneration : MonoBehaviour
                     attempts++;
                 }
             }
+            currentDistance = Vector3.Dot(position-start, direction);
 
             if (greeneryCreated > 1)
             {
@@ -135,11 +136,12 @@ public class GreeneryGeneration : MonoBehaviour
 
     private bool IsOccupied(Vector3 position)
     {
-        float checkRadius = 2.0f; // Increase radius to avoid tree overlap
+        float checkRadius = 3.0f; // Increase radius to avoid tree overlap
         int layerMask = LayerMask.GetMask("Tree", "Flower", "Bench");
         Collider[] hitColliders = Physics.OverlapSphere(position, checkRadius, layerMask);
         foreach (Collider collider in hitColliders)
         {
+            Debug.Log("Position: " + position + " occupied with: " + collider.gameObject.name + " at " + collider.gameObject.transform.position);
             if (collider.CompareTag("Tree") || collider.CompareTag("Flower") || collider.CompareTag("Bench")) return true;
         }
         if (ConnectScript != null)
@@ -150,6 +152,7 @@ public class GreeneryGeneration : MonoBehaviour
                 float intersectionZ = instance.transform.position.z-12;
                 if (Mathf.Abs(position.z - intersectionZ) <= 10)
                 {
+                    Debug.Log("Position: " + position + " occupied with intersection");
                     return true;
                 }
             }
@@ -161,12 +164,12 @@ public class GreeneryGeneration : MonoBehaviour
     {
         foreach (var obj in GameObject.FindGameObjectsWithTag("Tree"))
         {
-            Destroy(obj);
+            DestroyImmediate(obj);
         }
 
         foreach (var obj in GameObject.FindGameObjectsWithTag("Flower"))
         {
-            Destroy(obj);
+            DestroyImmediate(obj);
         }
 
     }
