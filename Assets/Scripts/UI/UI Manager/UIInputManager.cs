@@ -6,6 +6,7 @@ public class UIInputManager : MonoBehaviour
     public UIMenu el0;
     public UIMenu el1;
     public UIMenu el2;
+    public UIMenu el3;
     // Update is called once per frame
     void Update()
     {
@@ -16,5 +17,7 @@ public class UIInputManager : MonoBehaviour
             el1.ActivateMenu();
         else if (Input.GetKeyDown(KeyCode.R))
             el2.ActivateMenu();
+        else if (Input.GetKeyDown(KeyCode.Escape))
+            el3.ActivateMenu();
     }
 }
