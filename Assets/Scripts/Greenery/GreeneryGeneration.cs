@@ -30,15 +30,13 @@ public class GreeneryGeneration : MonoBehaviour
     void OnGreenObjectSliderValueChanged(float value)
     {
         Debug.Log("Green object slider value changed to: " + value);
-        System.Diagnostics.Stopwatch stopwatch = new System.Diagnostics.Stopwatch();
-        stopwatch.Start();
         GenerateGreenery(value);
-        stopwatch.Stop();
-        Debug.Log("Greenery scrit execution Time: " + stopwatch.ElapsedMilliseconds + " ms");
     }
 
     public void GenerateGreenery(float density)
     {
+        System.Diagnostics.Stopwatch stopwatch = new System.Diagnostics.Stopwatch();
+        stopwatch.Start();
         ClearGreenery();
         if (density > 0)
         {
@@ -46,6 +44,8 @@ public class GreeneryGeneration : MonoBehaviour
             SpawnGreeneryWithSpacing(LeftGreenStripStart.transform.position, LeftGreenStripEnd.transform.position, density, LeftGreenery.transform);
             SpawnGreeneryWithSpacing(RightGreenStripStart.transform.position, RightGreenStripEnd.transform.position, density, RightGreenery.transform);
         }
+        stopwatch.Stop();
+        Debug.Log("Greenery script execution Time: " + stopwatch.ElapsedMilliseconds + " ms");
     }
 
     void SpawnGreeneryWithSpacing(Vector3 start, Vector3 end, float spacing, Transform parentObject)
