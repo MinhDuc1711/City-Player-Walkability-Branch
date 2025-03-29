@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
-public class RA_toggle : UIMenu, IPointerClickHandler
+public class exitConf : UIMenu
 {
     private bool state = false;
     private float animationTime = 0;
@@ -12,21 +12,18 @@ public class RA_toggle : UIMenu, IPointerClickHandler
 
     protected void Awake()
     {
-    }
 
-    protected void Update()
-    {
     }
 
     public override void SetActive(bool _state)
     {
         if (_state)
         {
-            menu.anchoredPosition = Vector2.zero;
+            menu.gameObject.SetActive(true);
         }
         else if (!_state)
         {
-            menu.anchoredPosition = new Vector2(-1689f, 0f);
+            menu.gameObject.SetActive(false);
         }
     }
 
@@ -44,16 +41,12 @@ public class RA_toggle : UIMenu, IPointerClickHandler
         get => animationTime;
     }
 
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        if (!state)
-            manager.showUIMenu(this);
-        else if (state)
-            manager.hideUIMenu(this);
-    }
-
     public void BackToMenu()
     {
+        // --------------- Add call to the filesaver function --------------
+
+        // -----------------------------------------------------------------
+
         SceneManager.LoadScene("UI-starting-Menu");
     }
 
