@@ -5,18 +5,8 @@
     UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
   with:
     projectPath: "./Project/City-Player-Walkability-Branch"
-
     githubToken: ${{ secrets.GITHUB_TOKEN }}
-
-- uses: game-ci/unity-test-runner@v4
-  with:
     packageMode: true
-
-- uses: game-ci/unity-test-runner@v4
-  with:
-    scopedRegistryUrl: https://example.com/registry
-    registryScopes: 'com.example, com.example.tools.physics'
-
-- uses: game-ci/unity-test-runner@v4
-  with:
-    unityVersion: [6000.0.24f1]
+    scopedRegistryUrl: "https://example.com/registry"
+    registryScopes: "com.example, com.example.tools.physics"
+    unityVersion: "6000.0.24f1"  
