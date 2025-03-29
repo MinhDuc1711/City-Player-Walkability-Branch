@@ -1,0 +1,168 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class PublicSpaceGeneration : MonoBehaviour
+{
+    public GameObject LeftStripStart;
+    public GameObject LeftStripEnd;
+    public GameObject RightStripStart;
+    public GameObject RightStripEnd;
+    public GameObject[] BenchPrefabs; // Array for different bench types
+    public Slider publicSpaceSlider;
+    public ConnectivitySlider ConnectScript;
+    private List<GameObject> benches = new List<GameObject>();
+    private GameObject LeftBenches;
+    private GameObject RightBenches;
+
+    void Start()
+    {
+        if (publicSpaceSlider != null)
+        {
+            LeftBenches = new GameObject("GeneratedLeftBenches");
+            RightBenches = new GameObject("GeneratedRightBenches");
+            publicSpaceSlider.onValueChanged.AddListener(OnPublicSpaceSliderValueChanged);
+            GenerateBenches(publicSpaceSlider.value);
+        }
+        else
+        {
+            Debug.LogError("PublicSpaceSlider is not assigned in the Inspector!");
+        }
+    }
+
+
+    public void OnPublicSpaceSliderValueChanged(float value)
+    {
+        Debug.Log("Public space slider value changed to: " + value);
+        GenerateBenches(value);
+    }
+
+    public void GenerateBenches(float density)
+    {
+        ClearBenches();
+
+        if (density != 0)
+        {
+            density = 30 - 2 * density; // from 30 (max) to 10 (min)
+            SpawnBenchesWithSpacing(LeftStripStart.transform.position, LeftStripEnd.transform.position, density, LeftBenches.transform);
+            SpawnBenchesWithSpacing(RightStripStart.transform.position, RightStripEnd.transform.position, density, RightBenches.transform);
+        }
+    }
+
+
+    void SpawnBenchesWithSpacing(Vector3 start, Vector3 end, float spacing, Transform parentObject)
+    {
+        float distance = Vector3.Distance(start, end); // total distance to place benches
+        float currentDistance = 0f; // current distance relative to start point
+        Vector3 direction = (end - start).normalized; // direction to calculate distance
+
+        int numberOfBenches = Mathf.FloorToInt(distance / spacing); // maximum number of benches able to bewcreated given density
+        int benchesCreated = 0; // number of benches created
+        float correctionFactor = 1;
+
+        while (currentDistance < distance - spacing*correctionFactor) // check if next entity will spawn outside allowed distance
+        {
+            Vector3 position = start + direction * currentDistance; // Calculate position
+            int attempts = 0;
+            bool placed = false;
+            float maxAttempts = 15;
+            while (attempts < maxAttempts && !placed)
+            {
+                if (!IsOccupied(position))
+                {
+                    GameObject benchPrefab = BenchPrefabs[Random.Range(0, BenchPrefabs.Length)];
+                    GameObject newBench = Instantiate(benchPrefab, position, benchPrefab.transform.rotation, parentObject);
+                    newBench.tag = "Bench";
+                    benches.Add(newBench);
+                    benchesCreated++;
+                    newBench.name = "Bench " + benchesCreated;
+                    Debug.Log("Bench " + benchesCreated + " spawned at: " + position + " in " + (attempts+1) + " attempts");
+                    placed = true;
+                }
+                else
+                {
+                    // If bench not successfully placed because position is occupied by another object
+                    if (attempts % 2 == 0)
+                    {
+                        position += direction * attempts * spacing * correctionFactor / maxAttempts; // Move forward
+                    }
+                    else
+                    {
+                        position -= direction * attempts * spacing * correctionFactor / maxAttempts; // Move backward
+                    }
+                    // position += direction * attempts * spacing * correctionFactor / (2*maxAttempts);
+                    attempts++;
+                }
+            }
+            currentDistance = Vector3.Dot(position-start, direction);
+            if (benchesCreated > 1)
+            {
+                // average distance between current objects
+                float actualSpacing = currentDistance / (benchesCreated-1);
+                // difference between current spacing and ideal maximum spacing
+                float errorRatio = spacing / actualSpacing;
+                correctionFactor = Mathf.Pow(errorRatio, Mathf.Lerp(1.0f, 3.0f, currentDistance/distance));
+                // correctionFactor = errorRatio;
+                Debug.Log("benchesCreated: " + benchesCreated + " currentDistance: " + currentDistance + ", correctionFactor: " + correctionFactor);
+            }
+            else
+            {
+                correctionFactor = 1;
+            }
+            // Reduce or increase distance between current and next object, based on current density of objects
+            float minDistance = 3.0f;
+            if (spacing * correctionFactor < minDistance)
+            {
+                currentDistance += minDistance;
+            }
+            else
+            {
+                currentDistance += spacing * correctionFactor;
+            }
+        }
+
+        Debug.Log("Maximum benches allowed: " + numberOfBenches);
+        Debug.Log("Benches added: " + benchesCreated);
+    }
+
+    bool IsOccupied(Vector3 position)
+    {
+        float checkRadius = 3.0f;
+        int layerMask = LayerMask.GetMask("Tree", "Flower", "Bench");
+        Collider[] hitColliders = Physics.OverlapSphere(position, checkRadius, layerMask);
+        foreach (Collider collider in hitColliders)
+        {
+            // This should be reworked to include any type of object
+            if (collider.CompareTag("Tree") || collider.CompareTag("Flower") || collider.CompareTag("Bench")) 
+            {
+                Debug.Log("Position: " + position + " occupied with: " + collider.gameObject.name + " at " + collider.gameObject.transform.position);
+                return true;
+            }
+        }
+        if (ConnectScript != null)
+        {
+            foreach (var instance in ConnectScript.IntersectionInstances)
+            {
+                //The -12 is a custom offset, its a horrible fix but it works ish
+                float intersectionZ = instance.transform.position.z-12;
+                if (Mathf.Abs(position.z - intersectionZ) <= 10)
+                {
+                    Debug.Log("Position: " + position + " occupied with intersection");
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+
+    void ClearBenches()
+    {
+        foreach (GameObject bench in benches)
+        {
+            DestroyImmediate(bench);
+        }
+        benches.Clear();
+    }
+}

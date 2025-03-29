@@ -1,10 +1,10 @@
 using UnityEngine;
-using UnityEngine.UI;
+using TMPro;
 
 
 public class HappyPoolPoints : MonoBehaviour
 {
-    public InputField remainingPoints;
+    public TMP_InputField remainingPoints;
 
     private int pool = 100;
 

@@ -1,13 +1,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class AspectDropdown : MonoBehaviour
 {
     public Text point;
 
-    private HappyPoolPoints poolPoints;
-    private Dropdown dropdown;
+    public HappyPoolPoints poolPoints;
+    private TMP_Dropdown dropdown;
     private int aspectValue;
 
     private List<int> aspectList = new List<int> { 0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100 };
@@ -18,7 +19,7 @@ public class AspectDropdown : MonoBehaviour
     {
         aspectValue = 0;
         poolPoints = this.GetComponentInParent<HappyPoolPoints>();
-        dropdown = GetComponent<Dropdown>();
+        dropdown = GetComponent<TMP_Dropdown>();
 
         if (poolPoints == null)
         {
@@ -39,7 +40,7 @@ public class AspectDropdown : MonoBehaviour
         dropdown.options.Clear();
         foreach (int value in aspectList)
         {
-            dropdown.options.Add(new Dropdown.OptionData(value.ToString()));
+            dropdown.options.Add(new TMP_Dropdown.OptionData(value.ToString()));
         }
         UpdateDropdownOptions();
     }
@@ -50,7 +51,7 @@ public class AspectDropdown : MonoBehaviour
 
         for (int i = 0; i < dropdown.options.Count; i++)
         {
-            Dropdown.OptionData option = dropdown.options[i];
+            TMP_Dropdown.OptionData option = dropdown.options[i];
             int optionValue = aspectList[i];
 
             if (optionValue > remainingPoints)
@@ -66,7 +67,7 @@ public class AspectDropdown : MonoBehaviour
         dropdown.captionText.text = dropdown.options[dropdown.value].text;
     }
 
-    private void OnDropdownValueChanged(Dropdown changedDropdown)
+    private void OnDropdownValueChanged(TMP_Dropdown changedDropdown)
     {
         int selectedValue = aspectList[changedDropdown.value];
         int difference = selectedValue - aspectValue;

@@ -56,5 +56,10 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "City-Player-Walkability-Branch.sln"
+    "dotnet.defaultSolution": "City-Player-Walkability-Branch.sln",
+    "C_Cpp.files.exclude": {
+
+        "**/.vscode": true,
+        "**/.vs": true
+    }
 }

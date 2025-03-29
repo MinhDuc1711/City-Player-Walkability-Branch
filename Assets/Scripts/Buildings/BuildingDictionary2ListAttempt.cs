@@ -62,73 +62,51 @@ public class BuildingDictionary2ListAttempt : MonoBehaviour
 
         if (percentage > oldPercentage)
         {
-            BuildingChange(numOfBuildingsChanged);
+            BuildingChange(numOfBuildingsChanged, unmodifiedBuildings, true);
         }
         if (percentage < oldPercentage)
         {
-            BuildingReset(numOfBuildingsChanged);
+            BuildingChange(numOfBuildingsChanged, modifiedBuildings, false);
         }
         oldPercentage = percentage;
     }
 
-    private void BuildingChange(int count)
+    private void BuildingChange(int count, List<GameObject> buildingList, bool newBuildingType)
     {
         for (int c=0; c < count; c++)
         {
-            if (unmodifiedBuildings.Count == 0) return;
-            int randomIndex = Random.Range(0, unmodifiedBuildings.Count);
-            NewBuildingSpawn(randomIndex);
-            unmodifiedBuildings.Remove(unmodifiedBuildings[randomIndex]);
+            if (buildingList.Count == 0) return;
+            int randomIndex = Random.Range(0, buildingList.Count);
+            BuildingSpawn(randomIndex, buildingList, newBuildingType);
+            buildingList.Remove(buildingList[randomIndex]);
         }
     }
 
-    private void BuildingReset(int count)
+    private void BuildingSpawn(int index, List<GameObject> buildingList, bool newBuildingType)
     {
-        for (int c = 0; c < count; ++c)
+        GameObject buildingPrefab = null;
+        if (newBuildingType)
         {
-            if (modifiedBuildings.Count == 0) return;
-            int randomIndex = Random.Range(0, modifiedBuildings.Count);
-            OldBuildingSpawn(randomIndex);
-            modifiedBuildings.Remove(modifiedBuildings[randomIndex]);
+            int randomPrefab = Random.Range(0, buildingPrefabs.Count);
+            buildingPrefab = buildingPrefabs[randomPrefab];
         }
-    }
-
-    private void NewBuildingSpawn(int index)
-    {
-        int randomPrefab = Random.Range(0, buildingPrefabs.Count);
-        GameObject buildingPrefab = buildingPrefabs[randomPrefab];
-        GameObject selectedBuilding = unmodifiedBuildings[index].gameObject;
+        else
+        {
+            buildingPrefab = buildingPrefabs[0];
+        } 
+        GameObject selectedBuilding = buildingList[index].gameObject;
         Transform parentPlot = selectedBuilding.transform.parent;
-
-        //Debug.Log(parentPlot.gameObject.name);
 
         GameObject newBuilding = Instantiate(buildingPrefab, 
-            new Vector3(selectedBuilding.transform.position.x, parentPlot.position.y + buildingPrefab.transform.localScale.y / 2, selectedBuilding.transform.position.z), 
+            new Vector3(selectedBuilding.transform.position.x, parentPlot.position.y, selectedBuilding.transform.position.z), 
             selectedBuilding.transform.rotation);
-
-        //Debug.Log(parentPlot.position.y);
-        //Debug.Log(newBuilding.transform.position.y);
 
         newBuilding.transform.SetParent(parentPlot, true);
         newBuilding.SetActive(true);
         Destroy(selectedBuilding);
+        if(newBuildingType)
         modifiedBuildings.Add(newBuilding);
-
-    }
-
-    private void OldBuildingSpawn(int index)
-    {
-        GameObject buildingPrefab = buildingPrefabs[0];
-        GameObject selectedBuilding = modifiedBuildings[index].gameObject;
-        Transform parentPlot = selectedBuilding.transform.parent;
-
-        GameObject newBuilding = Instantiate(buildingPrefab,
-            new Vector3(selectedBuilding.transform.position.x, parentPlot.position.y + buildingPrefab.transform.localScale.y / 2, selectedBuilding.transform.position.z),
-            selectedBuilding.transform.rotation);
-
-        newBuilding.transform.SetParent(parentPlot, true);
-        newBuilding.SetActive(true);
-        Destroy(selectedBuilding);
+        else
         unmodifiedBuildings.Add(newBuilding);
     }
     
