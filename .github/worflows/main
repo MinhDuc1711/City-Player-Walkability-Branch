@@ -1,12 +1,39 @@
-- uses: game-ci/unity-test-runner@v4
-  env:
-    UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
-    UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
-    UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
-  with:
-    projectPath: "./Project/City-Player-Walkability-Branch"
-    githubToken: ${{ secrets.GITHUB_TOKEN }}
-    packageMode: true
-    scopedRegistryUrl: "https://example.com/registry"
-    registryScopes: "com.example, com.example.tools.physics"
-    unityVersion: "6000.0.24f1"  
+name: Unity CI Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Unity environment
+      uses: game-ci/unity-actions/setup@v2
+      with:
+        version: "6000.0.24f1"  
+        unityLicense: ${{ secrets.UNITY_LICENSE }}
+        unityEmail: ${{ secrets.UNITY_EMAIL }}
+        unityPassword: ${{ secrets.UNITY_PASSWORD }}
+
+    - name: Run tests with Unity Test Runner
+      uses: game-ci/unity-test-runner@v4
+      env:
+        UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+        UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+        UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+      with:
+        projectPath: "./UnityProject/City-Player-Walkability-Branch"
+        githubToken: ${{ secrets.GITHUB_TOKEN }}
+        packageMode: true
+        scopedRegistryUrl: "https://example.com/registry"
+        registryScopes: "com.example, com.example.tools.physics"
+        unityVersion: "6000.0.24f1"  
