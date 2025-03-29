@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.Rendering;
 
 public class ConnectivitySlider : MonoBehaviour
 {
@@ -27,6 +28,12 @@ public class ConnectivitySlider : MonoBehaviour
     private Dictionary<GameObject, Vector3> originalLeftPlotPositions = new Dictionary<GameObject, Vector3>();
     private Dictionary<GameObject, Vector3> originalRightPlotPositions = new Dictionary<GameObject, Vector3>();
 
+    // Background building that are on the intersection 1
+    public List<GameObject> bbIntersection1;
+    // Background building that are on the intersection 2
+    public List<GameObject> bbIntersection2;
+    // Background building that are on the intersection 3
+    public List<GameObject> bbIntersection3;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -71,6 +78,7 @@ public class ConnectivitySlider : MonoBehaviour
         NotifyGreeneryChange();
         NotifyPublicSpaceChange();
         ResetPlots();
+        NotifyBackgroundBuildings((int)IntersectionCount);
 
         AdjustPlots(LeftPlots);
         AdjustPlots(RightPlots);
@@ -283,7 +291,78 @@ public class ConnectivitySlider : MonoBehaviour
             EnclosureScript.UpdateBuildingPos(EnclosureScript.SliderOffset);
         }
     }
-        
+
+    public void NotifyBackgroundBuildings(int intersCount)
+    {
+        if (intersCount == 0)
+        {
+            foreach (GameObject bgbuilding in bbIntersection1)
+            {
+                bgbuilding.SetActive(true);
+            }
+
+            foreach (GameObject bgbuilding in bbIntersection2)
+            {
+                bgbuilding.SetActive(true);
+            }
+
+            foreach (GameObject bgbuilding in bbIntersection3)
+            {
+                bgbuilding.SetActive(true);
+            }
+        }
+        else if (intersCount == 1)
+        {
+            foreach (GameObject bgbuilding in bbIntersection1)
+            {
+                bgbuilding.SetActive(false);
+            }
+
+            foreach (GameObject bgbuilding in bbIntersection2)
+            {
+                bgbuilding.SetActive(true);
+            }
+
+            foreach (GameObject bgbuilding in bbIntersection3)
+            {
+                bgbuilding.SetActive(true);
+            }
+        }
+        else if (intersCount == 2)
+        {
+            foreach (GameObject bgbuilding in bbIntersection1)
+            {
+                bgbuilding.SetActive(false);
+            }
+
+            foreach (GameObject bgbuilding in bbIntersection2)
+            {
+                bgbuilding.SetActive(false);
+            }
+
+            foreach (GameObject bgbuilding in bbIntersection3)
+            {
+                bgbuilding.SetActive(true);
+            }
+        }
+        else if (intersCount == 3)
+        {
+            foreach (GameObject bgbuilding in bbIntersection1)
+            {
+                bgbuilding.SetActive(false);
+            }
+
+            foreach (GameObject bgbuilding in bbIntersection2)
+            {
+                bgbuilding.SetActive(false);
+            }
+
+            foreach (GameObject bgbuilding in bbIntersection3)
+            {
+                bgbuilding.SetActive(false);
+            }
+        }
+    }
 
     void SetActiveForAll(bool isActive)
     {
@@ -322,3 +401,4 @@ public class ConnectivitySlider : MonoBehaviour
     }
 
 }
+
