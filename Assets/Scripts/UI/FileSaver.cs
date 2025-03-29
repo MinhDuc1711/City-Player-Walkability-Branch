@@ -29,25 +29,23 @@ public class FileSaver : MonoBehaviour
     public TMPro.TMP_Dropdown walkingPurpose;
     public TMPro.TMP_InputField walkingPurposeMore;
 
-    /*//Greenery Rating
-    public TMPro.TMP_Dropdown greenery;
+    
     //Building Diversity Rating
     public TMPro.TMP_Dropdown buildingDiversity;
-    //Setback Rating
-    public TMPro.TMP_Dropdown setback;
-    //Block length Rating
-    public TMPro.TMP_Dropdown blockLength;
-    //Enclosure Rating
-    public TMPro.TMP_Dropdown enclosure;
-    //Public space Rating
-    public TMPro.TMP_Dropdown publicSpace;
     //Building density Rating
     public TMPro.TMP_Dropdown buildingDensity;
+    //Block length Rating
+    public TMPro.TMP_Dropdown blockLength;
+    //Greenery Rating
+    public TMPro.TMP_Dropdown greenery;
+    //Enclosure & Setback Rating
+    public TMPro.TMP_Dropdown enclosure_Setback;
+    //Public space Rating
+    public TMPro.TMP_Dropdown publicSpace;
 
 
 
-
-    //Using Legacy
+    /*//Using Legacy
     //Gender
     public Dropdown gender;
     //Age
@@ -65,7 +63,7 @@ public class FileSaver : MonoBehaviour
     public Dropdown timeOf10Min;
     //Primary purpose to walk
     public Dropdown walkingPurpose;
-    public InputField walkingPurposeMore;*/
+    public InputField walkingPurposeMore;
 
 
     //Building Diversity Rating
@@ -79,8 +77,8 @@ public class FileSaver : MonoBehaviour
     //Enclosure & Setback Rating
     public Dropdown enclosure_Setback;
     //Public space Rating
-    public Dropdown publicSpace;
-    
+    public Dropdown publicSpace;*/
+
 
     //user ID auto-increment
     int id = 1;
