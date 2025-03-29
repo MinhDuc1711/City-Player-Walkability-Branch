@@ -56,9 +56,8 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "City-Player-Walkability-Branch.sln",
+    "dotnet.defaultSolution": "Capstone-Project-24-25-to-be-renamed-.sln",
     "C_Cpp.files.exclude": {
-
         "**/.vscode": true,
         "**/.vs": true
     }
