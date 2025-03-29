@@ -21,10 +21,6 @@ public class PImenuToggle : UIMenu, IPointerClickHandler
 
     protected void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            BackToMenu();
-        }
     }
 
     public override void SetActive(bool _state)

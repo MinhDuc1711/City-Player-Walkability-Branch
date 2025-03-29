@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
-public class RA_toggle : UIMenu, IPointerClickHandler
+public class exitConf : UIMenu
 {
     private bool state = false;
     private float animationTime = 0;
@@ -12,10 +12,7 @@ public class RA_toggle : UIMenu, IPointerClickHandler
 
     protected void Awake()
     {
-    }
 
-    protected void Update()
-    {
     }
 
     public override void SetActive(bool _state)
@@ -44,16 +41,12 @@ public class RA_toggle : UIMenu, IPointerClickHandler
         get => animationTime;
     }
 
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        if (!state)
-            manager.showUIMenu(this);
-        else if (state)
-            manager.hideUIMenu(this);
-    }
-
     public void BackToMenu()
     {
+        // --------------- Add call to the filesaver function --------------
+
+        // -----------------------------------------------------------------
+
         SceneManager.LoadScene("UI-starting-Menu");
     }
 
