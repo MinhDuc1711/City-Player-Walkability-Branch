@@ -263,8 +263,7 @@ public class ConnectivitySlider : MonoBehaviour
     {
         if (GreeneryScript != null)
         {
-            // GreeneryScript.GenerateGreenery(GreeneryScript.greenObjSlider.value);
-            GreeneryScript.greenObjSlider.value = 0;
+            GreeneryScript.GenerateGreenery(GreeneryScript.greenObjSlider.value);
         }
     }
 
@@ -272,8 +271,7 @@ public class ConnectivitySlider : MonoBehaviour
     {
         if (PublicSpaceScript != null)
         {
-            // PublicSpaceScript.OnPublicSpaceSliderValueChanged(PublicSpaceScript.publicSpaceSlider.value);
-            PublicSpaceScript.publicSpaceSlider.value = 0;
+            PublicSpaceScript.GenerateBenches(PublicSpaceScript.publicSpaceSlider.value);
         }
     }
 

@@ -34,22 +34,22 @@ public class PublicSpaceGeneration : MonoBehaviour
     public void OnPublicSpaceSliderValueChanged(float value)
     {
         Debug.Log("Public space slider value changed to: " + value);
-        System.Diagnostics.Stopwatch stopwatch = new System.Diagnostics.Stopwatch();
-        stopwatch.Start();
         GenerateBenches(value);
-        stopwatch.Stop();
-        Debug.Log("Public space script execution Time: " + stopwatch.ElapsedMilliseconds + " ms");
     }
 
     public void GenerateBenches(float density)
     {
+        System.Diagnostics.Stopwatch stopwatch = new();
+        stopwatch.Start();
         ClearBenches();
         if (density != 0)
         {
-            density = 32 - 2 * density; // from 30 (max) to 12 (min) average distance between each object
+            density = 35 - 2 * density; // from 30 (max) to 12 (min) average distance between each object
             SpawnBenchesWithSpacing(LeftStripStart.transform.position, LeftStripEnd.transform.position, density, LeftBenches.transform);
             SpawnBenchesWithSpacing(RightStripStart.transform.position, RightStripEnd.transform.position, density, RightBenches.transform);
         }
+        stopwatch.Stop();
+        Debug.Log("Public space script execution Time: " + stopwatch.ElapsedMilliseconds + " ms");
     }
 
     void SpawnBenchesWithSpacing(Vector3 start, Vector3 end, float spacing, Transform parentObject)

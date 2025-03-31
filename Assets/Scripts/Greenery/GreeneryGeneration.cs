@@ -40,7 +40,7 @@ public class GreeneryGeneration : MonoBehaviour
         ClearGreenery();
         if (density > 0)
         {
-            density = 32 - 2 * density; // from 30 (max) to 12 (min) average distance between each object
+            density = 35 - 2 * density; // from 30 (max) to 12 (min) average distance between each object
             SpawnGreeneryWithSpacing(LeftGreenStripStart.transform.position, LeftGreenStripEnd.transform.position, density, LeftGreenery.transform);
             SpawnGreeneryWithSpacing(RightGreenStripStart.transform.position, RightGreenStripEnd.transform.position, density, RightGreenery.transform);
         }
