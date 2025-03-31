@@ -7,7 +7,6 @@ public class DisplaceDecoration : MonoBehaviour
     public float moveStep = 1.0f;
     public float maxMoveDistance = 50.0f;
     public ConnectivitySlider ConnectScript;
-
     public Slider ConnectSlider;
     
     void Start()
@@ -21,13 +20,12 @@ public class DisplaceDecoration : MonoBehaviour
 
     public void OnSliderValueChange(float x)
     {
-        Debug.Log("Slider changed to: " + x);
-        if (x != 0) MoveChildrenToEmptySpace();
+        if (x != 0) MoveDecoration();
     }
 
-    public void MoveChildrenToEmptySpace()
+    public void MoveDecoration()
     {
-        Debug.Log("Attempting to move" + parentObject.transform.childCount +  "children");
+        // Debug.Log("Attempting to move" + parentObject.transform.childCount +  "children");
         for (int i = 0; i < parentObject.transform.childCount; i++)
         {
             GameObject childObject = parentObject.transform.GetChild(i).gameObject;
@@ -44,20 +42,16 @@ public class DisplaceDecoration : MonoBehaviour
             if (movedDistance < maxMoveDistance)
             {
                 childObject.transform.position = newPosition;
-                Debug.Log($"Moved {childObject.name} to {newPosition}");
-            }
-            else
-            {
-                Debug.LogWarning($"Could not find a free position for {childObject.name}");
+                // Debug.Log("Moved " + childObject.name + " to " + newPosition);
             }
         }
     }
 
     bool IsOccupied(Vector3 position)
     {
-        // WOrk will be done later to optimize this
-        float checkRadius = 0.5f;
-        Collider[] hitColliders = Physics.OverlapSphere(position, checkRadius);
+        float checkRadius = 1.0f;
+        int layerMask = LayerMask.GetMask("Decoration");
+        Collider[] hitColliders = Physics.OverlapSphere(position, checkRadius, layerMask);
         foreach (Collider collider in hitColliders)
         {
             if (collider.CompareTag("Decoration")) return true;
