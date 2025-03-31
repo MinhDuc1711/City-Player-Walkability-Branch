@@ -1,6 +1,12 @@
 using UnityEngine;
 using System.Collections.Generic;
 
+[System.Serializable]
+public class BackgroundBuildingGroup
+{
+    public GameObject parentGroup; 
+}
+
 public class ConnectivitySlider : MonoBehaviour
 {
     public GameObject ConnectivityStreet;
@@ -27,6 +33,7 @@ public class ConnectivitySlider : MonoBehaviour
     private Dictionary<GameObject, Vector3> originalLeftPlotPositions = new Dictionary<GameObject, Vector3>();
     private Dictionary<GameObject, Vector3> originalRightPlotPositions = new Dictionary<GameObject, Vector3>();
 
+    public List<BackgroundBuildingGroup> backgroundBuildingGroups = new List<BackgroundBuildingGroup>();
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -71,6 +78,7 @@ public class ConnectivitySlider : MonoBehaviour
         NotifyGreeneryChange();
         NotifyPublicSpaceChange();
         ResetPlots();
+        NotifyBackgroundBuildings();
 
         AdjustPlots(LeftPlots);
         AdjustPlots(RightPlots);
@@ -78,6 +86,25 @@ public class ConnectivitySlider : MonoBehaviour
         NotifyEnclosureChange();
 
     }
+
+    Bounds GetRendererBounds(GameObject obj)
+    {
+        Renderer renderer = obj.GetComponent<Renderer>();
+        if (renderer != null)
+            return renderer.bounds;
+
+        Renderer[] renderers = obj.GetComponentsInChildren<Renderer>();
+        if (renderers.Length > 0)
+        {
+            Bounds bounds = renderers[0].bounds;
+            for (int i = 1; i < renderers.Length; i++)
+                bounds.Encapsulate(renderers[i].bounds);
+            return bounds;
+        }
+
+        return new Bounds(obj.transform.position, Vector3.one * 0.1f); // Tiny fallback
+    }
+
 
     void AdjustPlots(List<GameObject> Plots)
     {
@@ -283,7 +310,51 @@ public class ConnectivitySlider : MonoBehaviour
             EnclosureScript.UpdateBuildingPos(EnclosureScript.SliderOffset);
         }
     }
-        
+
+    public void NotifyBackgroundBuildings()
+    {
+        foreach (var group in backgroundBuildingGroups)
+        {
+            GameObject groupRoot = group.parentGroup;
+            if (groupRoot == null) continue;
+
+            foreach (Transform child in groupRoot.transform)
+            {
+                if (child == null) continue;
+
+                bool intersects = false;
+
+                foreach (GameObject intersection in IntersectionInstances)
+                {
+                    if (intersection == null) continue;
+
+                    Bounds buildingBounds = GetRendererBounds(child.gameObject);
+                    buildingBounds.Expand(-0.5f); // Shrink bounds slightly
+
+                    Bounds intersectionBounds = GetRendererBounds(intersection);
+
+                    if (buildingBounds.Intersects(intersectionBounds))
+                    {
+                        intersects = true;
+                        Debug.Log($"[Intersection] {child.name} intersects with {intersection.name}");
+                        break;
+                    }
+                }
+
+                if (intersects)
+                {
+                    child.gameObject.SetActive(false);
+                    Debug.Log($"[DISABLED] {child.name} has been hidden due to intersection.");
+                }
+                else
+                {
+                    child.gameObject.SetActive(true);
+                    Debug.Log($"[ACTIVE] {child.name} remains active.");
+                }
+            }
+        }
+    }
+
 
     void SetActiveForAll(bool isActive)
     {
