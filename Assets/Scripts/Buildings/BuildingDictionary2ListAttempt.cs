@@ -85,9 +85,9 @@ public class BuildingDictionary2ListAttempt : MonoBehaviour
             }
             else
             {
-                //buildingsOff[0].gameObject.SetActive(true);
-                buildingsOff[0].GetComponent<BoxCollider>().enabled = true;
-                buildingsOff[0].GetComponent<MeshRenderer>().enabled = true;
+                buildingsOff[0].transform.GetChild(0).gameObject.SetActive(true);
+                //buildingsOff[0].GetComponent<BoxCollider>().enabled = true;
+                //buildingsOff[0].GetComponent<MeshRenderer>().enabled = true;
                 unmodifiedBuildings.Add(buildingsOff[0].gameObject);
                 Destroy(buildingList[randomIndex].gameObject);
                 buildingList.Remove(buildingList[randomIndex]);
@@ -111,9 +111,9 @@ public class BuildingDictionary2ListAttempt : MonoBehaviour
 
        newBuilding.transform.SetParent(selectedBuilding.transform, true);
        newBuilding.SetActive(true);
-       selectedBuilding.GetComponent<BoxCollider>().enabled = false;
-       selectedBuilding.GetComponent<MeshRenderer>().enabled = false;
-       //selectedBuilding.SetActive(false);
+       //selectedBuilding.GetComponent<BoxCollider>().enabled = false;
+       //selectedBuilding.GetComponent<MeshRenderer>().enabled = false;
+       selectedBuilding.transform.GetChild(0).gameObject.SetActive(false);
        modifiedBuildings.Add(newBuilding); 
     }
     
