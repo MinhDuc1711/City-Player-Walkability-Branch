@@ -15,6 +15,8 @@ public class BuildingDictionary2ListAttempt : MonoBehaviour
     private List<GameObject> unmodifiedBuildings = new List<GameObject>();
     [SerializeField]
     private List<GameObject> modifiedBuildings = new List<GameObject>();
+    [SerializeField]
+    private List<GameObject> buildingsOff = new List<GameObject>();
 
     private int interval;
     private int numOfBuildingsChanged;
@@ -51,14 +53,10 @@ public class BuildingDictionary2ListAttempt : MonoBehaviour
     {
         float percentage = (value * interval) / 100;
         if(flag)
-        {
-            Debug.Log("AAAAAAA");
+        {           
             this.numOfBuildingsChanged = Mathf.FloorToInt(Mathf.Round(percentage * unmodifiedBuildings.Count));
             flag = false;
         }
-        Debug.Log(percentage);
-        Debug.Log(interval);
-        Debug.Log(numOfBuildingsChanged);
 
         if (percentage > oldPercentage)
         {
@@ -77,37 +75,46 @@ public class BuildingDictionary2ListAttempt : MonoBehaviour
         {
             if (buildingList.Count == 0) return;
             int randomIndex = Random.Range(0, buildingList.Count);
-            BuildingSpawn(randomIndex, buildingList, newBuildingType);
-            buildingList.Remove(buildingList[randomIndex]);
+            
+            if (newBuildingType)
+            {              
+                BuildingSpawn(randomIndex);
+                buildingsOff.Add(buildingList[randomIndex]);
+                buildingList.Remove(buildingList[randomIndex]);
+                Debug.Log(buildingsOff[c]);
+            }
+            else
+            {
+                buildingsOff[0].transform.GetChild(0).gameObject.SetActive(true);
+                //buildingsOff[0].GetComponent<BoxCollider>().enabled = true;
+                //buildingsOff[0].GetComponent<MeshRenderer>().enabled = true;
+                unmodifiedBuildings.Add(buildingsOff[0].gameObject);
+                Destroy(buildingList[randomIndex].gameObject);
+                buildingList.Remove(buildingList[randomIndex]);
+                buildingsOff.RemoveAt(0);
+
+            }   
         }
     }
 
-    private void BuildingSpawn(int index, List<GameObject> buildingList, bool newBuildingType)
+    private void BuildingSpawn(int index)
     {
-        GameObject buildingPrefab = null;
-        if (newBuildingType)
-        {
-            int randomPrefab = Random.Range(0, buildingPrefabs.Count);
-            buildingPrefab = buildingPrefabs[randomPrefab];
-        }
-        else
-        {
-            buildingPrefab = buildingPrefabs[0];
-        } 
-        GameObject selectedBuilding = buildingList[index].gameObject;
-        Transform parentPlot = selectedBuilding.transform.parent;
+       int randomPrefab = Random.Range(0, buildingPrefabs.Count);
+       GameObject buildingPrefab = buildingPrefabs[randomPrefab];
 
-        GameObject newBuilding = Instantiate(buildingPrefab, 
-            new Vector3(selectedBuilding.transform.position.x, parentPlot.position.y, selectedBuilding.transform.position.z), 
-            selectedBuilding.transform.rotation);
+       GameObject selectedBuilding = unmodifiedBuildings[index].gameObject;
+       Transform parentPlot = selectedBuilding.transform.parent;
 
-        newBuilding.transform.SetParent(parentPlot, true);
-        newBuilding.SetActive(true);
-        Destroy(selectedBuilding);
-        if(newBuildingType)
-        modifiedBuildings.Add(newBuilding);
-        else
-        unmodifiedBuildings.Add(newBuilding);
+       GameObject newBuilding = Instantiate(buildingPrefab,
+           new Vector3(selectedBuilding.transform.position.x, parentPlot.position.y, selectedBuilding.transform.position.z),
+           selectedBuilding.transform.rotation);
+
+       newBuilding.transform.SetParent(selectedBuilding.transform, true);
+       newBuilding.SetActive(true);
+       //selectedBuilding.GetComponent<BoxCollider>().enabled = false;
+       //selectedBuilding.GetComponent<MeshRenderer>().enabled = false;
+       selectedBuilding.transform.GetChild(0).gameObject.SetActive(false);
+       modifiedBuildings.Add(newBuilding); 
     }
     
 }
