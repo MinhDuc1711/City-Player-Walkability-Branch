@@ -27,11 +27,6 @@ public class toggleButton : UIMenu, IPointerClickHandler
 
     protected void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            menuManager.fs.writeTofile();
-            BackToMenu();
-        }
     }
 
     public override bool State 

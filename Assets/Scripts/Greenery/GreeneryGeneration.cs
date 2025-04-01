@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,30 +8,23 @@ public class GreeneryGeneration : MonoBehaviour
     public GameObject LeftGreenStripEnd;
     public GameObject RightGreenStripStart;
     public GameObject RightGreenStripEnd;
-
     public GameObject[] TreePrefabs;
     public GameObject FlowerPrefab;
-    //public GameObject PotPrefab;
-
     public Slider greenObjSlider;
-
-    public float ExtraSpacing=3;
-
     public ConnectivitySlider ConnectScript;
-
-    //private GameObject[] greeneryPrefabs; 
+    private GameObject LeftGreenery;
+    private GameObject RightGreenery;
+    private List<GameObject> greeneryList = new List<GameObject>();
 
     public void Start()
     {
-        //greeneryPrefabs = new GameObject[] { TreePrefab, FlowerPrefab};
+        // Initialize holder for greenery
+        LeftGreenery = new GameObject("Left Greenery");
+        RightGreenery = new GameObject("Right Greenery");
+        // Add listener
         greenObjSlider.onValueChanged.AddListener(OnGreenObjectSliderValueChanged);
         // Initial generation 
         GenerateGreenery(greenObjSlider.value);
-    }
-
-    public void Update()
-    {
-        
     }
 
     void OnGreenObjectSliderValueChanged(float value)
@@ -41,39 +35,37 @@ public class GreeneryGeneration : MonoBehaviour
 
     public void GenerateGreenery(float density)
     {
-        if (density != 0)
-        {
-            density = 16 - density; 
-        }
+        System.Diagnostics.Stopwatch stopwatch = new System.Diagnostics.Stopwatch();
+        stopwatch.Start();
         ClearGreenery();
-
-        // Rnadom Pattern Generation
         if (density > 0)
         {
-            SpawnGreeneryWithSpacing(LeftGreenStripStart.transform.position, LeftGreenStripEnd.transform.position, density);
-            SpawnGreeneryWithSpacing(RightGreenStripStart.transform.position, RightGreenStripEnd.transform.position, density);
+            density = 35 - 2 * density; // from 30 (max) to 12 (min) average distance between each object
+            SpawnGreeneryWithSpacing(LeftGreenStripStart.transform.position, LeftGreenStripEnd.transform.position, density, LeftGreenery.transform);
+            SpawnGreeneryWithSpacing(RightGreenStripStart.transform.position, RightGreenStripEnd.transform.position, density, RightGreenery.transform);
         }
+        stopwatch.Stop();
+        Debug.Log("Greenery script execution Time: " + stopwatch.ElapsedMilliseconds + " ms");
     }
 
-    void SpawnGreeneryWithSpacing(Vector3 start, Vector3 end, float spacing)
+    void SpawnGreeneryWithSpacing(Vector3 start, Vector3 end, float spacing, Transform parentObject)
     {
-        float distance = Vector3.Distance(start, end);
-        int numberOfObjects = Mathf.FloorToInt(distance / spacing);
-        int TreeVariance = 0;
-
-        float correctionFactor = 1;
-        int greeneryCreated = 0; // number of benches created
+        float distance = Vector3.Distance(start, end); // total distance to place greenery
         float currentDistance = 0f; // current distance relative to start point
         Vector3 direction = (end - start).normalized; // direction to calculate distance
+        int greeneryCreated = 0; // number of benches created
+        float correctionFactor = 1;
         bool placeTree = true; // if true then place tree, if false then place flower
+        int TreeVariance = 0;
 
-        while (currentDistance < distance)
+        while (currentDistance < distance - spacing * correctionFactor) // prevent spawning if next object wil be spawned outside of allowed range
         {
-            Vector3 position = start + direction * currentDistance; // Calculate position
-            int attempts = 0;
+            Vector3 position = start + direction * currentDistance;
+            int attempts = 1;
             bool placed = false;
-            float maxAttempts = 15;
-            while (attempts < maxAttempts && !placed)
+            float maxAttempts = 10;
+
+            while (attempts <= maxAttempts && !placed)
             {
                 if (!IsOccupied(position))
                 {
@@ -81,64 +73,76 @@ public class GreeneryGeneration : MonoBehaviour
                     {
                         float randomRotationY = 90 * Random.Range(0, 4); // 0, 90, 180, or 270
                         Quaternion rotation = Quaternion.Euler(0, randomRotationY, 0);
-                        Instantiate(TreePrefabs[TreeVariance % 2], position, rotation);
+                        GameObject newTree = Instantiate(TreePrefabs[TreeVariance % 2], position, rotation, parentObject);
                         TreeVariance++;
                         placeTree = false;
+                        newTree.name = "Tree " + (greeneryCreated + 1);
+                        greeneryList.Add(newTree);
                     }
                     else
                     {
-                        position.z += (float)0.75;
-                        Instantiate(FlowerPrefab, position, Quaternion.identity);
+                        GameObject newFlower = Instantiate(FlowerPrefab, position, Quaternion.identity, parentObject);
                         placeTree = true;
+                        newFlower.name = "Flower " + (greeneryCreated + 1);
+                        greeneryList.Add(newFlower);
                     }
                     greeneryCreated++;
-                    Debug.Log("Greenery spawned at: " + currentDistance + " in " + (attempts+1) + " attempts");
+                    // Debug.Log("Greenery " + greeneryCreated + " spawned at: " + position + " in " + attempts + " attempts");
                     placed = true;
                 }
                 else
                 {
-                    // If object not successfully placed because position is occupied by another object
-                    if (attempts % 2 == 0)
+                    float minStep = 1.0f;
+                    float step = spacing * correctionFactor / maxAttempts;
+                    Vector3 tempDir = (attempts % 2 == 1) ? direction : -direction;
+                    // If bench not successfully placed because position is occupied by another object
+                    if (step < minStep)
                     {
-                        position += direction * attempts * spacing * correctionFactor / maxAttempts; // Move forward
+                        position += attempts * minStep * tempDir;
                     }
                     else
                     {
-                        position -= direction * attempts * spacing * correctionFactor / maxAttempts; // Move backward
+                        position += attempts * step * tempDir;
                     }
                     attempts++;
                 }
             }
 
+            currentDistance = Vector3.Dot(position-start, direction);
             if (greeneryCreated > 1)
             {
-                // average distance between current objects
-                float actualSpacing = currentDistance / greeneryCreated;
-                // difference between current spacing and ideal maximum spacing
-                float errorRatio = spacing / actualSpacing;
-                correctionFactor = Mathf.Pow(errorRatio, Mathf.Lerp(1.0f, 3.0f, currentDistance/distance));
-                // correctionFactor = errorRatio;
-                Debug.Log("currentDistance" + currentDistance + ", actualSpacing: " + actualSpacing + ", idealSpacing: " + spacing + ", correctionFactor: " + correctionFactor);
+                // difference between current density and theoretical density
+                float error = spacing * (greeneryCreated - 1) / currentDistance;
+                correctionFactor = Mathf.Pow(error, Mathf.Lerp(1.0f, 3.0f, currentDistance/distance));
+                // Debug.Log("greeneryCreated: " + greeneryCreated + " currentDistance: " + currentDistance + " correctionFactor: " + correctionFactor);
+            }
+            
+            // Reduce or increase distance between current and next object, based on current density of objects
+            float minDistance = 3.0f;
+            if (spacing * correctionFactor < minDistance)
+            {
+                currentDistance += minDistance;
             }
             else
             {
-                correctionFactor = 1;
+                currentDistance += spacing * correctionFactor;
             }
-            // Reduce or increase distance between current and next object, based on current density of objects
-            currentDistance += spacing * correctionFactor;
         }
-
-        Debug.Log("Maximum greenery objects allowed: " + numberOfObjects);
-        Debug.Log("Greenery objects added: " + greeneryCreated);
+        Debug.Log(parentObject.name + " added: " + greeneryCreated);
     }
 
     private bool IsOccupied(Vector3 position)
     {
-        float checkRadius = 2.0f; // Increase radius to avoid tree overlap
-        Collider[] hitColliders = Physics.OverlapSphere(position, checkRadius);
+        float checkRadius = 4.0f;
+        int layerMask = LayerMask.GetMask("Tree", "Flower", "Bench");
+        Collider[] hitColliders = Physics.OverlapSphere(position, checkRadius, layerMask);
         foreach (Collider collider in hitColliders)
         {
-            if (collider.CompareTag("Tree") || collider.CompareTag("Flower") || collider.CompareTag("Bench")) return true;
+            // Debug.Log("Position: " + position + " occupied with: " + collider.gameObject.name + " at " + collider.gameObject.transform.position);
+            if (collider.CompareTag("Tree") || collider.CompareTag("Flower") || collider.CompareTag("Bench")) 
+            {
+                return true;
+            }
         }
         if (ConnectScript != null)
         {
@@ -148,6 +152,7 @@ public class GreeneryGeneration : MonoBehaviour
                 float intersectionZ = instance.transform.position.z-12;
                 if (Mathf.Abs(position.z - intersectionZ) <= 10)
                 {
+                    // Debug.Log("Position: " + position + " occupied with intersection at: " + instance.transform.position);
                     return true;
                 }
             }
@@ -157,15 +162,10 @@ public class GreeneryGeneration : MonoBehaviour
 
     public void ClearGreenery()
     {
-        foreach (var obj in GameObject.FindGameObjectsWithTag("Tree"))
+        foreach (GameObject greenery in greeneryList)
         {
-            Destroy(obj);
+            DestroyImmediate(greenery);
         }
-
-        foreach (var obj in GameObject.FindGameObjectsWithTag("Flower"))
-        {
-            Destroy(obj);
-        }
-
+        greeneryList.Clear();
     }
 }

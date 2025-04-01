@@ -16,10 +16,6 @@ public class RA_toggle : UIMenu, IPointerClickHandler
 
     protected void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            BackToMenu();
-        }
     }
 
     public override void SetActive(bool _state)
