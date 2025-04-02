@@ -111,9 +111,9 @@ public class BuildingDictionary2ListAttempt : MonoBehaviour
 
     private void BuildingDespawn(int index)
     {
-        Debug.Log("############## START #############");
+        //Debug.Log("############## START #############");
         buildingsOff[index].transform.GetChild(0).gameObject.SetActive(true);
-        Debug.Log("############## END #############");
+        //Debug.Log("############## END #############");
         unmodifiedBuildings.Add(buildingsOff[index]);
         buildingsOff.RemoveAt(index);
         
