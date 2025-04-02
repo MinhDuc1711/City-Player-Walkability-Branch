@@ -9,6 +9,7 @@ public class FileSaver : MonoBehaviour
     //Path to excel file
     private string path = "Assets\\Save Files\\saveFile.csv";
 
+    [Header("Personal Information")]
     //Using TMP Pro
     //Gender
     public TMPro.TMP_Dropdown gender;
@@ -29,58 +30,57 @@ public class FileSaver : MonoBehaviour
     public TMPro.TMP_Dropdown walkingPurpose;
     public TMPro.TMP_InputField walkingPurposeMore;
 
-    /*//Greenery Rating
-    public TMPro.TMP_Dropdown greenery;
+    [Header("Ratings")]
     //Building Diversity Rating
     public TMPro.TMP_Dropdown buildingDiversity;
-    //Setback Rating
-    public TMPro.TMP_Dropdown setback;
-    //Block length Rating
-    public TMPro.TMP_Dropdown blockLength;
-    //Enclosure Rating
-    public TMPro.TMP_Dropdown enclosure;
-    //Public space Rating
-    public TMPro.TMP_Dropdown publicSpace;
     //Building density Rating
     public TMPro.TMP_Dropdown buildingDensity;
-
-
-
-
-    //Using Legacy
-    //Gender
-    public Dropdown gender;
-    //Age
-    public Dropdown age;
-    //Method of transport
-    public Dropdown metTrans;
-    public InputField metTransMore;
-    //Childh. neigh. desc.
-    public Dropdown chiNeiDesc;
-    //Curr. neigh. desc.
-    public Dropdown currNeiDesc;
-    //Time walking in street
-    public Dropdown timeInStreet;
-    //Number of times walking more than 10 min
-    public Dropdown timeOf10Min;
-    //Primary purpose to walk
-    public Dropdown walkingPurpose;
-    public InputField walkingPurposeMore;*/
-
-
-    //Building Diversity Rating
-    public Dropdown buildingDiversity;
-    //Building density Rating
-    public Dropdown buildingDensity;
     //Block length Rating
-    public Dropdown blockLength;
+    public TMPro.TMP_Dropdown blockLength;
     //Greenery Rating
-    public Dropdown greenery;
+    public TMPro.TMP_Dropdown greenery;
     //Enclosure & Setback Rating
-    public Dropdown enclosure_Setback;
+    public TMPro.TMP_Dropdown enclosure_Setback;
     //Public space Rating
-    public Dropdown publicSpace;
-    
+    public TMPro.TMP_Dropdown publicSpace;
+
+    /*
+
+
+        //Using Legacy
+        //Gender
+        public Dropdown gender;
+        //Age
+        public Dropdown age;
+        //Method of transport
+        public Dropdown metTrans;
+        public InputField metTransMore;
+        //Childh. neigh. desc.
+        public Dropdown chiNeiDesc;
+        //Curr. neigh. desc.
+        public Dropdown currNeiDesc;
+        //Time walking in street
+        public Dropdown timeInStreet;
+        //Number of times walking more than 10 min
+        public Dropdown timeOf10Min;
+        //Primary purpose to walk
+        public Dropdown walkingPurpose;
+        public InputField walkingPurposeMore;
+
+
+        //Building Diversity Rating
+        public Dropdown buildingDiversity;
+        //Building density Rating
+        public Dropdown buildingDensity;
+        //Block length Rating
+        public Dropdown blockLength;
+        //Greenery Rating
+        public Dropdown greenery;
+        //Enclosure & Setback Rating
+        public Dropdown enclosure_Setback;
+        //Public space Rating
+        public Dropdown publicSpace;*/
+
 
     //user ID auto-increment
     int id = 1;

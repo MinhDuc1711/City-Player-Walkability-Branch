@@ -19,11 +19,7 @@ public class RA_toggle1 : UIMenu, IPointerClickHandler
 
     protected void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            manager.fs.writeTofile();
-            BackToMenu();
-        }
+        
     }
 
     public override void SetActive(bool _state)
@@ -60,11 +56,6 @@ public class RA_toggle1 : UIMenu, IPointerClickHandler
             manager.showUIMenu(this);
         else if (state)
             manager.hideUIMenu(this);
-    }
-
-    public void BackToMenu()
-    {
-        SceneManager.LoadScene("UI-starting-Menu");
     }
 
     public override void ActivateMenu()
