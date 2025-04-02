@@ -10,6 +10,8 @@ public class exitConf : UIMenu
     public uiMenuManager manager;
     public RectTransform menu;
 
+    public FileSaver fs;
+
     protected void Awake()
     {
 
@@ -44,7 +46,7 @@ public class exitConf : UIMenu
     public void BackToMenu()
     {
         // --------------- Add call to the filesaver function --------------
-
+        fs.writeTofile();
         // -----------------------------------------------------------------
 
         SceneManager.LoadScene("UI-starting-Menu");
