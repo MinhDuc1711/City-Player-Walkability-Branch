@@ -80,19 +80,13 @@ public class BuildingDictionary2ListAttempt : MonoBehaviour
             {              
                 BuildingSpawn(randomIndex);
                 buildingsOff.Add(buildingList[randomIndex]);
-                buildingList.Remove(buildingList[randomIndex]);
-                Debug.Log(buildingsOff[c]);
+                buildingList.RemoveAt(randomIndex);            
             }
             else
-            {
-                buildingsOff[0].transform.GetChild(0).gameObject.SetActive(true);
-                //buildingsOff[0].GetComponent<BoxCollider>().enabled = true;
-                //buildingsOff[0].GetComponent<MeshRenderer>().enabled = true;
-                unmodifiedBuildings.Add(buildingsOff[0].gameObject);
-                Destroy(buildingList[randomIndex].gameObject);
-                buildingList.Remove(buildingList[randomIndex]);
-                buildingsOff.RemoveAt(0);
-
+            {   
+                BuildingDespawn(randomIndex);
+                Destroy(buildingList[randomIndex]);
+                buildingList.RemoveAt(randomIndex);
             }   
         }
     }
@@ -101,20 +95,29 @@ public class BuildingDictionary2ListAttempt : MonoBehaviour
     {
        int randomPrefab = Random.Range(0, buildingPrefabs.Count);
        GameObject buildingPrefab = buildingPrefabs[randomPrefab];
-
+       
        GameObject selectedBuilding = unmodifiedBuildings[index].gameObject;
        Transform parentPlot = selectedBuilding.transform.parent;
-
+       
        GameObject newBuilding = Instantiate(buildingPrefab,
            new Vector3(selectedBuilding.transform.position.x, parentPlot.position.y, selectedBuilding.transform.position.z),
            selectedBuilding.transform.rotation);
-
+       
        newBuilding.transform.SetParent(selectedBuilding.transform, true);
        newBuilding.SetActive(true);
-       //selectedBuilding.GetComponent<BoxCollider>().enabled = false;
-       //selectedBuilding.GetComponent<MeshRenderer>().enabled = false;
        selectedBuilding.transform.GetChild(0).gameObject.SetActive(false);
        modifiedBuildings.Add(newBuilding); 
+    }
+
+    private void BuildingDespawn(int index)
+    {
+        //Debug.Log("############## START #############");
+        buildingsOff[index].transform.GetChild(0).gameObject.SetActive(true);
+        //Debug.Log("############## END #############");
+        unmodifiedBuildings.Add(buildingsOff[index]);
+        buildingsOff.RemoveAt(index);
+        
+      
     }
     
 }

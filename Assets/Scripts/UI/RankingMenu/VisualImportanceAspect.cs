@@ -17,47 +17,32 @@ public class VisualImportanceAspect : MonoBehaviour
     {
         switch (dropdown.value)
         {
-            case 0:
+            case 0: //0
+            case 1: //5
                 bg.color = Color.red;
-                txt.color = Color.black;
+                txt.color = Color.white;
                 break;
-            case 1:
-                bg.color = Color.red;
-                txt.color = Color.black;
-                break;
-            case 2:
+            case 2: //10
+            case 3: //15
                 bg.color = new Color(1f, 0.647f, 0f, 1f);
                 txt.color = Color.black;
                 break;
-            case 3:
-                bg.color = new Color(1f, 0.647f, 0f, 1f);
-                txt.color = Color.black;
-                break;
-            case 4:
+            case 4: //20
+            case 5: //25
                 bg.color = Color.yellow;
                 txt.color = Color.black;
                 break;
-            case 5:
-                bg.color = Color.yellow;
-                txt.color = Color.black;
-                break;
-            case 6:
-                bg.color = Color.yellow;
-                txt.color = Color.black;
-                break;
-            case 7:
+            case 6: //30
+            case 7: //40
+            case 8: //50
                 bg.color = new Color(0.565f, 0.933f, 0.565f, 1f);
                 txt.color = Color.black;
                 break;
-            case 8:
-                bg.color = new Color(0.565f, 0.933f, 0.565f, 1f);
-                txt.color = Color.black;
-                break;
-            case 9:
-                bg.color = Color.green;
-                txt.color = Color.black;
-                break;
-            case 10:
+            case 9: //60
+            case 10: //70
+            case 11: //80
+            case 12: //90
+            case 13: //100
                 bg.color = Color.green;
                 txt.color = Color.black;
                 break;
