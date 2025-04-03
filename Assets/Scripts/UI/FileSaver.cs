@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class FileSaver : MonoBehaviour
 {
     //Path to excel file
-    private string path = "Assets\\Save Files\\saveFile.csv";
+    private string path;
 
     [Header("Personal Information")]
     //Using TMP Pro
@@ -44,43 +44,10 @@ public class FileSaver : MonoBehaviour
     //Public space Rating
     public TMPro.TMP_Dropdown publicSpace;
 
-    /*
-
-
-        //Using Legacy
-        //Gender
-        public Dropdown gender;
-        //Age
-        public Dropdown age;
-        //Method of transport
-        public Dropdown metTrans;
-        public InputField metTransMore;
-        //Childh. neigh. desc.
-        public Dropdown chiNeiDesc;
-        //Curr. neigh. desc.
-        public Dropdown currNeiDesc;
-        //Time walking in street
-        public Dropdown timeInStreet;
-        //Number of times walking more than 10 min
-        public Dropdown timeOf10Min;
-        //Primary purpose to walk
-        public Dropdown walkingPurpose;
-        public InputField walkingPurposeMore;
-
-
-        //Building Diversity Rating
-        public Dropdown buildingDiversity;
-        //Building density Rating
-        public Dropdown buildingDensity;
-        //Block length Rating
-        public Dropdown blockLength;
-        //Greenery Rating
-        public Dropdown greenery;
-        //Enclosure & Setback Rating
-        public Dropdown enclosure_Setback;
-        //Public space Rating
-        public Dropdown publicSpace;*/
-
+    private void Awake()
+    {
+        path = Application.persistentDataPath + "/Save_Files/saveFile.csv";
+    }
 
     //user ID auto-increment
     int id = 1;
