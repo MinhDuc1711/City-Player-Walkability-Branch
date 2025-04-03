@@ -22,7 +22,7 @@ jobs:
         version: "6000.0.24f1"  
         unityLicense: ${{ secrets.UNITY_LICENSE }}
         unityEmail: "jozesemaan@gmail.com"
-        unityPassword: ${{ secrets.UNITY_PASSWORD }}
+        unityPassword: "PublicStatic123"
 
     - name: Run tests with Unity Test Runner
       uses: game-ci/unity-test-runner@v4
