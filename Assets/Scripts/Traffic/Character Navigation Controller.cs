@@ -38,7 +38,7 @@ public class CharacterNavigationController : MonoBehaviour
         if (Mathf.Abs(transform.position.x - spawnPosition.x) > maxXMovement ||
             Mathf.Abs(transform.position.y - spawnPosition.y) > maxYMovement)
         {
-            Debug.Log("Pedestrian moved too far, teleporting.");
+            //Debug.Log("Pedestrian moved too far, teleporting.");
 
             //Teleport the pedestrian to the first or last waypoint
             TeleportToWaypoint();
@@ -133,7 +133,7 @@ public class CharacterNavigationController : MonoBehaviour
         //Update the destination
         SetDestination(targetWaypoint.GetPosition());
 
-        Debug.Log($"Teleported pedestrian to waypoint: {targetWaypoint.name}");
+        //Debug.Log($"Teleported pedestrian to waypoint: {targetWaypoint.name}");
     }
 
 }

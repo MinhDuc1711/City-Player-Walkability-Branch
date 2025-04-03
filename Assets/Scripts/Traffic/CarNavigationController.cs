@@ -34,7 +34,7 @@ public class CarNavigationController : MonoBehaviour
         if (Mathf.Abs(transform.position.x - initialPosition.x) > maxOffset ||
             Mathf.Abs(transform.position.y - initialPosition.y) > maxOffset)
         {
-            Debug.Log($"{gameObject.name} exceeded boundary limits. Destroying...");
+            //Debug.Log($"{gameObject.name} exceeded boundary limits. Destroying...");
             DestroyCar();
             return;
         }
@@ -58,7 +58,7 @@ public class CarNavigationController : MonoBehaviour
                 //Reached current waypoint
                 if (currentWaypoint == lastWaypoint)
                 {
-                    Debug.Log($"{gameObject.name} reached the last waypoint. Destroying...");
+                    //Debug.Log($"{gameObject.name} reached the last waypoint. Destroying...");
                     DestroyCar();
                 }
                 else

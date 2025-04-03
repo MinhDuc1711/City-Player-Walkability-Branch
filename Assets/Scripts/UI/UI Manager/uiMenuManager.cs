@@ -15,11 +15,8 @@ public class uiMenuManager : MonoBehaviour
 
     private UIMenu active;
 
-    public FileSaver fs;
-
     private void Awake()
     {
-        fs = this.gameObject.GetComponent<FileSaver>();
         camLock = this.gameObject.GetComponent<CameraLock>();
     }
 
