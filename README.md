@@ -1,21 +1,21 @@
 # City Player - Walkability Branch
 
-City Player is an interactive simulation designed to create a dynamic downtown walking experience. Users can adjust environmental features in real time, such as greenery, building height, traffic, and more, to create their ideal urban setting.
+City Player is an interactive simulation that offers a dynamic downtown walking experience. Participants can customize environmental elements in real time—such as greenery, building diversity, and public spaces—to shape their ideal urban streetscape. Users who walk through the environment can evaluate and rank key street features based on their importance to the walking experience. The data collected supports urban planners and researchers in designing more livable and people-centric cities.
 
 ---
 ## Link to Demo
 
-https://drive.google.com/file/d/1JaT_hWjZBcarpb0pvKWob2Ir0BPRek8p/view 
+https://drive.google.com/file/d/1dcpx3TOGftrCLBnOIkW_qHF5D2GE7jH4/view
 
 ## Top Files
 
 | File path with clickable Github link | Purpose |
 | :---         |     :---:      |  
-| https://github.com/MinhDuc1711/City-Player-Walkability-Branch/blob/main/Assets/Scripts/Buildings/BuildingDictionary2ListAttempt.cs      | Controls the variety of buildings along the street based on the slider value.    |
-| https://github.com/MinhDuc1711/City-Player-Walkability-Branch/blob/main/Assets/Scripts/Default%20street%20demo/GrassStrip.cs   |Controls grass strip dynamically| 
-| https://github.com/MinhDuc1711/City-Player-Walkability-Branch/blob/main/Assets/Scripts/UI/UI%20Manager/uiMenuManager.cs       | Control and manage the ui menus so that there is never 2 UIs at the same time | 
-| https://github.com/MinhDuc1711/City-Player-Walkability-Branch/blob/main/Assets/Scripts/Greenery/GreeneryGeneration.cs   | Generates the greenery with the selection of assets of trees and flower pots | 
-| https://github.com/MinhDuc1711/City-Player-Walkability-Branch/blob/main/Assets/Scripts/Traffic/WaypointNavigator.cs  | Allows the traffic system to follow the waypoints | 
+| [Building Dictionary List script](https://github.com/MinhDuc1711/City-Player-Walkability-Branch/blob/main/Assets/Scripts/Buildings/BuildingDictionary2ListAttempt.cs)     | Controls the variety of buildings along the street based on the slider value.    |
+| [Street Connectivity Script](https://github.com/MinhDuc1711/City-Player-Walkability-Branch/blob/main/Assets/Scripts/Connectivity/ConnectivitySlider.cs)   |Controls the ability to generate intersections on the street by adjusting the Street Connectivity Slider.| 
+| [UI Menue Manager script](https://github.com/MinhDuc1711/City-Player-Walkability-Branch/blob/main/Assets/Scripts/UI/UI%20Manager/uiMenuManager.cs)       | Control and manage the ui menus so that there are never 2 UIs at the same time. | 
+| [Greenery Generator script](https://github.com/MinhDuc1711/City-Player-Walkability-Branch/blob/main/Assets/Scripts/Greenery/GreeneryGeneration.cs)   | Generates the greenery with the selection of assets of trees and flower pots | 
+| [Waypoint Navigator script](https://github.com/MinhDuc1711/City-Player-Walkability-Branch/blob/main/Assets/Scripts/Traffic/WaypointNavigator.cs)  | Allows the traffic system to follow the waypoints | 
 
 
 ## Top Test Files
@@ -32,8 +32,9 @@ https://drive.google.com/file/d/1JaT_hWjZBcarpb0pvKWob2Ir0BPRek8p/view
 
 City Player allows users to:
 - Explore a realistic downtown environment in first-person.
-- Customize settings for trees, buildings, traffic density, and public spaces.
-- Experience the effect of urban elements on a leisurely and utilitarian walk.
+- Customize greenery, buildings, connectivity, public spaces, and enclosure settings.
+- Experience enhanced realism from ambient pedestrian activity on sidewalks and traffic, as the user navigates the street.
+- Rank the importance of individual street features by assigning points, providing valuable data for urban planning analysis.
 
 ---
 
@@ -48,29 +49,26 @@ City Player allows users to:
 3. **Customize Your Walk**:
    - Use in-game settings to adjust:
      - Greenery (trees, bushes, flowers).
-     - Building heights and spacing.
-     - Traffic density and pedestrian flow.
+     - Building diversity.
+     - Connectivity (Block length).
+     - Enclosure
      - Amenities like public seating and social spaces.
    - Real-time changes will immediately affect the environment, allowing for a tailored experience.
-
-   **Scene Organization**:  
-   The key features of the simulation are divided into separate scenes, each focusing on a different aspect of the urban environment. This modular approach allows users to customize and test specific features, such as greenery, building layouts, and traffic flow, before integrating them into the main environment.
 
 ---
 
 ## Key Features
 
 - **Real-Time Environmental Customization**:
-  - Adjust trees, greenery, and building heights to influence the aesthetics and functionality of your walk.
-  - Change traffic density and pedestrian movement to simulate different levels of urban activity.
+  - Adjust greenery, building diversity, and public areas to influence the aesthetics and functionality of your walk.
+  - Change the block length and the enclosure to model a different overall look for the city.
 
-- **Leisure vs. Utilitarian Walk Modes**:
-  - Toggle between two walking modes:
-    - **Leisure Mode**: Prioritize visual beauty, greenery, and social spaces.
-    - **Utilitarian Mode**: Focus on efficiency, with amenities and transport infrastructure being key factors.
+- **Shading**:
+  - Realistic shading techniques to enhance visual depth and improve the overall immersion of the street environment.
+    
+- **Player Feedback**:
+  - At the end of the experience, users complete a short survey by assigning a total of 100 points to different street features based on their importance.
 
-- **Dynamic Time-of-Day Simulation**:
-  - Control the time of day (from 9 AM to 6 PM) to observe how shadows and lighting impact the walk.
 
 ---
 
@@ -89,6 +87,13 @@ City Player allows users to:
 - **First-Person Camera**: The simulation uses Unity’s Starter Assets package, which is located in `Assets/ImportedAssets/StarterAssets`, for easy navigation.
 - **Plugin Usage**: Archtoolkit is used for materials, enabling detailed browsing and selection of materials. This can be accessed through Unity’s asset panel.
   
+---
+
+### Tools Used
+
+![Unity](https://upload.wikimedia.org/wikipedia/commons/1/19/Unity_Technologies_logo.svg)  
+**Unity 6** – Used as the primary game engine to build the simulation.
+
 ---
 
 ## Contributors
