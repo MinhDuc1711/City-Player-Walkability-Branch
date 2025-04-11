@@ -1,6 +1,6 @@
 # City Player - Walkability Branch
 
-City Player is an interactive simulation designed to create a dynamic downtown walking experience. Users can adjust environmental features in real time, such as greenery, building height, traffic, and more, to create their ideal urban setting.
+City Player is an interactive simulation that offers a dynamic downtown walking experience. Participants can customize environmental elements in real time—such as greenery, building diversity, and public spaces—to shape their ideal urban streetscape. Users who walk through the environment can evaluate and rank key street features based on their importance to the walking experience. The data collected supports urban planners and researchers in designing more livable and people-centric cities.
 
 ---
 ## Link to Demo
@@ -32,8 +32,9 @@ https://drive.google.com/file/d/1JaT_hWjZBcarpb0pvKWob2Ir0BPRek8p/view
 
 City Player allows users to:
 - Explore a realistic downtown environment in first-person.
-- Customize settings for trees, buildings, traffic density, and public spaces.
-- Experience the effect of urban elements on a leisurely and utilitarian walk.
+- Customize greenery, buildings, connectivity, public spaces, and enclosure settings.
+- Experience enhanced realism from ambient pedestrian activity on sidewalks and traffic, as the user navigates the street.
+- Rank the importance of individual street features by assigning points, providing valuable data for urban planning analysis.
 
 ---
 
@@ -48,29 +49,26 @@ City Player allows users to:
 3. **Customize Your Walk**:
    - Use in-game settings to adjust:
      - Greenery (trees, bushes, flowers).
-     - Building heights and spacing.
-     - Traffic density and pedestrian flow.
+     - Building diversity.
+     - Connectivity (Block length).
+     - Enclosure
      - Amenities like public seating and social spaces.
    - Real-time changes will immediately affect the environment, allowing for a tailored experience.
-
-   **Scene Organization**:  
-   The key features of the simulation are divided into separate scenes, each focusing on a different aspect of the urban environment. This modular approach allows users to customize and test specific features, such as greenery, building layouts, and traffic flow, before integrating them into the main environment.
 
 ---
 
 ## Key Features
 
 - **Real-Time Environmental Customization**:
-  - Adjust trees, greenery, and building heights to influence the aesthetics and functionality of your walk.
-  - Change traffic density and pedestrian movement to simulate different levels of urban activity.
+  - Adjust greenery, building diversity, and public areas to influence the aesthetics and functionality of your walk.
+  - Change the block length and the enclosure to model a different overall look for the city.
 
-- **Leisure vs. Utilitarian Walk Modes**:
-  - Toggle between two walking modes:
-    - **Leisure Mode**: Prioritize visual beauty, greenery, and social spaces.
-    - **Utilitarian Mode**: Focus on efficiency, with amenities and transport infrastructure being key factors.
+- **Shading**:
+  - Realistic shading techniques to enhance visual depth and improve the overall immersion of the street environment.
+    
+- **Player Feedback**:
+  - At the end of the experience, users complete a short survey by assigning a total of 100 points to different street features based on their importance.
 
-- **Dynamic Time-of-Day Simulation**:
-  - Control the time of day (from 9 AM to 6 PM) to observe how shadows and lighting impact the walk.
 
 ---
 
