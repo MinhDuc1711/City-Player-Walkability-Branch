@@ -11,11 +11,11 @@ https://drive.google.com/file/d/1JaT_hWjZBcarpb0pvKWob2Ir0BPRek8p/view
 
 | File path with clickable Github link | Purpose |
 | :---         |     :---:      |  
-| https://github.com/MinhDuc1711/City-Player-Walkability-Branch/blob/main/Assets/Scripts/Buildings/BuildingDictionary2ListAttempt.cs      | Controls the variety of buildings along the street based on the slider value.    |
-| https://github.com/MinhDuc1711/City-Player-Walkability-Branch/blob/main/Assets/Scripts/Default%20street%20demo/GrassStrip.cs   |Controls grass strip dynamically| 
-| https://github.com/MinhDuc1711/City-Player-Walkability-Branch/blob/main/Assets/Scripts/UI/UI%20Manager/uiMenuManager.cs       | Control and manage the ui menus so that there is never 2 UIs at the same time | 
-| https://github.com/MinhDuc1711/City-Player-Walkability-Branch/blob/main/Assets/Scripts/Greenery/GreeneryGeneration.cs   | Generates the greenery with the selection of assets of trees and flower pots | 
-| https://github.com/MinhDuc1711/City-Player-Walkability-Branch/blob/main/Assets/Scripts/Traffic/WaypointNavigator.cs  | Allows the traffic system to follow the waypoints | 
+| [Building Dictionary List script](https://github.com/MinhDuc1711/City-Player-Walkability-Branch/blob/main/Assets/Scripts/Buildings/BuildingDictionary2ListAttempt.cs)     | Controls the variety of buildings along the street based on the slider value.    |
+| [Street Connectivity Script](https://github.com/MinhDuc1711/City-Player-Walkability-Branch/blob/main/Assets/Scripts/Connectivity/ConnectivitySlider.cs)   |Controls the ability to generate intersections on the street by adjusting the Street Connectivity Slider.| 
+| [UI Menue Manager script](https://github.com/MinhDuc1711/City-Player-Walkability-Branch/blob/main/Assets/Scripts/UI/UI%20Manager/uiMenuManager.cs)       | Control and manage the ui menus so that there are never 2 UIs at the same time. | 
+| [Greenery Generator script](https://github.com/MinhDuc1711/City-Player-Walkability-Branch/blob/main/Assets/Scripts/Greenery/GreeneryGeneration.cs)   | Generates the greenery with the selection of assets of trees and flower pots | 
+| [Waypoint Navigator script](https://github.com/MinhDuc1711/City-Player-Walkability-Branch/blob/main/Assets/Scripts/Traffic/WaypointNavigator.cs)  | Allows the traffic system to follow the waypoints | 
 
 
 ## Top Test Files
