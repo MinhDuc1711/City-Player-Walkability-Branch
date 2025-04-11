@@ -89,6 +89,13 @@ City Player allows users to:
   
 ---
 
+### Tools Used
+
+![Unity](https://upload.wikimedia.org/wikipedia/commons/1/19/Unity_Technologies_logo.svg)  
+**Unity 6** – Used as the primary game engine to build the simulation.
+
+---
+
 ## Contributors
 
 | Name | Student ID | Github |
